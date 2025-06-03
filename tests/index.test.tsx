@@ -1,17 +1,19 @@
 import { render, screen } from '@testing-library/react'
-import { expect } from 'vitest'
-import { MyButton } from '../src'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it } from 'vitest'
 
-it('button', () => {
-  render(<MyButton type="primary" />)
+import { PhoneCallButton } from '../src'
 
-  const buttonElement = screen.getByText(/my button: type primary/i)
+import '@testing-library/jest-dom'
 
-  expect(buttonElement).toBeInTheDocument()
-  expect(buttonElement).toHaveTextContent('my button: type primary')
-  expect(buttonElement.outerHTML).toMatchInlineSnapshot(
-    `"<button class="my-button">my button: type primary</button>"`,
-  )
+describe('phoneCallButton', () => {
+  it('renders', async () => {
+    render(<PhoneCallButton callText="Ligar" callingText="Ligando" />)
 
-  expect(buttonElement).toHaveClass('my-button')
+    const buttonElement = screen.getByText('Ligar')
+    expect(buttonElement).toBeInTheDocument()
+
+    await userEvent.click(buttonElement)
+    expect(buttonElement).toHaveTextContent('Ligando')
+  })
 })
