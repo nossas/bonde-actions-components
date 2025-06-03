@@ -10,12 +10,14 @@ interface ButtonProps {
 
 function DefaultButton({ children, onClick }: Readonly<ButtonProps>): JSX.Element {
   return (
-    <button type="button" onClick={onClick}>{children}</button>
+    <button type="button" onClick={onClick}>
+      {children}
+    </button>
   )
 }
 
 export interface PhoneCallButtonProps {
-  buttonComponent: (props: ButtonProps) => JSX.Element
+  buttonComponent?: (props: ButtonProps) => JSX.Element
   callText?: string
   callingText?: string
   onComplete?: () => void
