@@ -8,7 +8,12 @@ import '@testing-library/jest-dom'
 
 describe('phoneCallButton', () => {
   it('renders', async () => {
-    render(<PhoneCallButton callText="Ligar" callingText="Ligando" />)
+    render(
+      <PhoneCallButton
+        targetPhoneNumber="+55 22 00000-0000"
+        userPhoneNumber="+55 11 00000-0000"
+      />,
+    )
 
     const buttonElement = screen.getByText('Ligar')
     expect(buttonElement).toBeInTheDocument()

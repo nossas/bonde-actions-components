@@ -42,31 +42,35 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
+  "dependencies": {
+    "react-robot": "^1.2.0",
+    "robot3": "^1.1.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^4.13.2",
-    "@eslint-react/eslint-plugin": "^1.50.0",
-    "@storybook/addon-onboarding": "^9.0.1",
-    "@storybook/react-vite": "^9.0.1",
+    "@eslint-react/eslint-plugin": "^1.51.0",
+    "@storybook/addon-onboarding": "^9.0.4",
+    "@storybook/react-vite": "^9.0.4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.15.29",
     "@types/react": "^17.0.87",
     "@types/react-dom": "^17.0.26",
-    "@vitejs/plugin-react": "^4.5.0",
+    "@vitejs/plugin-react": "^4.5.1",
     "bumpp": "^10.1.1",
     "eslint": "^9.28.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "eslint-plugin-storybook": "^9.0.1",
-    "happy-dom": "^17.5.6",
+    "eslint-plugin-storybook": "^9.0.4",
+    "happy-dom": "^17.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "storybook": "^9.0.1",
-    "tsdown": "^0.12.5",
+    "storybook": "^9.0.4",
+    "tsdown": "^0.12.6",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
-    "vite": "npm:rolldown-vite@^6.3.14",
-    "vitest": "^3.1.4"
+    "vite": "npm:rolldown-vite@^6.3.16",
+    "vitest": "^3.2.1"
   }
 }
