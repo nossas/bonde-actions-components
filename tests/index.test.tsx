@@ -10,7 +10,7 @@ describe('phoneCallButton', () => {
   it('renders', async () => {
     render(
       <PhoneCallButton
-        targetPhoneNumber="+55 22 00000-0000"
+        targetPhoneNumbers={['+55 22 00000-0000', '+55 33 00000-0000']}
         userPhoneNumber="+55 11 00000-0000"
       />,
     )

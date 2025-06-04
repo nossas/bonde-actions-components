@@ -2,7 +2,7 @@
   "name": "bonde-actions-components",
   "type": "module",
   "version": "0.0.1",
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.11.1",
   "description": "Componentes React usados na renderização das táticas de widget no BONDE.",
   "license": "GPL-3.0-only",
   "homepage": "https://github.com/nossas/bonde-actions-components#readme",
@@ -43,6 +43,7 @@
     "react-dom": "^17.0.2"
   },
   "dependencies": {
+    "clsx": "^2.1.1",
     "react-robot": "^1.2.0",
     "robot3": "^1.1.1"
   },
