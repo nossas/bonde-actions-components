@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-
 import { fn } from 'storybook/test'
 
-import { PhoneCallButton } from '../PhoneCallButton'
+import { PhoneCallButton } from '../../PhoneCallButton'
 
 const meta = {
-  title: 'Phone Call/Phone Call Button',
+  title: 'Phone Call/Button',
   component: PhoneCallButton,
 } satisfies Meta<typeof PhoneCallButton>
 
@@ -15,6 +14,8 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    onComplete: fn,
+    targetPhoneNumber: '',
+    userPhoneNumber: '',
+    onSuccess: fn,
   },
 }
