@@ -10,8 +10,17 @@ describe('phoneCallButton', () => {
   it('renders', async () => {
     const { container, getByText } = render(
       <PhoneCallButton
-        targetPhoneNumbers={['+55 22 00000-0000', '+55 33 00000-0000']}
         userPhoneNumber="+55 11 00000-0000"
+        targets={[
+          {
+            label: 'Dep. Fulano',
+            phoneNumber: '+55 22 00000-0000',
+          },
+          {
+            label: 'Sen. Sicrana',
+            phoneNumber: '+55 33 00000-0000',
+          },
+        ]}
       />,
     )
 
@@ -20,7 +29,6 @@ describe('phoneCallButton', () => {
 
     const actionButton = getByText('Ligar')
     expect(actionButton).toBeInTheDocument()
-    expect(actionButton).toHaveClass('idle')
 
     await userEvent.click(actionButton)
     expect(actionWrapper).toHaveClass('bonde-phone-call--ringing')

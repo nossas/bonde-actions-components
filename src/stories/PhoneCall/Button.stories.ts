@@ -14,8 +14,17 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    targetPhoneNumbers: ['+55 22 00000-0000', '+55 33 00000-0000'],
     userPhoneNumber: '+55 11 00000-0000',
+    targets: [
+      {
+        label: 'Dep. Fulano',
+        phoneNumber: '+55 22 00000-0000',
+      },
+      {
+        label: 'Sen. Sicrana',
+        phoneNumber: '+55 33 00000-0000',
+      },
+    ],
     onSuccess: fn,
   },
 }

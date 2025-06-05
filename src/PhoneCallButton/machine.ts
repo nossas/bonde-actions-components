@@ -18,23 +18,23 @@ function retry(ctx: Context): Context {
   return { ...ctx, retries: ctx.retries + 1 }
 }
 
-export type State = 'calling' | 'failed' | 'finished' | 'idle' | 'ringing' | 'retry'
-export type Transition = 'accept' | 'fail' | 'finish' | 'ring'
+export type State = 'active' | 'failed' | 'finished' | 'idle' | 'ringing' | 'retry'
+export type Transition = 'accept' | 'call' | 'fail' | 'finish'
 
 export const machine = createMachine('idle', {
   idle: state(
-    transition('ring', 'ringing'),
+    transition('call', 'ringing'),
   ),
   ringing: state(
-    transition('accept', 'calling'),
+    transition('accept', 'active'),
     transition('fail', 'retry', guard(canRetry), reduce(retry)),
     transition('fail', 'failed'),
   ),
-  calling: state(
+  active: state(
     transition('finish', 'finished'),
   ),
   retry: state(
-    transition('ring', 'ringing'),
+    transition('call', 'ringing'),
   ),
   failed: final(),
   finished: final(),

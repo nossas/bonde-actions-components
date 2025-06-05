@@ -1,69 +1,61 @@
 import type { State } from './machine'
 
+import { Button } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useMachine } from 'react-robot'
 
 import { makePhoneCall } from './api'
+import { ActiveCall } from './components/ActiveCall'
+import { FailedCall } from './components/FailedCall'
+import { FinishedCall } from './components/FinishedCall'
+import { RingingCall } from './components/RingingState'
 import { machine } from './machine'
+
+import './style.css'
 
 function NOOP(): void { }
 
-interface ButtonProps {
-  className: string
-  children: string
-  onClick: (event: unknown) => void
-}
-
-interface ChildrenProps {
+export interface ChildrenProps {
   state: State
-  onClick: (event: unknown) => void
+  onClick: () => void
 }
 
-function DefaultButton({ children, className, onClick }: Readonly<ButtonProps>): JSX.Element {
-  return (
-    <button className={className} type="button" onClick={onClick}>
-      {children}
-    </button>
-  )
+export interface PhoneTarget {
+  label: string
+  phoneNumber: string
 }
 
 export interface PhoneCallButtonProps {
-  buttonComponent?: (props: ButtonProps) => JSX.Element
   children?: (props: ChildrenProps) => JSX.Element
-  idleClass?: string
-  retryClass?: string
-  targetPhoneNumbers: string[]
+  targets: PhoneTarget[]
   userPhoneNumber: string
   onFail?: () => void
   onSuccess?: () => void
 }
 
 export function PhoneCallButton({
-  buttonComponent: Button = DefaultButton,
   children,
-  idleClass = 'idle',
-  retryClass = 'retry',
-  targetPhoneNumbers,
+  targets,
   userPhoneNumber,
   onFail = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallButtonProps>): JSX.Element {
   const [{ name: state, context }, send] = useMachine(machine)
 
-  const randomizedPhoneNumbers = useMemo(() => {
-    if (targetPhoneNumbers.length <= 1) {
-      return targetPhoneNumbers
+  const shuffledTargets = useMemo(() => {
+    if (targets.length <= 1) {
+      return targets
     }
 
-    const shuffledArray = [...targetPhoneNumbers]
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const shuffled = [...targets]
+    for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
-      ;[shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]
+      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
     }
-    return shuffledArray
-  }, [targetPhoneNumbers])
+    return shuffled
+  }, [targets])
 
-  const targetPhoneNumber = randomizedPhoneNumbers[context.retries % randomizedPhoneNumbers.length]
+  const target = shuffledTargets[context.retries % shuffledTargets.length]
 
   useEffect(() => {
     if (state === 'failed') {
@@ -76,16 +68,16 @@ export function PhoneCallButton({
 
   useEffect(() => {
     async function makeCall(): Promise<void> {
-      await makePhoneCall(send, userPhoneNumber, targetPhoneNumber)
+      await makePhoneCall(send, userPhoneNumber, target.phoneNumber)
     }
 
     if (state === 'ringing') {
       makeCall()
     }
-  }, [targetPhoneNumber, userPhoneNumber, send, state])
+  }, [target, userPhoneNumber, send, state])
 
   const startCall = useCallback(() => {
-    send('ring')
+    send('call')
   }, [send])
 
   if (children) {
@@ -93,38 +85,38 @@ export function PhoneCallButton({
   }
 
   switch (state as State) {
-    case 'calling': {
+    case 'active': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--calling">
-          {`Falando com ${targetPhoneNumber} agora`}
+        <div className="bonde-phone-call bonde-phone-call--active">
+          <ActiveCall target={target} />
         </div>
       )
     }
     case 'failed': {
       return (
         <div className="bonde-phone-call bonde-phone-call--failed">
-          A ligação falhou
+          <FailedCall />
         </div>
       )
     }
     case 'finished': {
       return (
         <div className="bonde-phone-call bonde-phone-call--finished">
-          Ligação encerrada
+          <FinishedCall />
         </div>
       )
     }
     case 'retry': {
       return (
         <div className="bonde-phone-call bonde-phone-call--retry">
-          <Button className={retryClass} onClick={startCall}>Tentar novamente</Button>
+          <Button variant="solid" onClick={startCall}>Tentar novamente</Button>
         </div>
       )
     }
     case 'ringing': {
       return (
         <div className="bonde-phone-call bonde-phone-call--ringing">
-          {`Ligando para ${targetPhoneNumber}...`}
+          <RingingCall target={target} />
         </div>
       )
     }
@@ -132,7 +124,7 @@ export function PhoneCallButton({
     default: {
       return (
         <div className="bonde-phone-call bonde-phone-call--idle">
-          <Button className={idleClass} onClick={startCall}>Ligar</Button>
+          <Button variant="solid" onClick={startCall}>Ligar</Button>
         </div>
       )
     }
