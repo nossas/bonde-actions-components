@@ -14,9 +14,14 @@ export function RingingCall({ target }: Readonly<RingingCallProps>): JSX.Element
           <RingingIcon />
         </div>
         <div className="bonde-phone-call__card-body">
-          <p>Ligando para <strong>{target.label}</strong>…</p>
+          <p>
+            {'Ligando para '}
+            <strong>{target.label}</strong>
+            …
+          </p>
         </div>
       </div>
+      <p>Fique perto do telefone para atender a chamada.</p>
     </div>
   )
 }
