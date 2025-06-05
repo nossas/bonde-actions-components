@@ -1,6 +1,5 @@
 import type { State } from './machine'
 
-import { Button } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useMachine } from 'react-robot'
 
@@ -8,7 +7,9 @@ import { makePhoneCall } from './api'
 import { ActiveCall } from './components/ActiveCall'
 import { FailedCall } from './components/FailedCall'
 import { FinishedCall } from './components/FinishedCall'
-import { RingingCall } from './components/RingingState'
+import { IdleCall } from './components/IdleCall'
+import { RetryCall } from './components/RetryCall'
+import { RingingCall } from './components/RingingCall'
 import { machine } from './machine'
 
 import './style.css'
@@ -50,7 +51,7 @@ export function PhoneCallButton({
     const shuffled = [...targets]
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
-      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+        ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
     }
     return shuffled
   }, [targets])
@@ -74,7 +75,7 @@ export function PhoneCallButton({
     if (state === 'ringing') {
       makeCall()
     }
-  }, [target, userPhoneNumber, send, state])
+  }, [send, state, target, userPhoneNumber])
 
   const startCall = useCallback(() => {
     send('call')
@@ -87,45 +88,33 @@ export function PhoneCallButton({
   switch (state as State) {
     case 'active': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--active">
-          <ActiveCall target={target} />
-        </div>
+        <ActiveCall target={target} />
       )
     }
     case 'failed': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--failed">
-          <FailedCall />
-        </div>
+        <FailedCall />
       )
     }
     case 'finished': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--finished">
-          <FinishedCall />
-        </div>
+        <FinishedCall />
       )
     }
     case 'retry': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--retry">
-          <Button variant="solid" onClick={startCall}>Tentar novamente</Button>
-        </div>
+        <RetryCall onRetry={startCall} />
       )
     }
     case 'ringing': {
       return (
-        <div className="bonde-phone-call bonde-phone-call--ringing">
-          <RingingCall target={target} />
-        </div>
+        <RingingCall target={target} />
       )
     }
     case 'idle':
     default: {
       return (
-        <div className="bonde-phone-call bonde-phone-call--idle">
-          <Button variant="solid" onClick={startCall}>Ligar</Button>
-        </div>
+        <IdleCall onCall={startCall} />
       )
     }
   }

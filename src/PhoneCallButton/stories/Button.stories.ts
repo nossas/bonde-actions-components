@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { fn } from 'storybook/test'
 
-import { PhoneCallButton } from '../../PhoneCallButton'
+import { PhoneCallButton } from '..'
 
 const meta = {
   title: 'Phone Call/Button',

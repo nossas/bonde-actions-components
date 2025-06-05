@@ -1,3 +1,43 @@
 .bonde-phone-call {
-  background-color: yellow;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bonde-phone-call p {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.bonde-phone-call__card {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bonde-phone-call__card-icon {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  transition: all ease-in-out 0.3s;
+  width: 2rem;
+}
+
+.bonde-phone-call--active .bonde-phone-call__card-icon,
+.bonde-phone-call--finished .bonde-phone-call__card-icon {
+  background-color: #86efac;
+  color: #116932;
+}
+
+.bonde-phone-call--failed .bonde-phone-call__card-icon,
+.bonde-phone-call--retry .bonde-phone-call__card-icon {
+  background-color: #fca5a5;
+  color: #991919;
+}
+
+.bonde-phone-call--ringing .bonde-phone-call__card-icon {
+  background-color: #d4d4d8;
+  color: #3f3f46;
 }

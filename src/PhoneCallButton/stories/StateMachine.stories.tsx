@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Robot3Viz } from 'robot3-viz'
 
-import { machine } from '../../PhoneCallButton/machine'
+import { machine } from '../machine'
 
 function StateMachine(): JSX.Element {
   return (
@@ -18,6 +18,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const PhoneCall: Story = {
   args: {},
 }
