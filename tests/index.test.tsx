@@ -24,13 +24,12 @@ describe('phoneCallButton', () => {
       />,
     )
 
-    const actionWrapper = container.firstChild
-    expect(actionWrapper).toHaveClass('bonde-phone-call bonde-phone-call--idle')
+    expect(container.firstChild).toHaveClass('bonde-phone-call bonde-phone-call--idle')
 
     const actionButton = getByText('Ligar')
     expect(actionButton).toBeInTheDocument()
 
     await userEvent.click(actionButton)
-    expect(actionWrapper).toHaveClass('bonde-phone-call--ringing')
+    expect(container.firstChild).toHaveClass('bonde-phone-call--ringing')
   })
 })
