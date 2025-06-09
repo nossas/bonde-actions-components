@@ -1,10 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { ChakraProvider } from '@chakra-ui/react'
+import { Theme } from 'bonde-components'
 import { PhoneCallStates } from './States'
 
 const meta = {
   title: 'Phone Call/States',
   component: PhoneCallStates,
+  decorators: Story => (
+    <ChakraProvider value={Theme}>
+      <Story />
+    </ChakraProvider>
+  ),
 } satisfies Meta<typeof PhoneCallStates>
 
 export default meta

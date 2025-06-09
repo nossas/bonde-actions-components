@@ -17,7 +17,7 @@ export function RetryCall({ onRetry }: Readonly<RetryCallProps>): JSX.Element {
           <p>Não foi possível estabelecer a ligação.</p>
         </div>
       </div>
-      <Button type="button" variant="outline" onClick={onRetry}>
+      <Button type="button" variant="solid" onClick={onRetry}>
         Tentar novamente
       </Button>
     </div>

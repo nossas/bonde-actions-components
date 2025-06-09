@@ -6,15 +6,6 @@
   width: 100%;
 }
 
-.bonde-phone-call button {
-  background: #111111;
-  border-radius: 5px;
-  color: #fafafa;
-  border: none;
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
-}
-
 .bonde-phone-call p {
   font-size: 1.25rem;
   margin: 0;
