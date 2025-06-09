@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-vite'
-import { fn } from 'storybook/test'
+import type { Meta, StoryObj } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import { PhoneCallButton } from '..'
 
@@ -25,6 +25,7 @@ export const Primary: Story = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
-    onSuccess: fn,
+    onFail: action('fail'),
+    onSuccess: action('success'),
   },
 }

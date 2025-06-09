@@ -1,3 +1,5 @@
+import { Button } from '@chakra-ui/react'
+
 interface IdleCallProps {
   onCall: () => void
 }
@@ -5,9 +7,9 @@ interface IdleCallProps {
 export function IdleCall({ onCall }: Readonly<IdleCallProps>): JSX.Element {
   return (
     <div className="bonde-phone-call bonde-phone-call--idle">
-      <button type="button" onClick={onCall}>
+      <Button type="button" variant="solid" onClick={onCall}>
         Ligar
-      </button>
+      </Button>
     </div>
   )
 }

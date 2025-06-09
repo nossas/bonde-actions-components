@@ -1,3 +1,5 @@
+import { Button } from '@chakra-ui/react'
+
 import { FailedIcon } from '../icons/Failed'
 
 interface RetryCallProps {
@@ -15,9 +17,9 @@ export function RetryCall({ onRetry }: Readonly<RetryCallProps>): JSX.Element {
           <p>Não foi possível estabelecer a ligação.</p>
         </div>
       </div>
-      <button type="button" onClick={onRetry}>
+      <Button type="button" variant="outline" onClick={onRetry}>
         Tentar novamente
-      </button>
+      </Button>
     </div>
   )
 }
