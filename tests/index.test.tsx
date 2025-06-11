@@ -10,6 +10,8 @@ describe('phoneCallButton', () => {
   it('renders', async () => {
     const { container, getByText } = render(
       <PhoneCallButton
+        script=""
+        started
         userPhoneNumber="+55 11 00000-0000"
         targets={[
           {

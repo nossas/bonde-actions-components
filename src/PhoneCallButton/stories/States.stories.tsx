@@ -18,27 +18,21 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Idle: Story = {
+export const Busy: Story = {
   args: {
-    state: 'idle',
+    state: 'busy',
   },
 }
 
-export const Ringing: Story = {
+export const Canceled: Story = {
   args: {
-    state: 'ringing',
+    state: 'canceled',
   },
 }
 
-export const Active: Story = {
+export const Completed: Story = {
   args: {
-    state: 'active',
-  },
-}
-
-export const Retry: Story = {
-  args: {
-    state: 'retry',
+    state: 'completed',
   },
 }
 
@@ -48,8 +42,26 @@ export const Failed: Story = {
   },
 }
 
-export const Finished: Story = {
+export const InProgress: Story = {
   args: {
-    state: 'finished',
+    state: 'in-progress',
+  },
+}
+
+export const Initiated: Story = {
+  args: {
+    state: 'initiated',
+  },
+}
+
+export const NoAnswer: Story = {
+  args: {
+    state: 'no-answer',
+  },
+}
+
+export const Ringing: Story = {
+  args: {
+    state: 'ringing',
   },
 }

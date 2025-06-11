@@ -1,25 +1,26 @@
-import type { State } from './machine'
-
-import { useCallback, useEffect, useMemo } from 'react'
-import { useMachine } from 'react-robot'
+import { useEffect, useMemo, useState } from 'react'
 
 import { makePhoneCall } from './api'
-import { ActiveCall } from './components/ActiveCall'
-import { FailedCall } from './components/FailedCall'
-import { FinishedCall } from './components/FinishedCall'
-import { IdleCall } from './components/IdleCall'
-import { RetryCall } from './components/RetryCall'
+import { CompletedCall } from './components/CompletedCall'
+import { InitiatedCall } from './components/InitiatedCall'
+import { InProgressCall } from './components/InProgressCall'
 import { RingingCall } from './components/RingingCall'
-import { machine } from './machine'
 
 import './style.css'
 
 function NOOP(): void { }
 
-export interface ChildrenProps {
-  state: State
-  onClick: () => void
-}
+export type TwilioState
+  = | 'busy'
+    | 'canceled'
+    | 'completed'
+    | 'failed'
+    | 'idle'
+    | 'in-progress'
+    | 'initiated'
+    | 'no-answer'
+    | 'queued'
+    | 'ringing'
 
 export interface PhoneTarget {
   label: string
@@ -27,7 +28,9 @@ export interface PhoneTarget {
 }
 
 export interface PhoneCallButtonProps {
-  children?: (props: ChildrenProps) => JSX.Element
+  children?: JSX.Element | JSX.Element[]
+  script: string
+  started: boolean
   targets: PhoneTarget[]
   userPhoneNumber: string
   onFail?: () => void
@@ -35,13 +38,16 @@ export interface PhoneCallButtonProps {
 }
 
 export function PhoneCallButton({
-  children,
+  children = undefined,
+  script,
+  started = true,
   targets,
   userPhoneNumber,
   onFail = NOOP,
   onSuccess = NOOP,
-}: Readonly<PhoneCallButtonProps>): JSX.Element {
-  const [{ name: state, context }, send] = useMachine(machine)
+}: Readonly<PhoneCallButtonProps>): JSX.Element | null {
+  const [state, setState] = useState<TwilioState>('idle')
+  const [retries, setRetries] = useState(() => Math.ceil(targets.length * 1.5))
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -56,66 +62,59 @@ export function PhoneCallButton({
     return shuffled
   }, [targets])
 
-  const target = shuffledTargets[context.retries % shuffledTargets.length]
+  const target = useMemo(() => {
+    return shuffledTargets[retries % shuffledTargets.length]
+  }, [shuffledTargets, retries])
 
   useEffect(() => {
     if (state === 'failed') {
       onFail()
     }
-    else if (state === 'finished') {
+    else if (state === 'completed') {
       onSuccess()
     }
   }, [onFail, onSuccess, state])
 
   useEffect(() => {
     async function makeCall(): Promise<void> {
-      await makePhoneCall(send, userPhoneNumber, target.phoneNumber)
+      await makePhoneCall(setState, userPhoneNumber, target.phoneNumber)
     }
 
-    if (state === 'ringing') {
+    if (state === 'initiated') {
       makeCall()
     }
-  }, [send, state, target, userPhoneNumber])
+  }, [setState, state, target, userPhoneNumber])
 
-  const startCall = useCallback(() => {
-    send('call')
-  }, [send])
-
-  if (children) {
-    return children({ state: state as State, onClick: startCall })
+  if (!started) {
+    return null
   }
 
-  switch (state as State) {
-    case 'active': {
+  switch (state) {
+    case 'completed':
       return (
-        <ActiveCall target={target} />
+        <CompletedCall>
+          {children}
+        </CompletedCall>
       )
-    }
-    case 'failed': {
+    case 'initiated':
+    case 'queued':
       return (
-        <FailedCall />
+        <InitiatedCall />
       )
-    }
-    case 'finished': {
+    case 'in-progress':
       return (
-        <FinishedCall />
+        <InProgressCall script={script} target={target} />
       )
-    }
-    case 'retry': {
-      return (
-        <RetryCall onRetry={startCall} />
-      )
-    }
-    case 'ringing': {
+    case 'ringing':
       return (
         <RingingCall target={target} />
       )
-    }
+    case 'busy':
+    case 'canceled':
+    case 'failed':
+    case 'no-answer':
     case 'idle':
-    default: {
-      return (
-        <IdleCall onCall={startCall} />
-      )
-    }
+    default:
+      return null
   }
 }

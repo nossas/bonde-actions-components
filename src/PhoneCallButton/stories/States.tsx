@@ -1,16 +1,15 @@
-import type { PhoneTarget } from '..'
-import type { State } from '../machine'
+import type { PhoneTarget, TwilioState } from '..'
 
-import { ActiveCall } from '../components/ActiveCall'
-import { FailedCall } from '../components/FailedCall'
-import { FinishedCall } from '../components/FinishedCall'
-import { IdleCall } from '../components/IdleCall'
-import { RetryCall } from '../components/RetryCall'
+import { CompletedCall } from '../components/CompletedCall'
+import { InitiatedCall } from '../components/InitiatedCall'
+import { InProgressCall } from '../components/InProgressCall'
 import { RingingCall } from '../components/RingingCall'
 
 import '../style.css'
 
 function NOOP(): void { }
+
+const SCRIPT = 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!'
 
 const TARGET: PhoneTarget = {
   label: 'Sen. Fulano de Tal',
@@ -18,41 +17,34 @@ const TARGET: PhoneTarget = {
 }
 
 export interface PhoneCallStatesProps {
-  state: State
+  state: TwilioState
 }
 
-export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.Element {
+export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.Element | null {
   switch (state) {
-    case 'active': {
+    case 'completed':
       return (
-        <ActiveCall target={TARGET} />
+        <CompletedCall />
       )
-    }
-    case 'failed': {
+    case 'initiated':
+    case 'queued':
       return (
-        <FailedCall />
+        <InitiatedCall />
       )
-    }
-    case 'finished': {
+    case 'in-progress':
       return (
-        <FinishedCall />
+        <InProgressCall script={SCRIPT} target={TARGET} />
       )
-    }
-    case 'retry': {
-      return (
-        <RetryCall onRetry={NOOP} />
-      )
-    }
-    case 'ringing': {
+    case 'ringing':
       return (
         <RingingCall target={TARGET} />
       )
-    }
+    case 'busy':
+    case 'canceled':
+    case 'failed':
+    case 'no-answer':
     case 'idle':
-    default: {
-      return (
-        <IdleCall onCall={NOOP} />
-      )
-    }
+    default:
+      return null
   }
 }
