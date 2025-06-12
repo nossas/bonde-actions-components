@@ -24,6 +24,6 @@ export function InitiatedCall(): ModalDescriber {
         {' '}
         <strong>Fique com o telefone por perto.</strong>
       </p>
-    )
+    ),
   }
 }

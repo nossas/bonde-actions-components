@@ -9,22 +9,22 @@ function NOOP(): void { }
 
 export type TwilioState
   = | 'busy'
-  | 'canceled'
-  | 'completed'
-  | 'failed'
-  | 'idle'
-  | 'in-progress'
-  | 'initiated'
-  | 'no-answer'
-  | 'queued'
-  | 'ringing'
+    | 'canceled'
+    | 'completed'
+    | 'failed'
+    | 'idle'
+    | 'in-progress'
+    | 'initiated'
+    | 'no-answer'
+    | 'queued'
+    | 'ringing'
 
 export interface PhoneTarget {
   label: string
   phoneNumber: string
 }
 
-export interface PhoneCallButtonProps {
+export interface PhoneCallProps {
   children?: JSX.Element | JSX.Element[]
   script: string
   started: boolean
@@ -41,7 +41,7 @@ export interface PhoneCallModalProps {
   userPhoneNumber: string
 }
 
-export function PhoneCallButton({
+export function PhoneCall({
   children = undefined,
   script,
   started = true,
@@ -49,8 +49,7 @@ export function PhoneCallButton({
   userPhoneNumber,
   onFail = NOOP,
   onSuccess = NOOP,
-}: Readonly<PhoneCallButtonProps>): JSX.Element | null {
-
+}: Readonly<PhoneCallProps>): JSX.Element | null {
   const [state, setState] = useState<TwilioState>('idle')
   const [retries, setRetries] = useState(() => Math.ceil(targets.length * 1.5))
 
@@ -105,8 +104,7 @@ export function PhoneCallButton({
     }
 
     return (
-      <Modal {...modalDescriber(modalProps)}
-      />
+      <Modal {...modalDescriber(modalProps)} />
     )
   }
   else {

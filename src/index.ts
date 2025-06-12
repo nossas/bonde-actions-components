@@ -1,2 +1,2 @@
-export { PhoneCallButton } from './PhoneCallButton'
-export type { PhoneCallButtonProps, PhoneCallModalProps, PhoneTarget, TwilioState } from './PhoneCallButton'
+export { PhoneCall } from './PhoneCall'
+export type { PhoneCallModalProps, PhoneCallProps, PhoneTarget, TwilioState } from './PhoneCall'
