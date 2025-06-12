@@ -1,10 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-
 import { makePhoneCall } from './api'
-import { CompletedCall } from './components/CompletedCall'
-import { InitiatedCall } from './components/InitiatedCall'
-import { InProgressCall } from './components/InProgressCall'
-import { RingingCall } from './components/RingingCall'
+import { Modal } from './components/Modal'
+import { stateSwitcher } from './switcher'
 
 import './style.css'
 
@@ -12,15 +9,15 @@ function NOOP(): void { }
 
 export type TwilioState
   = | 'busy'
-    | 'canceled'
-    | 'completed'
-    | 'failed'
-    | 'idle'
-    | 'in-progress'
-    | 'initiated'
-    | 'no-answer'
-    | 'queued'
-    | 'ringing'
+  | 'canceled'
+  | 'completed'
+  | 'failed'
+  | 'idle'
+  | 'in-progress'
+  | 'initiated'
+  | 'no-answer'
+  | 'queued'
+  | 'ringing'
 
 export interface PhoneTarget {
   label: string
@@ -37,6 +34,13 @@ export interface PhoneCallButtonProps {
   onSuccess?: () => void
 }
 
+export interface PhoneCallModalProps {
+  postActions?: JSX.Element | JSX.Element[]
+  script: string
+  target: PhoneTarget
+  userPhoneNumber: string
+}
+
 export function PhoneCallButton({
   children = undefined,
   script,
@@ -46,6 +50,7 @@ export function PhoneCallButton({
   onFail = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallButtonProps>): JSX.Element | null {
+
   const [state, setState] = useState<TwilioState>('idle')
   const [retries, setRetries] = useState(() => Math.ceil(targets.length * 1.5))
 
@@ -80,41 +85,31 @@ export function PhoneCallButton({
       await makePhoneCall(setState, userPhoneNumber, target.phoneNumber)
     }
 
-    if (state === 'initiated') {
+    if (started) {
       makeCall()
     }
-  }, [setState, state, target, userPhoneNumber])
+  }, [setState, started, target, userPhoneNumber])
 
   if (!started) {
     return null
   }
 
-  switch (state) {
-    case 'completed':
-      return (
-        <CompletedCall>
-          {children}
-        </CompletedCall>
-      )
-    case 'initiated':
-    case 'queued':
-      return (
-        <InitiatedCall />
-      )
-    case 'in-progress':
-      return (
-        <InProgressCall script={script} target={target} />
-      )
-    case 'ringing':
-      return (
-        <RingingCall target={target} />
-      )
-    case 'busy':
-    case 'canceled':
-    case 'failed':
-    case 'no-answer':
-    case 'idle':
-    default:
-      return null
+  const modalDescriber = stateSwitcher(state)
+
+  if (modalDescriber) {
+    const modalProps: PhoneCallModalProps = {
+      postActions: children,
+      script,
+      target,
+      userPhoneNumber,
+    }
+
+    return (
+      <Modal {...modalDescriber(modalProps)}
+      />
+    )
+  }
+  else {
+    return null
   }
 }

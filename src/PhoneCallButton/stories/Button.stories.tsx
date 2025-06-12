@@ -1,18 +1,30 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { ChakraProvider } from '@chakra-ui/react'
+import type { Decorator, Meta, StoryObj } from '@storybook/react'
+import type { PhoneCallButtonProps } from '..'
+
+import { Button, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { Theme } from 'bonde-components'
-
+import { useState } from 'react'
 import { PhoneCallButton } from '..'
+
+const Decorators = function (Story, { args }): JSX.Element {
+  const [started, setStarted] = useState(false)
+  const showStory = (): void => setStarted(true)
+
+  return (
+    <ChakraProvider value={Theme}>
+      <Button type="button" variant="solid" onClick={showStory}>
+        Ligar
+      </Button>
+      <Story args={{ ...args, started }} />
+    </ChakraProvider>
+  )
+} satisfies Decorator<PhoneCallButtonProps>
 
 const meta = {
   title: 'Phone Call/Button',
   component: PhoneCallButton,
-  decorators: Story => (
-    <ChakraProvider value={Theme}>
-      <Story />
-    </ChakraProvider>
-  ),
+  decorators: Decorators,
 } satisfies Meta<typeof PhoneCallButton>
 
 export default meta

@@ -1,30 +1,29 @@
-import { BsTelephoneFill as InitiatedIcon } from 'react-icons/bs'
+import type { ModalDescriber } from './Modal'
 
-import { Modal, ModalBody, ModalFooter } from './Modal'
+import { BsTelephoneFill } from 'react-icons/bs'
 
-export function InitiatedCall(): JSX.Element {
-  return (
-    <Modal
-      canDismiss={false}
-      className="bonde-phone-call bonde-phone-call--initiated"
-      icon={InitiatedIcon}
-      title="Estamos te ligando agora!"
-    >
-      <ModalBody>
+export function InitiatedCall(): ModalDescriber {
+  return {
+    title: 'Estamos te ligando agora!',
+    icon: BsTelephoneFill,
+    canDismiss: false,
+    className: 'bonde-phone-call bonde-phone-call--initiated',
+    content: (
+      <>
         <p>
           Você vai receber uma ligação do nosso número.
           {' '}
           <strong>Atenda o telefone para continuar.</strong>
         </p>
         <p>Assim que a chamada for atendida, vamos conectar com a pessoa responsável.</p>
-      </ModalBody>
-      <ModalFooter>
-        <p>
-          O número pode começar com [XX].
-          {' '}
-          <strong>Fique com o telefone por perto.</strong>
-        </p>
-      </ModalFooter>
-    </Modal>
-  )
+      </>
+    ),
+    footer: (
+      <p>
+        O número pode começar com [XX].
+        {' '}
+        <strong>Fique com o telefone por perto.</strong>
+      </p>
+    )
+  }
 }

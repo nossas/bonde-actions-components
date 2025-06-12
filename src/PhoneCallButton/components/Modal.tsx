@@ -1,22 +1,26 @@
 import type { IconType } from 'react-icons'
 
-import { Icon as ChakraIcon, Modal as ChakraModal, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay } from '@chakra-ui/react'
+import { Icon as ChakraIcon, Modal as ChakraModal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
 
 export { ModalBody, ModalFooter } from '@chakra-ui/react'
 
 function NOOP(): void { }
 
-export interface ModalProps {
-  canDismiss?: boolean
-  children: JSX.Element | JSX.Element[]
-  className?: string
+export interface ModalDescriber {
+  canDismiss: boolean
+  className: string
+  content: JSX.Element | JSX.Element[]
+  footer?: JSX.Element | JSX.Element[]
   icon: IconType
-  isOpen?: boolean
   title: string
+}
+
+export interface ModalProps extends ModalDescriber {
+  isOpen?: boolean
   onDismiss?: () => void
 }
 
-export function Modal({ canDismiss = true, children, className, icon: Icon, isOpen = true, title, onDismiss = NOOP }: Readonly<ModalProps>): JSX.Element {
+export function Modal({ canDismiss = true, className, content, footer, icon: Icon, isOpen = true, title, onDismiss = NOOP }: Readonly<ModalProps>): JSX.Element {
   return (
     <ChakraModal size="2xl" isOpen={isOpen} onClose={onDismiss}>
       <ModalOverlay />
@@ -30,7 +34,8 @@ export function Modal({ canDismiss = true, children, className, icon: Icon, isOp
           </div>
         </ModalHeader>
         {canDismiss && <ModalCloseButton />}
-        {children}
+        <ModalBody>{content}</ModalBody>
+        {footer && <ModalFooter>{footer}</ModalFooter>}
       </ModalContent>
     </ChakraModal>
   )
