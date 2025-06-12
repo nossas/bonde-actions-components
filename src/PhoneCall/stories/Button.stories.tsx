@@ -46,7 +46,7 @@ export const Primary: Story = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
-    onFail: action('fail'),
-    onSuccess: action('success'),
+    onFail: action('onFail'),
+    onSuccess: action('onSuccess'),
   },
 }

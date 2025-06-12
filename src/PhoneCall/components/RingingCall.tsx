@@ -11,11 +11,7 @@ export function RingingCall({ target }: PhoneCallModalProps): ModalDescriber {
     className: 'bonde-phone-call bonde-phone-call--ringing',
     content: (
       <>
-        <p>
-          Você atendeu a nossa ligação! Agora estamos tentando falar com
-          {' '}
-          {target.label}
-        </p>
+        <p>{`Você atendeu a nossa ligação! Agora estamos tentando falar com ${target.label}`}</p>
         <p><strong>Aguarde na linha. Vamos conectar assim que o alvo atender.</strong></p>
       </>
     ),

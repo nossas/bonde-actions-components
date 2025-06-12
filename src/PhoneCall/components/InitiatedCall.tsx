@@ -11,19 +11,15 @@ export function InitiatedCall(): ModalDescriber {
     content: (
       <>
         <p>
-          Você vai receber uma ligação do nosso número.
-          {' '}
+          {'Você vai receber uma ligação do nosso número. '}
           <strong>Atenda o telefone para continuar.</strong>
         </p>
         <p>Assim que a chamada for atendida, vamos conectar com a pessoa responsável.</p>
+        <p>
+          {'O número pode começar com [XX]. '}
+          <strong>Fique com o telefone por perto.</strong>
+        </p>
       </>
-    ),
-    footer: (
-      <p>
-        O número pode começar com [XX].
-        {' '}
-        <strong>Fique com o telefone por perto.</strong>
-      </p>
     ),
   }
 }

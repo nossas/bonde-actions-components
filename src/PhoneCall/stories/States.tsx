@@ -1,5 +1,6 @@
 import type { PhoneCallModalProps, TwilioState } from '..'
 
+import { action } from '@storybook/addon-actions'
 import { Modal } from '../components/Modal'
 import { stateSwitcher } from '../switcher'
 
@@ -12,6 +13,7 @@ const PROPS: PhoneCallModalProps = {
     phoneNumber: '+55 99 99999-9999',
   },
   userPhoneNumber: '+55 99 90000-0000',
+  onRetry: action('onRetry'),
 }
 
 export interface PhoneCallStatesProps {

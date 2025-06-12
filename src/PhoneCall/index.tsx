@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { makePhoneCall } from './api'
 import { Modal } from './components/Modal'
 import { stateSwitcher } from './switcher'
@@ -39,6 +39,7 @@ export interface PhoneCallModalProps {
   script: string
   target: PhoneTarget
   userPhoneNumber: string
+  onRetry: () => void
 }
 
 export function PhoneCall({
@@ -51,7 +52,15 @@ export function PhoneCall({
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
   const [state, setState] = useState<TwilioState>('idle')
-  const [retries, setRetries] = useState(() => Math.ceil(targets.length * 1.5))
+  const [retries, setRetries] = useState(0)
+
+  const retryCall = useCallback(() => {
+    const maxRetries = Math.ceil(targets.length * 1.5)
+
+    if (retries < maxRetries) {
+      setRetries(retries => retries + 1)
+    }
+  }, [retries, setRetries, targets])
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -97,6 +106,7 @@ export function PhoneCall({
 
   if (modalDescriber) {
     const modalProps: PhoneCallModalProps = {
+      onRetry: retryCall,
       postActions: children,
       script,
       target,
