@@ -1,6 +1,7 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
+import { VStack } from '@chakra-ui/react'
 import { BsPeopleFill } from 'react-icons/bs'
 
 export function InProgressCall({ script, target }: PhoneCallModalProps): ModalDescriber {
@@ -10,11 +11,11 @@ export function InProgressCall({ script, target }: PhoneCallModalProps): ModalDe
     canDismiss: false,
     className: 'bonde-phone-call bonde-phone-call--in-progress',
     content: (
-      <>
+      <VStack>
         <p>Agora é com você! Se quiser, pode usar este exemplo durante a conversa:</p>
         <blockquote>{script}</blockquote>
         <p>Finalize agradecendo e encerre a chamada.</p>
-      </>
+      </VStack>
     ),
   }
 }

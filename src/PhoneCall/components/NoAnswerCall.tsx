@@ -1,7 +1,7 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
-import { Button, Flex, Icon } from '@chakra-ui/react'
+import { Button, Flex, Icon, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
@@ -12,7 +12,7 @@ export function NoAnswerCall({ onRetry, target }: PhoneCallModalProps): ModalDes
     canDismiss: true,
     className: 'bonde-phone-call bonde-phone-call--no-answer',
     content: (
-      <>
+      <VStack divider={<StackDivider />}>
         <p>
           A chamada foi feita, mas não conseguimos contato com
           {target.label}
@@ -28,7 +28,7 @@ export function NoAnswerCall({ onRetry, target }: PhoneCallModalProps): ModalDes
             .
           </p>
         </Flex>
-      </>
+      </VStack>
     ),
     footer: (
       <RetryButton onRetry={onRetry} />

@@ -42,15 +42,15 @@ export const Failed: Story = {
   },
 }
 
-export const InProgress: Story = {
-  args: {
-    state: 'in-progress',
-  },
-}
-
 export const Initiated: Story = {
   args: {
     state: 'initiated',
+  },
+}
+
+export const InProgress: Story = {
+  args: {
+    state: 'in-progress',
   },
 }
 

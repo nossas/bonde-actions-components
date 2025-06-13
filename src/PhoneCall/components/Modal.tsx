@@ -22,7 +22,7 @@ export interface ModalProps extends ModalDescriber {
 
 export function Modal({ canDismiss = true, className, content, footer, icon, isOpen = true, title, onDismiss = NOOP }: Readonly<ModalProps>): JSX.Element {
   return (
-    <ChakraModal size="2xl" isOpen={isOpen} onClose={onDismiss}>
+    <ChakraModal size="2xl" isCentered isOpen={isOpen} onClose={onDismiss}>
       <ModalOverlay />
       <ModalContent className={className}>
         <ModalHeader>
