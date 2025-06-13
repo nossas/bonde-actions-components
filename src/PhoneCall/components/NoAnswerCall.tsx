@@ -1,7 +1,7 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
-import { Button, Flex, Icon, StackDivider, VStack } from '@chakra-ui/react'
+import { Button, Flex, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
@@ -19,7 +19,7 @@ export function NoAnswerCall({ onRetry, target }: PhoneCallModalProps): ModalDes
           . Aguarde alguns minutos e tente de novo clicando no botão abaixo.
         </p>
         <Flex align="center" gap={2}>
-          <Icon as={BsInfoCircle} />
+          <BsInfoCircle />
           <p>
             {'Se ninguém atender, uma boa alternativa é '}
             <Button type="button" variant="link">
