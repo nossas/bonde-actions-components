@@ -13,7 +13,7 @@ const Decorators = function (Story, { args }): JSX.Element {
   const showStory = (): void => setStarted(true)
 
   return (
-    <ChakraProvider value={Theme}>
+    <ChakraProvider>
       <Button type="button" variant="solid" onClick={showStory}>
         Ligar
       </Button>
@@ -22,11 +22,11 @@ const Decorators = function (Story, { args }): JSX.Element {
   )
 } satisfies Decorator<PhoneCallProps>
 
-const meta = {
+const meta: Meta<typeof PhoneCall> = {
   title: 'Phone Call/Button',
   component: PhoneCall,
   decorators: Decorators,
-} satisfies Meta<typeof PhoneCall>
+}
 
 export default meta
 
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
-    children: <ShareButtons />,
+    children: <ShareButtons theme={Theme} />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
     started: true,
     userPhoneNumber: '+55 11 00000-0000',
@@ -48,6 +48,7 @@ export const Primary: Story = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
+    theme: Theme,
     onFail: action('onFail'),
     onSuccess: action('onSuccess'),
   },

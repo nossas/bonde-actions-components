@@ -5,7 +5,7 @@ import { Button, Flex, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
-export function BusyCall({ onRetry, onShare, target }: PhoneCallModalProps): ModalDescriber {
+export function BusyCall({ onRetry, onShare, target, theme }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'A linha estava ocupada',
     icon: BsTelephoneXFill,
@@ -27,7 +27,7 @@ export function BusyCall({ onRetry, onShare, target }: PhoneCallModalProps): Mod
       </VStack>
     ),
     footer: (
-      <RetryButton onRetry={onRetry} />
+      <RetryButton theme={theme} onRetry={onRetry} />
     ),
   }
 }

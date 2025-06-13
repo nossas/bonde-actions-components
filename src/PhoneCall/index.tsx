@@ -1,3 +1,6 @@
+import type { BondeTheme } from '../shared/theme'
+
+import { Theme } from 'bonde-components'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { makePhoneCall } from './api'
 import { Modal } from './components/Modal'
@@ -25,23 +28,25 @@ export interface PhoneTarget {
   phoneNumber: string
 }
 
+export interface PhoneCallModalProps {
+  postActions?: JSX.Element | JSX.Element[]
+  script: string
+  target: PhoneTarget
+  theme: BondeTheme
+  userPhoneNumber: string
+  onRetry: () => void
+  onShare: () => void
+}
+
 export interface PhoneCallProps {
   children?: JSX.Element | JSX.Element[]
   script: string
   started: boolean
   targets: PhoneTarget[]
+  theme: BondeTheme
   userPhoneNumber: string
   onFail?: () => void
   onSuccess?: () => void
-}
-
-export interface PhoneCallModalProps {
-  postActions?: JSX.Element | JSX.Element[]
-  script: string
-  target: PhoneTarget
-  userPhoneNumber: string
-  onRetry: () => void
-  onShare: () => void
 }
 
 export function PhoneCall({
@@ -49,6 +54,7 @@ export function PhoneCall({
   script,
   started = true,
   targets,
+  theme = Theme,
   userPhoneNumber,
   onFail = NOOP,
   onSuccess = NOOP,
@@ -117,11 +123,12 @@ export function PhoneCall({
       postActions: children,
       script,
       target,
+      theme,
       userPhoneNumber,
     }
 
     return (
-      <Modal {...modalDescriber(modalProps)} />
+      <Modal theme={theme} {...modalDescriber(modalProps)} />
     )
   }
   else {

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Theme } from 'bonde-components'
 import { describe, expect, it } from 'vitest'
 import { PhoneCall } from '../src'
 
@@ -22,6 +23,7 @@ describe('phone call', () => {
             phoneNumber: '+55 33 00000-0000',
           },
         ]}
+        theme={Theme}
       />,
     )
 
