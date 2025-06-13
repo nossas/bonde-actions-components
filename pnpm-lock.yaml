@@ -28,7 +28,7 @@ importers:
       happy-dom: ^17.6.3
       react: ^17.0.2
       react-dom: ^17.0.2
-      react-icons: ^5.5.0
+      react-icons: ~5.4.0
       storybook: ^7.6.20
       styled-components: ^5.3.11
       tsdown: ^0.12.7
@@ -38,7 +38,7 @@ importers:
       vitest: ^3.2.3
     dependencies:
       clsx: 2.1.1
-      react-icons: 5.5.0_react@17.0.2
+      react-icons: 5.4.0_react@17.0.2
     devDependencies:
       '@antfu/eslint-config': 4.14.1_iuvmh4nf7gkwsbr4uclog3lffa
       '@chakra-ui/react': 1.8.9_nebtkvfakjotq53yrwnq36r4om
@@ -10085,8 +10085,8 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: true
 
-  /react-icons/5.5.0_react@17.0.2:
-    resolution: {integrity: sha512-MEFcXdkP3dLo8uumGI5xN3lDFNsRtrjbOEKDLD7yv76v4wpnEq2Lt2qeHaQOr34I/wPN3s3+N08WkQ+CW37Xiw==}
+  /react-icons/5.4.0_react@17.0.2:
+    resolution: {integrity: sha512-7eltJxgVt7X64oHh6wSWNwwbKTCtMfK35hcjvJS0yxEAhPM8oUKdS3+kqaW1vicIltw+kR2unHaa12S9pPALoQ==}
     peerDependencies:
       react: '*'
     dependencies:

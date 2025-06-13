@@ -1,12 +1,12 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
-import { BsArrowRight } from 'react-icons/bs'
+import { FaArrowRight } from 'react-icons/fa'
 
 export function RingingCall({ target }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'Chamando a pessoa responsável',
-    icon: BsArrowRight,
+    icon: FaArrowRight,
     canDismiss: false,
     className: 'bonde-phone-call bonde-phone-call--ringing',
     content: (

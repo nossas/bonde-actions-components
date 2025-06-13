@@ -1,12 +1,12 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
-import { BsCheckLg } from 'react-icons/bs'
+import { FaCheck } from 'react-icons/fa'
 
 export function CompletedCall({ postActions }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'Ligação realizada com sucesso!',
-    icon: BsCheckLg,
+    icon: FaCheck,
     canDismiss: true,
     className: 'bonde-phone-call bonde-phone-call--completed',
     content: (

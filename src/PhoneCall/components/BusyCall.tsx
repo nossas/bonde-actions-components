@@ -1,7 +1,7 @@
 import type { PhoneCallModalProps } from '..'
 import type { ModalDescriber } from './Modal'
 
-import { Button, Flex } from '@chakra-ui/react'
+import { Button, Flex, Icon } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
@@ -14,8 +14,8 @@ export function BusyCall({ onRetry, target }: PhoneCallModalProps): ModalDescrib
     content: (
       <>
         <p>{`Não conseguimos completar a ligação porque o número de ${target.label} estava ocupado. Aguarde alguns minutos e tente de novo clicão no botão abaixo.`}</p>
-        <Flex align="center">
-          <BsInfoCircle />
+        <Flex align="center" gap={2}>
+          <Icon as={BsInfoCircle} />
           <p>
             {'Se continuar ocupado, uma boa alternativa é '}
             <Button type="button" variant="link">
