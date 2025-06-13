@@ -1,4 +1,4 @@
-import type { PhoneCallModalProps, TwilioState } from '.'
+import type { PhoneCallModalProps, PhoneCallState } from '.'
 import type { ModalDescriber } from './components/Modal'
 
 import { BusyCall } from './components/BusyCall'
@@ -9,8 +9,9 @@ import { InitiatedCall } from './components/InitiatedCall'
 import { InProgressCall } from './components/InProgressCall'
 import { NoAnswerCall } from './components/NoAnswerCall'
 import { RingingCall } from './components/RingingCall'
+import { ShareCampaign } from './components/ShareCampaign'
 
-export function stateSwitcher(state: TwilioState): ((props: PhoneCallModalProps) => ModalDescriber) | null {
+export function stateSwitcher(state: PhoneCallState): ((props: PhoneCallModalProps) => ModalDescriber) | null {
   switch (state) {
     case 'busy':
       return BusyCall
@@ -29,6 +30,8 @@ export function stateSwitcher(state: TwilioState): ((props: PhoneCallModalProps)
       return NoAnswerCall
     case 'ringing':
       return RingingCall
+    case 'share':
+      return ShareCampaign
     case 'idle':
     default:
       return null

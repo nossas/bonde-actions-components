@@ -1,7 +1,7 @@
-import type { TwilioState } from '.'
+import type { PhoneCallState } from '.'
 import type { SetState } from '../shared/react'
 
-export async function makePhoneCall(setState: SetState<TwilioState>, userPhoneNumber: string, targetPhoneNumber: string): Promise<boolean> {
+export async function makePhoneCall(setState: SetState<PhoneCallState>, userPhoneNumber: string, targetPhoneNumber: string): Promise<boolean> {
   // @TODO
   await sleep(3000)
   setState('ringing')

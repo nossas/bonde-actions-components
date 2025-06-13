@@ -12,12 +12,13 @@ export type TwilioState
     | 'canceled'
     | 'completed'
     | 'failed'
-    | 'idle'
     | 'in-progress'
     | 'initiated'
     | 'no-answer'
     | 'queued'
     | 'ringing'
+
+export type PhoneCallState = TwilioState | 'idle' | 'share'
 
 export interface PhoneTarget {
   label: string
@@ -40,6 +41,7 @@ export interface PhoneCallModalProps {
   target: PhoneTarget
   userPhoneNumber: string
   onRetry: () => void
+  onShare: () => void
 }
 
 export function PhoneCall({
@@ -51,7 +53,7 @@ export function PhoneCall({
   onFail = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
-  const [state, setState] = useState<TwilioState>('idle')
+  const [state, setState] = useState<PhoneCallState>('idle')
   const [retries, setRetries] = useState(0)
 
   const retryCall = useCallback(() => {
@@ -61,6 +63,10 @@ export function PhoneCall({
       setRetries(retries => retries + 1)
     }
   }, [retries, setRetries, targets])
+
+  const shareCampaign = useCallback(() => {
+    setState('share')
+  }, [setState])
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -107,6 +113,7 @@ export function PhoneCall({
   if (modalDescriber) {
     const modalProps: PhoneCallModalProps = {
       onRetry: retryCall,
+      onShare: shareCampaign,
       postActions: children,
       script,
       target,

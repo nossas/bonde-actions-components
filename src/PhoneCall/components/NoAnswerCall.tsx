@@ -5,7 +5,7 @@ import { Button, Flex, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
-export function NoAnswerCall({ onRetry, target }: PhoneCallModalProps): ModalDescriber {
+export function NoAnswerCall({ onRetry, onShare, target }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'A pessoa responsável não atendeu',
     icon: BsTelephoneXFill,
@@ -22,7 +22,7 @@ export function NoAnswerCall({ onRetry, target }: PhoneCallModalProps): ModalDes
           <BsInfoCircle />
           <p>
             {'Se ninguém atender, uma boa alternativa é '}
-            <Button type="button" variant="link">
+            <Button type="button" variant="link" onClick={onShare}>
               compartilhar a campanha
             </Button>
             .

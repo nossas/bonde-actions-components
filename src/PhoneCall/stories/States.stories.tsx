@@ -65,3 +65,9 @@ export const Ringing: Story = {
     state: 'ringing',
   },
 }
+
+export const ShareCampaign: Story = {
+  args: {
+    state: 'share',
+  },
+}

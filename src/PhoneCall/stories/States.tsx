@@ -1,4 +1,4 @@
-import type { PhoneCallModalProps, TwilioState } from '..'
+import type { PhoneCallModalProps, PhoneCallState } from '..'
 
 import { action } from '@storybook/addon-actions'
 import { Modal } from '../components/Modal'
@@ -14,10 +14,11 @@ const PROPS: PhoneCallModalProps = {
   },
   userPhoneNumber: '+55 99 90000-0000',
   onRetry: action('onRetry'),
+  onShare: action('onShare'),
 }
 
 export interface PhoneCallStatesProps {
-  state: TwilioState
+  state: PhoneCallState
 }
 
 export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.Element | null {
