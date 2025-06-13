@@ -6,6 +6,7 @@ import { action } from '@storybook/addon-actions'
 import { Theme } from 'bonde-components'
 import { useState } from 'react'
 import { PhoneCall } from '..'
+import { ShareButtons } from './components/ShareButtons'
 
 const Decorators = function (Story, { args }): JSX.Element {
   const [started, setStarted] = useState(false)
@@ -33,6 +34,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
+    children: <ShareButtons />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
     started: true,
     userPhoneNumber: '+55 11 00000-0000',
