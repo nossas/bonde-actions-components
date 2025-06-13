@@ -16,7 +16,7 @@ export function CanceledCall({ onRetry, userPhoneNumber }: PhoneCallModalProps):
         <p>A ligação foi interrompida — isso pode ter acontecido por instabilidade na rede ou encerramento da chamada. Mas tudo bem, você pode tentar novamente.</p>
         <Flex align="center" gap={4} justify="start">
           <p>{`Número informado: ${userPhoneNumber}`}</p>
-          <Button type="button" variant="link" leftIcon={<BsPencilSquare />}>
+          <Button leftIcon={<BsPencilSquare />} type="button" variant="link">
             Alterar número
           </Button>
         </Flex>

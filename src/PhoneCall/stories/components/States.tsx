@@ -1,12 +1,14 @@
-import type { PhoneCallModalProps, PhoneCallState } from '..'
+import type { PhoneCallModalProps, PhoneCallState } from '../..'
 
 import { action } from '@storybook/addon-actions'
-import { Modal } from '../components/Modal'
-import { stateSwitcher } from '../switcher'
+import { Modal } from '../../components/Modal'
+import { stateSwitcher } from '../../switcher'
+import { ShareButtons } from './ShareButtons'
 
-import '../style.css'
+import '../../style.css'
 
 const PROPS: PhoneCallModalProps = {
+  postActions: <ShareButtons />,
   script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
   target: {
     label: 'Sen. Fulano de Tal',

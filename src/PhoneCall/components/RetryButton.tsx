@@ -7,7 +7,13 @@ export interface RetryButtonProps {
 
 export function RetryButton({ onRetry }: Readonly<RetryButtonProps>): JSX.Element {
   return (
-    <Button type="button" variant="solid" leftIcon={<BsTelephoneFill />} onClick={onRetry}>
+    <Button
+      className="bonde-phone-call__retry-button"
+      leftIcon={<BsTelephoneFill />}
+      type="button"
+      variant="solid"
+      onClick={onRetry}
+    >
       Tentar novamente
     </Button>
   )
