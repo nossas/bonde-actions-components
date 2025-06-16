@@ -1,13 +1,13 @@
-import type { PhoneCallState } from '.'
-import type { SetState } from '../shared/react'
+import type { PhoneCallState } from '..'
+import type { SetState } from '../../shared/react'
 
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Theme } from 'bonde-components'
 import { useState } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { PhoneCall } from '.'
-import { sleep } from '../shared/tests'
+import { PhoneCall } from '..'
+import { sleep } from '../../shared/tests'
 
 import '@testing-library/jest-dom'
 
@@ -17,7 +17,7 @@ describe('phone call', () => {
   })
 
   it('renders', async () => {
-    vi.mock('./api.ts', () => ({
+    vi.mock('../api.ts', () => ({
       makePhoneCall: async (setState: SetState<PhoneCallState>) => {
         await sleep(50)
         setState('ringing')
