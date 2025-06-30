@@ -36,22 +36,23 @@ describe('phone call', () => {
           <button type="button" onClick={() => setStarted(true)}>
             Ligar
           </button>
-          <PhoneCall
-            script=""
-            started={started}
-            userPhoneNumber="+55 11 00000-0000"
-            targets={[
-              {
-                label: 'Dep. Fulano',
-                phoneNumber: '+55 22 00000-0000',
-              },
-              {
-                label: 'Sen. Sicrana',
-                phoneNumber: '+55 33 00000-0000',
-              },
-            ]}
-            theme={Theme}
-          />
+          {started && (
+            <PhoneCall
+              script=""
+              userPhoneNumber="+55 11 00000-0000"
+              targets={[
+                {
+                  label: 'Dep. Fulano',
+                  phoneNumber: '+55 22 00000-0000',
+                },
+                {
+                  label: 'Sen. Sicrana',
+                  phoneNumber: '+55 33 00000-0000',
+                },
+              ]}
+              theme={Theme}
+            />
+          )}
         </>
       )
     }

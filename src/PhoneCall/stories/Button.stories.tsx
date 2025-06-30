@@ -1,5 +1,7 @@
+import type { HandlerFunction } from '@storybook/addon-actions'
 import type { Decorator, Meta, StoryObj } from '@storybook/react'
 import type { PhoneCallProps } from '..'
+import type { SetState } from '../../shared/react'
 
 import { Button, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
@@ -8,16 +10,28 @@ import { useState } from 'react'
 import { PhoneCall } from '..'
 import { ShareButtons } from './components/ShareButtons'
 
+function wrapAction(action: HandlerFunction, setState: SetState<boolean>) {
+  return (...args: any[]) => {
+    setState(false)
+    action(...args)
+  }
+}
+
 const Decorators = function (Story, { args }): JSX.Element {
   const [started, setStarted] = useState(false)
   const showStory = (): void => setStarted(true)
+  const onCancel = wrapAction(args.onCancel!, setStarted)
+  const onFail = wrapAction(args.onFail!, setStarted)
+  const onSuccess = wrapAction(args.onSuccess!, setStarted)
 
   return (
     <ChakraProvider>
       <Button type="button" variant="solid" onClick={showStory}>
         Ligar
       </Button>
-      <Story args={{ ...args, started }} />
+      {started && (
+        <Story args={{ ...args, onCancel, onFail, onSuccess }} />
+      )}
     </ChakraProvider>
   )
 } satisfies Decorator<PhoneCallProps>
@@ -36,7 +50,6 @@ export const Primary: Story = {
   args: {
     children: <ShareButtons theme={Theme} />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
-    started: true,
     userPhoneNumber: '+55 11 00000-0000',
     targets: [
       {
@@ -49,6 +62,7 @@ export const Primary: Story = {
       },
     ],
     theme: Theme,
+    onCancel: action('onCancel'),
     onFail: action('onFail'),
     onSuccess: action('onSuccess'),
   },

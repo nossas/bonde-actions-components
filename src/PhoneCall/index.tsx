@@ -34,6 +34,7 @@ export interface PhoneCallModalProps {
   target: PhoneTarget
   theme: BondeTheme
   userPhoneNumber: string
+  onCancel: () => void
   onRetry: () => void
   onShare: () => void
 }
@@ -41,10 +42,10 @@ export interface PhoneCallModalProps {
 export interface PhoneCallProps {
   children?: JSX.Element | JSX.Element[]
   script: string
-  started: boolean
   targets: PhoneTarget[]
   theme: BondeTheme
   userPhoneNumber: string
+  onCancel?: () => void
   onFail?: () => void
   onSuccess?: () => void
 }
@@ -52,10 +53,10 @@ export interface PhoneCallProps {
 export function PhoneCall({
   children = undefined,
   script,
-  started = true,
   targets,
   theme = Theme,
   userPhoneNumber,
+  onCancel = NOOP,
   onFail = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
@@ -109,19 +110,14 @@ export function PhoneCall({
       await makePhoneCall(setState, userPhoneNumber, target.phoneNumber)
     }
 
-    if (started) {
-      makeCall()
-    }
-  }, [setState, started, target, userPhoneNumber])
-
-  if (!started) {
-    return null
-  }
+    makeCall()
+  }, [setState, target, userPhoneNumber])
 
   const modalDescriber = stateSwitcher(state)
 
   if (modalDescriber) {
     const modalProps: PhoneCallModalProps = {
+      onCancel,
       onRetry: retryCall,
       onShare: shareCampaign,
       postActions: children,

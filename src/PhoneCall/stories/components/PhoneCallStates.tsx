@@ -17,6 +17,7 @@ const PROPS: PhoneCallModalProps = {
   },
   theme: Theme,
   userPhoneNumber: '+55 99 90000-0000',
+  onCancel: action('onCancel'),
   onRetry: action('onRetry'),
   onShare: action('onShare'),
 }
