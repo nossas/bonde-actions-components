@@ -62,13 +62,20 @@ export function PhoneCall({
   const [state, setState] = useState<PhoneCallState>('idle')
   const [retries, setRetries] = useState(0)
 
+  const dismiss = useCallback(() => {
+    setState('idle')
+  }, [setState])
+
   const retryCall = useCallback(() => {
     const maxRetries = Math.ceil(targets.length * 1.5)
 
     if (retries < maxRetries) {
       setRetries(retries => retries + 1)
     }
-  }, [retries, setRetries, targets])
+    else {
+      onFail()
+    }
+  }, [onFail, retries, setRetries, targets])
 
   const shareCampaign = useCallback(() => {
     setState('share')
@@ -92,13 +99,10 @@ export function PhoneCall({
   }, [shuffledTargets, retries])
 
   useEffect(() => {
-    if (state === 'failed') {
-      onFail()
-    }
-    else if (state === 'completed') {
+    if (state === 'completed') {
       onSuccess()
     }
-  }, [onFail, onSuccess, state])
+  }, [onSuccess, state])
 
   useEffect(() => {
     async function makeCall(): Promise<void> {
@@ -128,7 +132,7 @@ export function PhoneCall({
     }
 
     return (
-      <Modal theme={theme} {...modalDescriber(modalProps)} />
+      <Modal theme={theme} onDismiss={dismiss} {...modalDescriber(modalProps)} />
     )
   }
   else {

@@ -30,7 +30,7 @@ export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.
 
   if (modalDescriber) {
     return (
-      <Modal theme={Theme} {...modalDescriber(PROPS)} />
+      <Modal theme={Theme} onDismiss={action('onDismiss')} {...modalDescriber(PROPS)} />
     )
   }
   else {
