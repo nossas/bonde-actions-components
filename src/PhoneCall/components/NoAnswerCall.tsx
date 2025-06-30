@@ -20,7 +20,7 @@ export function NoAnswerCall({ onRetry, onShare, target, theme }: PhoneCallModal
         </p>
         <Flex align="center" gap={2}>
           <BsInfoCircle />
-          <p>
+          <p className="bonde-phone-call__has-link">
             {'Se ninguém atender, uma boa alternativa é '}
             <Button type="button" variant="link" onClick={onShare}>
               compartilhar a campanha

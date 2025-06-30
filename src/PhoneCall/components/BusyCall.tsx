@@ -16,7 +16,7 @@ export function BusyCall({ onRetry, onShare, target, theme }: PhoneCallModalProp
         <p>{`Não conseguimos completar a ligação porque o número de ${target.label} estava ocupado. Aguarde alguns minutos e tente de novo clicão no botão abaixo.`}</p>
         <Flex align="center" gap={2}>
           <BsInfoCircle />
-          <p>
+          <p className="bonde-phone-call__has-link">
             {'Se continuar ocupado, uma boa alternativa é '}
             <Button type="button" variant="link" onClick={onShare}>
               compartilhar a campanha

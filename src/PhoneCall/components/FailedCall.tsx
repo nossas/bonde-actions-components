@@ -16,7 +16,7 @@ export function FailedCall({ onRetry, onShare, theme }: PhoneCallModalProps): Mo
         <p>A ligação com o destino falhou — isso pode ter acontecido por um erro no número ou instabilidade na rede. Aguarde alguns minutos e tente de novo clicando no botão abaixo.</p>
         <Flex align="center" gap={2}>
           <BsInfoCircle />
-          <p>
+          <p className="bonde-phone-call__has-link">
             {'Se continuar falhando, uma boa alternativa é '}
             <Button type="button" variant="link" onClick={onShare}>
               compartilhar a campanha

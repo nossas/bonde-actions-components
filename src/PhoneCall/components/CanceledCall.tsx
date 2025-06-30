@@ -14,7 +14,7 @@ export function CanceledCall({ onRetry, userPhoneNumber, theme }: PhoneCallModal
     content: (
       <VStack divider={<StackDivider />}>
         <p>A ligação foi interrompida — isso pode ter acontecido por instabilidade na rede ou encerramento da chamada. Mas tudo bem, você pode tentar novamente.</p>
-        <Flex align="center" gap={4} justify="start">
+        <Flex align="center" className="bonde-phone-call__has-link" gap={4} justify="start">
           <p>{`Número informado: ${userPhoneNumber}`}</p>
           <Button leftIcon={<BsPencilSquare />} type="button" variant="link">
             Alterar número
