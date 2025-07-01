@@ -34,7 +34,7 @@ export interface PhoneCallModalProps {
   target: PhoneTarget
   theme: BondeTheme
   userPhoneNumber: string
-  onCancel: () => void
+  onDismiss: () => void
   onRetry: () => void
   onShare: () => void
 }
@@ -45,8 +45,7 @@ export interface PhoneCallProps {
   targets: PhoneTarget[]
   theme: BondeTheme
   userPhoneNumber: string
-  onCancel?: () => void
-  onFail?: () => void
+  onFail?: (state: PhoneCallState) => void
   onSuccess?: () => void
 }
 
@@ -56,31 +55,39 @@ export function PhoneCall({
   targets,
   theme = Theme,
   userPhoneNumber,
-  onCancel = NOOP,
   onFail = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
   const [state, setState] = useState<PhoneCallState>('idle')
   const [retries, setRetries] = useState(0)
 
-  const dismiss = useCallback(() => {
+  const triggerFailure = useCallback(() => {
+    onFail(state)
+  }, [onFail, state])
+
+  const dismissCall = useCallback(() => {
+    if (state !== 'completed' && state !== 'share') {
+      triggerFailure()
+    }
     setState('idle')
-  }, [setState])
+  }, [setState, state, triggerFailure])
 
   const retryCall = useCallback(() => {
     const maxRetries = Math.ceil(targets.length * 1.5)
 
     if (retries < maxRetries) {
+      setState('idle')
       setRetries(retries => retries + 1)
     }
     else {
-      onFail()
+      triggerFailure()
     }
-  }, [onFail, retries, setRetries, targets])
+  }, [retries, setRetries, targets, triggerFailure])
 
   const shareCampaign = useCallback(() => {
+    triggerFailure()
     setState('share')
-  }, [setState])
+  }, [setState, triggerFailure])
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -117,7 +124,7 @@ export function PhoneCall({
 
   if (modalDescriber) {
     const modalProps: PhoneCallModalProps = {
-      onCancel,
+      onDismiss: dismissCall,
       onRetry: retryCall,
       onShare: shareCampaign,
       postActions: children,
@@ -128,7 +135,11 @@ export function PhoneCall({
     }
 
     return (
-      <Modal theme={theme} onDismiss={dismiss} {...modalDescriber(modalProps)} />
+      <Modal
+        theme={theme}
+        onDismiss={dismissCall}
+        {...modalDescriber(modalProps)}
+      />
     )
   }
   else {

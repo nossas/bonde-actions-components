@@ -17,7 +17,7 @@ const PROPS: PhoneCallModalProps = {
   },
   theme: Theme,
   userPhoneNumber: '+55 99 90000-0000',
-  onCancel: action('onCancel'),
+  onDismiss: action('onDismiss'),
   onRetry: action('onRetry'),
   onShare: action('onShare'),
 }
@@ -31,7 +31,11 @@ export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.
 
   if (modalDescriber) {
     return (
-      <Modal theme={Theme} onDismiss={action('onDismiss')} {...modalDescriber(PROPS)} />
+      <Modal
+        theme={Theme}
+        onDismiss={action('onDismiss')}
+        {...modalDescriber(PROPS)}
+      />
     )
   }
   else {

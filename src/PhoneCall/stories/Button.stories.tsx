@@ -20,7 +20,6 @@ function wrapAction(action: HandlerFunction, setState: SetState<boolean>) {
 const Decorators = function (Story, { args }): JSX.Element {
   const [started, setStarted] = useState(false)
   const showStory = (): void => setStarted(true)
-  const onCancel = wrapAction(args.onCancel!, setStarted)
   const onFail = wrapAction(args.onFail!, setStarted)
   const onSuccess = wrapAction(args.onSuccess!, setStarted)
 
@@ -30,7 +29,7 @@ const Decorators = function (Story, { args }): JSX.Element {
         Ligar
       </Button>
       {started && (
-        <Story args={{ ...args, onCancel, onFail, onSuccess }} />
+        <Story args={{ ...args, onFail, onSuccess }} />
       )}
     </ChakraProvider>
   )
@@ -62,7 +61,6 @@ export const Primary: Story = {
       },
     ],
     theme: Theme,
-    onCancel: action('onCancel'),
     onFail: action('onFail'),
     onSuccess: action('onSuccess'),
   },

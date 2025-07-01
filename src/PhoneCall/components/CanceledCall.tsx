@@ -5,7 +5,7 @@ import { Button, Flex, StackDivider, VStack } from '@chakra-ui/react'
 import { BsPencilSquare, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
-export function CanceledCall({ onCancel, onRetry, userPhoneNumber, theme }: PhoneCallModalProps): ModalDescriber {
+export function CanceledCall({ onDismiss, onRetry, userPhoneNumber, theme }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'A chamada não foi completada',
     icon: BsTelephoneXFill,
@@ -16,7 +16,7 @@ export function CanceledCall({ onCancel, onRetry, userPhoneNumber, theme }: Phon
         <p>A ligação foi interrompida — isso pode ter acontecido por instabilidade na rede ou encerramento da chamada. Mas tudo bem, você pode tentar novamente.</p>
         <Flex align="center" className="bonde-phone-call__has-link" gap={4} justify="start">
           <p>{`Número informado: ${userPhoneNumber}`}</p>
-          <Button leftIcon={<BsPencilSquare />} type="button" variant="link" onClick={onCancel}>
+          <Button leftIcon={<BsPencilSquare />} type="button" variant="link" onClick={onDismiss}>
             Alterar número
           </Button>
         </Flex>
