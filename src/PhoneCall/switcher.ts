@@ -11,7 +11,11 @@ import { NoAnswerCall } from './components/NoAnswerCall'
 import { RingingCall } from './components/RingingCall'
 import { ShareCampaign } from './components/ShareCampaign'
 
-export function stateSwitcher(state: PhoneCallState): ((props: PhoneCallModalProps) => ModalDescriber) | null {
+export function stateSwitcher(state: PhoneCallState, sharing: boolean): ((props: PhoneCallModalProps) => ModalDescriber) | null {
+  if (sharing) {
+    return ShareCampaign
+  }
+
   switch (state) {
     case 'busy':
       return BusyCall
@@ -30,10 +34,7 @@ export function stateSwitcher(state: PhoneCallState): ((props: PhoneCallModalPro
       return NoAnswerCall
     case 'ringing':
       return RingingCall
-    case 'share':
-      return ShareCampaign
     case 'idle':
-    default:
       return null
   }
 }

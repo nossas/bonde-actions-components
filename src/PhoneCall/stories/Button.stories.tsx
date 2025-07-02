@@ -62,6 +62,7 @@ export const Primary: Story = {
     ],
     theme: Theme,
     onFail: action('onFail'),
+    onFinish: action('onFinish'),
     onSuccess: action('onSuccess'),
   },
 }

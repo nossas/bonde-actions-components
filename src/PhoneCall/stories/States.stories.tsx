@@ -67,6 +67,7 @@ export const Ringing: Story = {
 
 export const ShareCampaign: Story = {
   args: {
-    state: 'share',
+    state: 'completed',
+    sharing: true,
   },
 }

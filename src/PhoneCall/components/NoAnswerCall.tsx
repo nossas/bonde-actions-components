@@ -5,7 +5,7 @@ import { Button, Flex, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { RetryButton } from './RetryButton'
 
-export function NoAnswerCall({ onRetry, onShare, target, theme }: PhoneCallModalProps): ModalDescriber {
+export function NoAnswerCall({ canRetry, onRetry, onShare, target, theme }: PhoneCallModalProps): ModalDescriber {
   return {
     title: 'A pessoa responsável não atendeu',
     icon: BsTelephoneXFill,
@@ -31,7 +31,7 @@ export function NoAnswerCall({ onRetry, onShare, target, theme }: PhoneCallModal
       </VStack>
     ),
     footer: (
-      <RetryButton theme={theme} onRetry={onRetry} />
+      <RetryButton canRetry={canRetry} theme={theme} onRetry={onRetry} />
     ),
   }
 }

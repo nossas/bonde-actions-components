@@ -9,6 +9,7 @@ import { ShareButtons } from './ShareButtons'
 import '../../style.css'
 
 const PROPS: PhoneCallModalProps = {
+  canRetry: true,
   postActions: <ShareButtons theme={Theme} />,
   script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
   target: {
@@ -23,11 +24,12 @@ const PROPS: PhoneCallModalProps = {
 }
 
 export interface PhoneCallStatesProps {
+  sharing: boolean
   state: PhoneCallState
 }
 
-export function PhoneCallStates({ state }: Readonly<PhoneCallStatesProps>): JSX.Element | null {
-  const modalDescriber = stateSwitcher(state)
+export function PhoneCallStates({ sharing, state }: Readonly<PhoneCallStatesProps>): JSX.Element | null {
+  const modalDescriber = stateSwitcher(state, sharing)
 
   if (modalDescriber) {
     return (

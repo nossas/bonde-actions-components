@@ -4,11 +4,16 @@ import { Button } from '@chakra-ui/react'
 import { BsTelephoneFill } from 'react-icons/bs'
 
 export interface RetryButtonProps {
+  canRetry: boolean
   theme: BondeTheme
   onRetry: () => void
 }
 
-export function RetryButton({ theme, onRetry }: Readonly<RetryButtonProps>): JSX.Element {
+export function RetryButton({ canRetry, theme, onRetry }: Readonly<RetryButtonProps>): JSX.Element | undefined {
+  if (!canRetry) {
+    return undefined
+  }
+
   return (
     <Button
       className="bonde-phone-call__retry-button"

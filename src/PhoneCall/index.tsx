@@ -21,7 +21,7 @@ export type TwilioState
     | 'queued'
     | 'ringing'
 
-export type PhoneCallState = TwilioState | 'idle' | 'share'
+export type PhoneCallState = TwilioState | 'idle'
 
 export interface PhoneTarget {
   label: string
@@ -29,6 +29,7 @@ export interface PhoneTarget {
 }
 
 export interface PhoneCallModalProps {
+  canRetry: boolean
   postActions?: JSX.Element | JSX.Element[]
   script: string
   target: PhoneTarget
@@ -46,6 +47,7 @@ export interface PhoneCallProps {
   theme: BondeTheme
   userPhoneNumber: string
   onFail?: (state: PhoneCallState) => void
+  onFinish?: (state: PhoneCallState) => void
   onSuccess?: () => void
 }
 
@@ -56,38 +58,31 @@ export function PhoneCall({
   theme = Theme,
   userPhoneNumber,
   onFail = NOOP,
+  onFinish = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
   const [state, setState] = useState<PhoneCallState>('idle')
+  const [sharing, setSharing] = useState(false)
   const [retries, setRetries] = useState(0)
 
-  const triggerFailure = useCallback(() => {
-    onFail(state)
-  }, [onFail, state])
-
-  const dismissCall = useCallback(() => {
-    if (state !== 'completed' && state !== 'share') {
-      triggerFailure()
+  useEffect(() => {
+    if (state === 'completed') {
+      onSuccess()
     }
-    setState('idle')
-  }, [setState, state, triggerFailure])
-
-  const retryCall = useCallback(() => {
-    const maxRetries = Math.ceil(targets.length * 1.5)
-
-    if (retries < maxRetries) {
-      setState('idle')
-      setRetries(retries => retries + 1)
-    }
-    else {
-      triggerFailure()
-    }
-  }, [retries, setRetries, targets, triggerFailure])
+  }, [onSuccess, state])
 
   const shareCampaign = useCallback(() => {
-    triggerFailure()
-    setState('share')
-  }, [setState, triggerFailure])
+    setSharing(true)
+    onFail(state)
+  }, [onFail, setSharing, state])
+
+  const dismissCall = useCallback(() => {
+    if (state !== 'completed' && !sharing) {
+      onFail(state)
+    }
+    onFinish(state)
+    setState('idle')
+  }, [onFail, onFinish, setState, state, sharing])
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -106,11 +101,15 @@ export function PhoneCall({
     return shuffledTargets[retries % shuffledTargets.length]
   }, [shuffledTargets, retries])
 
-  useEffect(() => {
-    if (state === 'completed') {
-      onSuccess()
-    }
-  }, [onSuccess, state])
+  const canRetry = useMemo(() => {
+    const maxRetries = Math.ceil(targets.length * 1.5)
+    return retries < maxRetries
+  }, [retries, targets])
+
+  const retryCall = useCallback(() => {
+    setState('idle')
+    setRetries(retries => retries + 1)
+  }, [setRetries, setState])
 
   useEffect(() => {
     async function makeCall(): Promise<void> {
@@ -120,18 +119,19 @@ export function PhoneCall({
     makeCall()
   }, [setState, target, userPhoneNumber])
 
-  const modalDescriber = stateSwitcher(state)
+  const modalDescriber = stateSwitcher(state, sharing)
 
   if (modalDescriber) {
     const modalProps: PhoneCallModalProps = {
-      onDismiss: dismissCall,
-      onRetry: retryCall,
-      onShare: shareCampaign,
+      canRetry,
       postActions: children,
       script,
       target,
       theme,
       userPhoneNumber,
+      onDismiss: dismissCall,
+      onRetry: retryCall,
+      onShare: shareCampaign,
     }
 
     return (
