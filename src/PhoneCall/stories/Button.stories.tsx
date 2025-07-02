@@ -38,13 +38,18 @@ const meta: Meta<typeof PhoneCall> = {
   title: 'Phone Call/Button',
   component: PhoneCall,
   decorators: Decorators,
+  parameters: {
+    controls: {
+      exclude: ['children', 'onFail', 'onFinish', 'onSuccess'],
+    },
+  },
 }
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Primary: Story = {
+export const Preview: Story = {
   args: {
     children: <ShareButtons theme={Theme} />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',

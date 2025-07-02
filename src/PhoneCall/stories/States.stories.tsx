@@ -11,63 +11,34 @@ const meta: Meta<typeof PhoneCallStates> = {
       <Story />
     </ChakraProvider>
   ),
+  argTypes: {
+    state: {
+      control: { type: 'select' },
+      options: [
+        'busy',
+        'canceled',
+        'completed',
+        'failed',
+        'in-progress',
+        'initiated',
+        'no-answer',
+        'queued',
+        'ringing',
+      ],
+    },
+    sharing: {
+      control: { type: 'boolean' },
+    },
+  },
 }
 
 export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Busy: Story = {
+export const Preview: Story = {
   args: {
-    state: 'busy',
-  },
-}
-
-export const Canceled: Story = {
-  args: {
-    state: 'canceled',
-  },
-}
-
-export const Completed: Story = {
-  args: {
-    state: 'completed',
-  },
-}
-
-export const Failed: Story = {
-  args: {
-    state: 'failed',
-  },
-}
-
-export const Initiated: Story = {
-  args: {
-    state: 'initiated',
-  },
-}
-
-export const InProgress: Story = {
-  args: {
+    sharing: false,
     state: 'in-progress',
-  },
-}
-
-export const NoAnswer: Story = {
-  args: {
-    state: 'no-answer',
-  },
-}
-
-export const Ringing: Story = {
-  args: {
-    state: 'ringing',
-  },
-}
-
-export const ShareCampaign: Story = {
-  args: {
-    state: 'completed',
-    sharing: true,
   },
 }
