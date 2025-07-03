@@ -11,7 +11,7 @@ export interface ModalDescriber {
   canDismiss: boolean
   className: string
   content: JSX.Element | JSX.Element[]
-  footer?: JSX.Element | JSX.Element[]
+  footer?: JSX.Element | JSX.Element[] | null
   icon: IconType
   title: string
 }
@@ -26,7 +26,10 @@ export function Modal({ canDismiss = true, className, content, footer, icon, isO
   return (
     <ChakraModal size="2xl" isCentered closeOnEsc={canDismiss} closeOnOverlayClick={false} isOpen={isOpen} onClose={onDismiss}>
       <ModalOverlay />
-      <ModalContent className={className}>
+      {/* @ts-expect-error:2590 Expression produces a union type that is too complex to represent. */}
+      <ModalContent
+        className={className}
+      >
         <ModalHeader>
           <Flex align="center" gap={2}>
             <ChakraIcon as={icon} boxSize={6} color={theme.brand.main} />

@@ -9,9 +9,9 @@ export interface RetryButtonProps {
   onRetry: () => void
 }
 
-export function RetryButton({ canRetry, theme, onRetry }: Readonly<RetryButtonProps>): JSX.Element | undefined {
+export function RetryButton({ canRetry, theme, onRetry }: Readonly<RetryButtonProps>): JSX.Element | null {
   if (!canRetry) {
-    return undefined
+    return null
   }
 
   return (
