@@ -24,7 +24,6 @@ const Decorators = function (Story, { args }): JSX.Element {
 
   return (
     <ChakraProvider>
-      {/* @ts-expect-error:2590 Expression produces a union type that is too complex to represent. */}
       <Button type="button" variant="solid" onClick={showStory}>
         Ligar
       </Button>
