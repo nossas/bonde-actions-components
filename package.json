@@ -36,8 +36,7 @@
     "release": "bumpp && pnpm publish",
     "prepublishOnly": "pnpm run build",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "build-storybook",
-    "build-storybook": "storybook build"
+    "storybook:build": "storybook build"
   },
   "peerDependencies": {
     "@chakra-ui/react": "^1.8.9",
