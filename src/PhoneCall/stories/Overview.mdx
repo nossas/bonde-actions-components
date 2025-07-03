@@ -1,0 +1,58 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks'
+
+import * as DemoStories from './Demo.stories'
+
+<Meta of={DemoStories} />
+
+# `<PhoneCall>`
+
+Este componente realiza ligações telefônicas síncronas via [Twilio](https://www.twilio.com/pt-br).
+
+O componente deve ser renderizado condicionalmente (apenas quando a ligação deve ser iniciada).
+
+<Canvas of={DemoStories.Demo} />
+
+## Props
+
+<ArgTypes/>
+
+onde `PhoneCallState` é uma string e `PhoneTarget` possui o seguinte formato:
+
+```ts
+interface PhoneTarget {
+  // Nome do alvo (na UI)
+  label: string
+  // Número de telefone do alvo
+  phoneNumber: string
+}
+```
+
+## Exemplo de uso
+
+Disparo de ligação ao clicar no botão:
+
+```jsx
+import { PhoneCall } from 'bonde-action-components'
+import { useState } from 'react'
+
+export function MyComponent ({ children, script, userPhoneNumber, targets, theme }) {
+  const [isCalling, setIsCalling] = useState(false)
+  return (
+    <>
+      <button type="button" onClick={() => setIsCalling(true)}>
+        Ligar
+      </button>
+      {isCalling && (
+        <PhoneCall
+          userPhoneNumber={userPhoneNumber}
+          targets={targets}
+          theme={theme}
+          onFinish={() => setIsCalling(false)}
+        >
+          {children}
+        </PhoneCall>
+      )}
+    </>
+  )
+}
+```

@@ -1,2 +1,2 @@
 export { PhoneCall } from './PhoneCall'
-export type { PhoneCallModalProps, PhoneCallProps, PhoneCallState, PhoneTarget } from './PhoneCall'
+export type { PhoneCallProps, PhoneCallState, PhoneTarget, TwilioState } from './PhoneCall'

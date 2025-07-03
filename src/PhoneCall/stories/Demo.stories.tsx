@@ -24,6 +24,7 @@ const Decorators = function (Story, { args }): JSX.Element {
 
   return (
     <ChakraProvider>
+      {/* @ts-expect-error:2590 Expression produces a union type that is too complex to represent. */}
       <Button type="button" variant="solid" onClick={showStory}>
         Ligar
       </Button>
@@ -35,9 +36,44 @@ const Decorators = function (Story, { args }): JSX.Element {
 } satisfies Decorator<PhoneCallProps>
 
 const meta: Meta<typeof PhoneCall> = {
-  title: 'Phone Call/Button',
+  title: 'Phone Call',
   component: PhoneCall,
   decorators: Decorators,
+  argTypes: {
+    children: {
+      description: 'Conteúdo exibido ao compartilhar a campanha',
+      defaultValue: undefined,
+      table: {
+        type: 'JSX.Element',
+      },
+    },
+    script: {
+      description: 'Roteiro da ligação',
+      type: 'string',
+    },
+    targets: {
+      description: 'Lista de alvos',
+    },
+    theme: {
+      description: 'Tema da campanha',
+    },
+    userPhoneNumber: {
+      description: 'Número de telefone do usuário',
+      type: 'string',
+    },
+    onFail: {
+      description: 'Evento disparado quando a ligação falhou (número de tentativas excedido, usuário desistiu, etc.)',
+      type: 'function',
+    },
+    onFinish: {
+      description: 'Evento disparado quando a interação do usuário foi encerrada (o modal de ligação foi fechado)',
+      type: 'function',
+    },
+    onSuccess: {
+      description: 'Evento disparado quando a ligação foi finalizada com sucesso',
+      type: 'function',
+    },
+  },
   parameters: {
     controls: {
       exclude: ['children', 'onFail', 'onFinish', 'onSuccess'],
@@ -49,7 +85,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Preview: Story = {
+export const Demo: Story = {
   args: {
     children: <ShareButtons theme={Theme} />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',

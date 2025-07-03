@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { PhoneCallStates } from './components/PhoneCallStates'
 
 const meta: Meta<typeof PhoneCallStates> = {
-  title: 'Phone Call/States',
+  title: 'Phone Call',
   component: PhoneCallStates,
   decorators: Story => (
     <ChakraProvider>
@@ -36,7 +36,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Preview: Story = {
+export const States: Story = {
   args: {
     sharing: false,
     state: 'in-progress',
