@@ -1,0 +1,1 @@
+import{__toESM as e}from"./chunk-D3B-zxXs.js";import{require_react_dom as t}from"./react-dom-DQyN7wN3.js";var n=e(t(),1),r=async(e,t)=>new Promise(r=>{n.render(e,t,()=>r(null))}),i=e=>{n.unmountComponentAtNode(e)};export{r as renderElement,i as unmountElement};

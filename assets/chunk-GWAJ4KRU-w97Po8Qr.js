@@ -1,0 +1,1 @@
+var e=e=>`control-${e.replace(/\s+/g,`-`)}`,t=e=>`set-${e.replace(/\s+/g,`-`)}`;export{e as getControlId,t as getControlSetterButtonId};

@@ -1,0 +1,1 @@
+import{__toESM as e}from"./chunk-D3B-zxXs.js";import{require_react as t}from"./react-NX0r4bef.js";var n=e(t()),r=function(e){return e()},i=n.useInsertionEffect?n.useInsertionEffect:!1,a=i||r,o=i||n.useLayoutEffect;export{a as useInsertionEffectAlwaysWithSyncFallback,o as useInsertionEffectWithLayoutFallback};

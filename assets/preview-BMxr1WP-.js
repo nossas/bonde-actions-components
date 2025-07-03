@@ -1,0 +1,1 @@
+const e={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}}};var t=e;export{t as default};
