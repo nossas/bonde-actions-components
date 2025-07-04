@@ -7,7 +7,7 @@ import { ModalHeader } from './ModalHeader'
 export function RingingCall({ target, theme }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsArrowRight} title="Chamando a pessoa responsável" theme={theme}/>
+      <ModalHeader icon={BsArrowRight} title="Chamando a pessoa responsável" theme={theme} />
       <ModalBody>
         <VStack>
           <p>{`Você atendeu a nossa ligação! Agora estamos tentando falar com ${target.label}.`}</p>

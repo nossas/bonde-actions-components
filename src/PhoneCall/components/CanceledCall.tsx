@@ -1,13 +1,13 @@
 import type { PhoneCallModalProps } from '..'
 
-import { Button, Flex, ModalCloseButton, ModalBody, StackDivider, VStack } from '@chakra-ui/react'
+import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsPencilSquare, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function CanceledCall({ userPhoneNumber, theme, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function CanceledCall({ theme, userPhoneNumber, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneXFill} title="A chamada não foi completada" theme={theme}/>
+      <ModalHeader icon={BsTelephoneXFill} title="A chamada não foi completada" theme={theme} />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>

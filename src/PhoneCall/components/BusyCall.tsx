@@ -1,13 +1,13 @@
 import type { PhoneCallModalProps } from '..'
 
-import { Button, Flex, ModalCloseButton, ModalBody, StackDivider, VStack } from '@chakra-ui/react'
+import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
 export function BusyCall({ target, theme, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneXFill} title="A linha estava ocupada" theme={theme}/>
+      <ModalHeader icon={BsTelephoneXFill} title="A linha estava ocupada" theme={theme} />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>

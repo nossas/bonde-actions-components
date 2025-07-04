@@ -45,7 +45,7 @@ Disparo de ligação ao clicar no botão:
 import { PhoneCall } from 'bonde-action-components'
 import { useState } from 'react'
 
-export function MyComponent ({ children, script, userPhoneNumber, targets, theme }) {
+export function MyComponent ({ children, script, targets, theme, userPhoneNumber }) {
   const [isCalling, setIsCalling] = useState(false)
   return (
     <>
@@ -54,8 +54,8 @@ export function MyComponent ({ children, script, userPhoneNumber, targets, theme
       </button>
       {isCalling && (
         <PhoneCall
-          userPhoneNumber={userPhoneNumber}
           targets={targets}
+          userPhoneNumber={userPhoneNumber}
           theme={theme}
           onFinish={() => setIsCalling(false)}
         >

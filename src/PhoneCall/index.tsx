@@ -182,9 +182,9 @@ export function PhoneCall({
         onShare={shareCampaign}
       />
       <ModalFooter>
-      {canRetry && (
-        <RetryButton theme={theme} onRetry={retryCall} />
-      )}
+        {canRetry && (
+          <RetryButton theme={theme} onRetry={retryCall} />
+        )}
       </ModalFooter>
     </Modal>
   )
