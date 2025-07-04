@@ -81,7 +81,7 @@ const meta: Meta<typeof PhoneCall> = {
   },
   parameters: {
     controls: {
-      exclude: ['children', 'onFail', 'onFinish', 'onSuccess'],
+      exclude: ['action', 'children', 'onFail', 'onFinish', 'onSuccess'],
     },
   },
 }

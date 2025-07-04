@@ -1,7 +1,8 @@
 import type { IconType } from 'react-icons'
 import type { BondeTheme } from '../../shared/theme'
 
-import { Icon as ChakraIcon, Modal as ChakraModal, Flex, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react'
+import { Modal as ChakraModal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react'
+import { ModalHeader } from './ModalHeader'
 
 export { ModalBody, ModalFooter } from '@chakra-ui/react'
 
@@ -26,16 +27,8 @@ export function Modal({ canDismiss = true, className, content, footer, icon, isO
   return (
     <ChakraModal size="2xl" isCentered closeOnEsc={canDismiss} closeOnOverlayClick={false} isOpen={isOpen} onClose={onDismiss}>
       <ModalOverlay />
-      {/* @ts-expect-error:2590 Expression produces a union type that is too complex to represent. */}
-      <ModalContent
-        className={className}
-      >
-        <ModalHeader>
-          <Flex align="center" gap={2}>
-            <ChakraIcon as={icon} boxSize={6} color={theme.brand.main} />
-            <span>{title}</span>
-          </Flex>
-        </ModalHeader>
+      <ModalContent className={className}>
+        <ModalHeader icon={icon} title={title} theme={theme} />
         {canDismiss && <ModalCloseButton />}
         <ModalBody>{content}</ModalBody>
         <ModalFooter>{footer ?? null}</ModalFooter>
