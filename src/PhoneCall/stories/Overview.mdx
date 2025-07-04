@@ -1,8 +1,8 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks'
 
-import * as DemoStories from './Demo.stories'
+import DemoStories, { Demo } from './Demo.stories'
 
-<Meta of={DemoStories.default} />
+<Meta of={DemoStories} />
 
 # `<PhoneCall>`
 
@@ -10,7 +10,7 @@ Este componente realiza ligações telefônicas síncronas via [Twilio](https://
 
 O componente deve ser renderizado condicionalmente (apenas quando a ligação deve ser iniciada).
 
-<Canvas of={DemoStories.Demo} />
+<Canvas of={Demo} />
 
 ## Props
 
