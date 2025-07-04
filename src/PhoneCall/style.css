@@ -2,12 +2,17 @@
   width: 100%;
 }
 
+.bonde-phone-call__link-button {
+  height: inherit;
+  padding: 0;
+}
+
 .bonde-phone-call--in-progress blockquote {
   border-inline-start: 2px solid var(--chakra-colors-gray-200);
   color: var(--chakra-colors-gray-700);
   font-style: italic;
-  margin-block: var(--chakra-space-4) !important;
-  padding-inline: var(--chakra-space-4);
+  margin-block: var(--chakra-spacing-4);
+  padding-inline: var(--chakra-spacing-4);
 }
 
 .bonde-phone-call--in-progress blockquote::before {

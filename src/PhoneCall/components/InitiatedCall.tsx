@@ -1,6 +1,6 @@
 import type { PhoneCallModalProps } from '..'
 
-import { ModalBody, StackDivider, VStack } from '@chakra-ui/react'
+import { Dialog, StackSeparator, VStack } from '@chakra-ui/react'
 import { BsTelephoneFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
@@ -8,8 +8,8 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
   return (
     <>
       <ModalHeader icon={BsTelephoneFill} iconColor={brandColor} title="Estamos te ligando agora!" />
-      <ModalBody>
-        <VStack divider={<StackDivider />}>
+      <Dialog.Body>
+        <VStack separator={<StackSeparator />}>
           <VStack>
             <p>
               {'Você vai receber uma ligação do nosso número. '}
@@ -22,7 +22,7 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
             <strong>Fique com o telefone por perto.</strong>
           </p>
         </VStack>
-      </ModalBody>
+      </Dialog.Body>
     </>
   )
 }

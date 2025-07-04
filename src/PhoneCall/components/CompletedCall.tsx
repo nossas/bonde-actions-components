@@ -1,7 +1,8 @@
 import type { PhoneCallModalProps } from '..'
 
-import { ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
+import { Dialog, StackSeparator, VStack } from '@chakra-ui/react'
 import { BsCheckLg } from 'react-icons/bs'
+import { ModalCloseButton } from './ModalCloseButton'
 import { ModalHeader } from './ModalHeader'
 
 export function CompletedCall({ brandColor, postActions }: Readonly<PhoneCallModalProps>): JSX.Element {
@@ -9,8 +10,8 @@ export function CompletedCall({ brandColor, postActions }: Readonly<PhoneCallMod
     <>
       <ModalHeader icon={BsCheckLg} iconColor={brandColor} title="Ligação realizada com sucesso!" />
       <ModalCloseButton />
-      <ModalBody>
-        <VStack divider={<StackDivider />}>
+      <Dialog.Body>
+        <VStack separator={<StackSeparator />}>
           <p>Obrigada por participar! Essa ligação ajuda a pressionar por uma resposta e mostrar que esse tema importa.</p>
           {postActions && (
             <VStack>
@@ -19,7 +20,7 @@ export function CompletedCall({ brandColor, postActions }: Readonly<PhoneCallMod
             </VStack>
           )}
         </VStack>
-      </ModalBody>
+      </Dialog.Body>
     </>
   )
 }

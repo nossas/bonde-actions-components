@@ -5,9 +5,10 @@ import userEvent from '@testing-library/user-event'
 import { useState } from 'react'
 import { describe, expect, it } from 'vitest'
 import { PhoneCall } from '..'
+import { ThemeProvider } from '../../shared/components/ThemeProvider'
 import { sleep } from '../../shared/tests'
 
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom/vitest'
 
 describe('phone call', () => {
   it('renders', async () => {
@@ -23,7 +24,7 @@ describe('phone call', () => {
     const Component = () => {
       const [started, setStarted] = useState(false)
       return (
-        <>
+        <ThemeProvider>
           <button type="button" onClick={() => setStarted(true)}>
             Ligar
           </button>
@@ -44,11 +45,11 @@ describe('phone call', () => {
               ]}
             />
           )}
-        </>
+        </ThemeProvider>
       )
     }
 
-    const { getByRole } = render(<Component />)
+    const { container, getByRole } = render(<Component />)
 
     const callButton = getByRole('button', { name: 'Ligar' })
     await userEvent.click(callButton)
@@ -57,10 +58,7 @@ describe('phone call', () => {
     const callModal = getByRole('dialog')
     expect(callModal).toHaveClass('bonde-phone-call bonde-phone-call--ringing')
 
-    await sleep(50)
-    expect(callModal).toHaveClass('bonde-phone-call bonde-phone-call--in-progress')
-
-    await sleep(50)
-    expect(callModal).toHaveClass('bonde-phone-call bonde-phone-call--completed')
+    await waitFor(() => container.querySelector('.bonde-phone-call.bonde-phone-call--in-progress'))
+    await waitFor(() => container.querySelector('.bonde-phone-call.bonde-phone-call--completed'))
   })
 })

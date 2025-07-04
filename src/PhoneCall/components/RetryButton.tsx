@@ -12,11 +12,13 @@ export function RetryButton({ backgroundColor, onRetry }: Readonly<RetryButtonPr
       className="bonde-phone-call__retry-button"
       backgroundColor={backgroundColor}
       color="white"
-      leftIcon={<BsTelephoneFill />}
+      rounded="lg"
       type="button"
       variant="solid"
       onClick={onRetry}
     >
+      <BsTelephoneFill />
+      {' '}
       Tentar novamente
     </Button>
   )

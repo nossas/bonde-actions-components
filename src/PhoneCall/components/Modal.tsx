@@ -1,8 +1,8 @@
+import type { DialogOpenChangeDetails } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 
-import { Modal as ChakraModal, ModalContent, ModalOverlay } from '@chakra-ui/react'
-
-export { ModalBody, ModalFooter } from '@chakra-ui/react'
+import { Dialog } from '@chakra-ui/react'
+import { useCallback } from 'react'
 
 function NOOP(): void { }
 
@@ -15,12 +15,21 @@ export interface ModalProps {
 }
 
 export function Modal({ canDismiss, children, className, isOpen = true, onDismiss = NOOP }: Readonly<ModalProps>): JSX.Element {
+  const onOpenChange = useCallback(({ open }: DialogOpenChangeDetails) => {
+    if (!open) {
+      onDismiss()
+    }
+  }, [onDismiss])
+
   return (
-    <ChakraModal size="2xl" isCentered closeOnEsc={canDismiss} closeOnOverlayClick={false} isOpen={isOpen} onClose={onDismiss}>
-      <ModalOverlay />
-      <ModalContent className={className}>
-        {children}
-      </ModalContent>
-    </ChakraModal>
+    <Dialog.Root size="lg" closeOnEscape={canDismiss} closeOnInteractOutside={false} open={isOpen} placement="center" onOpenChange={onOpenChange}>
+      <Dialog.Trigger />
+      <Dialog.Backdrop />
+      <Dialog.Positioner>
+        <Dialog.Content className={className}>
+          {children}
+        </Dialog.Content>
+      </Dialog.Positioner>
+    </Dialog.Root>
   )
 }

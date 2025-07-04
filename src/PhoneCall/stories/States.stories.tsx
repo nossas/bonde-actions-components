@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { PhoneCallState } from '..'
 import type { PhoneCallAction } from '../api'
 
-import { ChakraProvider } from '@chakra-ui/react'
-import { action } from '@storybook/addon-actions'
+import { action } from 'storybook/actions'
 import { PhoneCall } from '..'
+import { ThemeProvider } from '../../shared/components/ThemeProvider'
 import { ShareButtons } from './components/ShareButtons'
 
 const meta: Meta<typeof PhoneCall> = {
   title: 'Phone Call/States',
   component: PhoneCall,
   decorators: Story => (
-    <ChakraProvider>
+    <ThemeProvider>
       <Story />
-    </ChakraProvider>
+    </ThemeProvider>
   ),
   args: {
     children: <ShareButtons />,

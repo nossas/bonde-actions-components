@@ -1,6 +1,6 @@
 import type { PhoneCallModalProps } from '..'
 
-import { ModalBody, VStack } from '@chakra-ui/react'
+import { Dialog, VStack } from '@chakra-ui/react'
 import { BsArrowRight } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
@@ -8,12 +8,12 @@ export function RingingCall({ brandColor, target }: Readonly<PhoneCallModalProps
   return (
     <>
       <ModalHeader icon={BsArrowRight} iconColor={brandColor} title="Chamando a pessoa responsável" />
-      <ModalBody>
+      <Dialog.Body>
         <VStack>
           <p>{`Você atendeu a nossa ligação! Agora estamos tentando falar com ${target.label}.`}</p>
           <p><strong>Aguarde na linha. Vamos conectar assim que o alvo atender.</strong></p>
         </VStack>
-      </ModalBody>
+      </Dialog.Body>
     </>
   )
 }

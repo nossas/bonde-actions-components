@@ -1,7 +1,7 @@
 import type { FunctionComponent, ReactNode } from 'react'
 import type { PhoneCallAction } from './api'
 
-import { ModalFooter } from '@chakra-ui/react'
+import { Dialog } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { bondePhoneCall } from './api'
 import { BusyCall } from './components/BusyCall'
@@ -183,11 +183,11 @@ export function PhoneCall({
         onDismiss={dismissCall}
         onShare={shareCampaign}
       />
-      <ModalFooter>
-        {canRetry && (
+      {canRetry && (
+        <Dialog.Footer>
           <RetryButton backgroundColor={brandColor} onRetry={retryCall} />
-        )}
-      </ModalFooter>
+        </Dialog.Footer>
+      )}
     </Modal>
   )
 }

@@ -1,13 +1,14 @@
-import type { HandlerFunction } from '@storybook/addon-actions'
-import type { Decorator, Meta, StoryObj } from '@storybook/react'
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite'
+import type { HandlerFunction } from 'storybook/actions'
 import type { PhoneCallProps } from '..'
 import type { SetState } from '../../shared/react'
 import type { PhoneCallAction } from '../api'
 
-import { Button, ChakraProvider } from '@chakra-ui/react'
-import { action } from '@storybook/addon-actions'
+import { Button } from '@chakra-ui/react'
 import { useState } from 'react'
+import { action } from 'storybook/actions'
 import { PhoneCall } from '..'
+import { ThemeProvider } from '../../shared/components/ThemeProvider'
 import { sleep } from '../../shared/tests'
 import { ShareButtons } from './components/ShareButtons'
 
@@ -24,14 +25,14 @@ const Decorators = function (Story, { args }): JSX.Element {
   const onFinish = wrapAction(args.onFinish!, setStarted)
 
   return (
-    <ChakraProvider>
-      <Button type="button" variant="solid" onClick={showStory}>
+    <ThemeProvider>
+      <Button rounded="lg" type="button" variant="solid" onClick={showStory}>
         Ligar
       </Button>
       {started && (
         <Story args={{ ...args, onFinish }} />
       )}
-    </ChakraProvider>
+    </ThemeProvider>
   )
 } satisfies Decorator<PhoneCallProps>
 

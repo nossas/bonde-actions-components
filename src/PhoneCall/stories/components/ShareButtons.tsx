@@ -8,22 +8,18 @@ export interface ShareButtonsProps {
 export function ShareButtons({ brandColor = '#424242' }: Readonly<ShareButtonsProps>): JSX.Element {
   return (
     <VStack>
-      <Button colorScheme="facebook" type="button" variant="solid">
+      <Button backgroundColor="#1877f2" rounded="full" type="button" variant="solid">
         Compartilhar no Facebook
       </Button>
-      <Button colorScheme="twitter" type="button" variant="solid">
+      <Button backgroundColor="#00aced" rounded="full" type="button" variant="solid">
         Compartilhar no Twitter
       </Button>
-      <Button colorScheme="whatsapp" type="button" variant="solid">
+      <Button backgroundColor="#25d366" rounded="full" type="button" variant="solid">
         Compartilhar no WhatsApp
       </Button>
-      <Button
-        backgroundColor={brandColor}
-        color="white"
-        leftIcon={<BsLink45Deg />}
-        type="button"
-        variant="solid"
-      >
+      <Button backgroundColor={brandColor} rounded="full" type="button" variant="solid">
+        <BsLink45Deg />
+        {' '}
         Copiar link
       </Button>
     </VStack>
