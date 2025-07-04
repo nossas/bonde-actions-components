@@ -4,10 +4,10 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function FailedCall({ theme, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function FailedCall({ brandColor, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneXFill} title="Não foi possível completar a ligação" theme={theme} />
+      <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="Não foi possível completar a ligação" />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>

@@ -30,11 +30,7 @@ interface PhoneTarget {
 `PhoneCallAction` possui o seguinte formato:
 
 ```ts
-type PhoneCallAction = (
-  setState: SetState<PhoneCallState>,
-  userPhoneNumber: string,
-  targetPhoneNumber: string
-) => Promise<void>
+type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhone: string, targetPhone: string) => Promise<void>
 ```
 
 ## Exemplo de uso
@@ -45,7 +41,7 @@ Disparo de ligação ao clicar no botão:
 import { PhoneCall } from 'bonde-action-components'
 import { useState } from 'react'
 
-export function MyComponent ({ children, script, targets, theme, userPhoneNumber }) {
+export function MyComponent ({ children, guideline, linkColor, mainColor, targets, userPhone }) {
   const [isCalling, setIsCalling] = useState(false)
   return (
     <>
@@ -54,9 +50,11 @@ export function MyComponent ({ children, script, targets, theme, userPhoneNumber
       </button>
       {isCalling && (
         <PhoneCall
+          guideline={guideline}
+          linkColor=""
+          mainColor="#424242"
           targets={targets}
-          userPhoneNumber={userPhoneNumber}
-          theme={theme}
+          userPhone={userPhone}
           onFinish={() => setIsCalling(false)}
         >
           {children}

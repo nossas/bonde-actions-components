@@ -1,10 +1,8 @@
-import type { FunctionComponent } from 'react'
-import type { BondeTheme } from '../shared/theme'
+import type { FunctionComponent, ReactNode } from 'react'
 import type { PhoneCallAction } from './api'
 
 import { ModalFooter } from '@chakra-ui/react'
-import { Theme } from 'bonde-components'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { bondePhoneCall } from './api'
 import { BusyCall } from './components/BusyCall'
 import { CanceledCall } from './components/CanceledCall'
@@ -41,22 +39,25 @@ export interface PhoneTarget {
 }
 
 export interface PhoneCallModalProps {
-  postActions?: React.ReactNode
-  script: string
+  brandColor: string
+  guideline: string
+  linkColor: string
+  postActions?: ReactNode
   target: PhoneTarget
-  theme: BondeTheme
-  userPhoneNumber: string
+  userPhone: string
   onDismiss: () => void
   onShare: () => void
 }
 
 export interface PhoneCallProps {
   action?: PhoneCallAction
-  children?: React.ReactNode
-  script: string
+  children?: ReactNode
+  guideline: string
+  linkColor?: string
+  mainColor?: string
+  phone: string
   targets: PhoneTarget[]
-  theme: BondeTheme
-  userPhoneNumber: string
+  widgetId?: number
   onFail?: (state: PhoneCallState) => void
   onFinish?: (state: PhoneCallState) => void
   onSuccess?: () => void
@@ -91,10 +92,11 @@ function chooseComponent(state: TwilioState, sharing: boolean): FunctionComponen
 export function PhoneCall({
   action: phoneCall = bondePhoneCall,
   children = undefined,
-  script,
+  guideline,
+  linkColor = '',
+  mainColor: brandColor = '',
+  phone: userPhone,
   targets,
-  theme = Theme,
-  userPhoneNumber,
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
@@ -149,11 +151,11 @@ export function PhoneCall({
 
   useEffect(() => {
     async function makePhoneCall(): Promise<void> {
-      await phoneCall(setState, userPhoneNumber, target.phoneNumber)
+      await phoneCall(setState, userPhone, target.phoneNumber)
     }
 
     makePhoneCall()
-  }, [phoneCall, setState, target, userPhoneNumber])
+  }, [phoneCall, setState, target, userPhone])
 
   if (state === 'idle') {
     return null
@@ -169,21 +171,21 @@ export function PhoneCall({
     <Modal
       canDismiss={canDismiss}
       className={`bonde-phone-call bonde-phone-call--${state}`}
-      theme={theme}
       onDismiss={dismissCall}
     >
       <ModalChildren
+        brandColor={brandColor}
+        guideline={guideline}
+        linkColor={linkColor}
         postActions={children}
-        script={script}
         target={target}
-        theme={theme}
-        userPhoneNumber={userPhoneNumber}
+        userPhone={userPhone}
         onDismiss={dismissCall}
         onShare={shareCampaign}
       />
       <ModalFooter>
         {canRetry && (
-          <RetryButton theme={theme} onRetry={retryCall} />
+          <RetryButton backgroundColor={brandColor} onRetry={retryCall} />
         )}
       </ModalFooter>
     </Modal>

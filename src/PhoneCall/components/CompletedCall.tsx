@@ -4,10 +4,10 @@ import { ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/re
 import { BsCheckLg } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function CompletedCall({ postActions, theme }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function CompletedCall({ brandColor, postActions }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsCheckLg} title="Ligação realizada com sucesso!" theme={theme} />
+      <ModalHeader icon={BsCheckLg} iconColor={brandColor} title="Ligação realizada com sucesso!" />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>

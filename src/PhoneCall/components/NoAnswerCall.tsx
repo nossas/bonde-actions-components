@@ -4,10 +4,10 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function NoAnswerCall({ target, theme, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneXFill} title="A pessoa responsável não atendeu" theme={theme} />
+      <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A pessoa responsável não atendeu" />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>

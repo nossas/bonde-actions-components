@@ -2,7 +2,6 @@ import type { PhoneCallAction } from '../api'
 
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Theme } from 'bonde-components'
 import { useState } from 'react'
 import { describe, expect, it } from 'vitest'
 import { PhoneCall } from '..'
@@ -31,8 +30,8 @@ describe('phone call', () => {
           {started && (
             <PhoneCall
               action={mockPhoneCall}
-              script=""
-              userPhoneNumber="+55 11 00000-0000"
+              guideline=""
+              phone="+55 11 00000-0000"
               targets={[
                 {
                   label: 'Dep. Fulano',
@@ -43,7 +42,6 @@ describe('phone call', () => {
                   phoneNumber: '+55 33 00000-0000',
                 },
               ]}
-              theme={Theme}
             />
           )}
         </>

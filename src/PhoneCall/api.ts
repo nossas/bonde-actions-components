@@ -3,9 +3,9 @@ import type { SetState } from '../shared/react'
 
 import { sleep } from '../shared/tests'
 
-export type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhoneNumber: string, targetPhoneNumber: string) => Promise<void>
+export type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhone: string, targetPhone: string) => Promise<void>
 
-export async function bondePhoneCall(setState: SetState<PhoneCallState>, _userPhoneNumber: string, _targetPhoneNumber: string): Promise<void> {
+export async function bondePhoneCall(setState: SetState<PhoneCallState>, _userPhone: string, _targetPhone: string): Promise<void> {
   // @TODO
   await sleep(1000)
   setState('ringing')

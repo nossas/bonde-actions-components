@@ -6,7 +6,6 @@ import type { PhoneCallAction } from '../api'
 
 import { Button, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
-import { Theme } from 'bonde-components'
 import { useState } from 'react'
 import { PhoneCall } from '..'
 import { sleep } from '../../shared/tests'
@@ -52,19 +51,24 @@ const meta: Meta<typeof PhoneCall> = {
         type: 'JSX.Element',
       },
     },
-    script: {
+    guideline: {
       description: 'Roteiro da ligação',
+      type: 'string',
+    },
+    linkColor: {
+      description: 'Cor dos links do modal',
+      type: 'string',
+    },
+    mainColor: {
+      description: 'Cor primária da campanha',
+      type: 'string',
+    },
+    phone: {
+      description: 'Número de telefone do usuário',
       type: 'string',
     },
     targets: {
       description: 'Lista de alvos',
-    },
-    theme: {
-      description: 'Tema da campanha',
-    },
-    userPhoneNumber: {
-      description: 'Número de telefone do usuário',
-      type: 'string',
     },
     onFail: {
       description: 'Evento disparado quando a ligação falhou (número de tentativas excedido, usuário desistiu, etc.)',
@@ -109,9 +113,9 @@ const failurePhoneCall: PhoneCallAction = async (setState) => {
 export const Success: Story = {
   args: {
     action: successPhoneCall,
-    children: <ShareButtons theme={Theme} />,
-    script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
-    userPhoneNumber: '+55 11 00000-0000',
+    children: <ShareButtons />,
+    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    phone: '+55 11 00000-0000',
     targets: [
       {
         label: 'Dep. Fulano',
@@ -122,7 +126,6 @@ export const Success: Story = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
-    theme: Theme,
     onFail: action('onFail'),
     onFinish: action('onFinish'),
     onSuccess: action('onSuccess'),
@@ -132,9 +135,9 @@ export const Success: Story = {
 export const Failure: Story = {
   args: {
     action: failurePhoneCall,
-    children: <ShareButtons theme={Theme} />,
-    script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
-    userPhoneNumber: '+55 11 00000-0000',
+    children: <ShareButtons />,
+    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    phone: '+55 11 00000-0000',
     targets: [
       {
         label: 'Dep. Fulano',
@@ -145,7 +148,6 @@ export const Failure: Story = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
-    theme: Theme,
     onFail: action('onFail'),
     onFinish: action('onFinish'),
     onSuccess: action('onSuccess'),

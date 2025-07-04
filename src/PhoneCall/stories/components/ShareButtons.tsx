@@ -1,13 +1,11 @@
-import type { BondeTheme } from '../../../shared/theme'
-
 import { Button, VStack } from '@chakra-ui/react'
 import { BsLink45Deg } from 'react-icons/bs'
 
 export interface ShareButtonsProps {
-  theme: BondeTheme
+  brandColor?: string
 }
 
-export function ShareButtons({ theme }: Readonly<ShareButtonsProps>): JSX.Element {
+export function ShareButtons({ brandColor = '#424242' }: Readonly<ShareButtonsProps>): JSX.Element {
   return (
     <VStack>
       <Button colorScheme="facebook" type="button" variant="solid">
@@ -20,13 +18,11 @@ export function ShareButtons({ theme }: Readonly<ShareButtonsProps>): JSX.Elemen
         Compartilhar no WhatsApp
       </Button>
       <Button
-        backgroundColor={theme.default.background.main}
-        color={theme.default.color.main}
+        backgroundColor={brandColor}
+        color="white"
         leftIcon={<BsLink45Deg />}
         type="button"
         variant="solid"
-        _hover={{ bg: theme.default.background.hover }}
-        _focus={{ bg: theme.default.background.focus }}
       >
         Copiar link
       </Button>

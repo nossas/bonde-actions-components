@@ -4,10 +4,10 @@ import { ModalBody, StackDivider, VStack } from '@chakra-ui/react'
 import { BsTelephoneFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function InitiatedCall({ theme }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneFill} title="Estamos te ligando agora!" theme={theme} />
+      <ModalHeader icon={BsTelephoneFill} iconColor={brandColor} title="Estamos te ligando agora!" />
       <ModalBody>
         <VStack divider={<StackDivider />}>
           <VStack>

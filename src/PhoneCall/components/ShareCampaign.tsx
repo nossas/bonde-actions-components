@@ -4,10 +4,10 @@ import { ModalBody, ModalCloseButton, VStack } from '@chakra-ui/react'
 import { BsMegaphoneFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function ShareCampaign({ postActions, theme }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function ShareCampaign({ brandColor, postActions }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsMegaphoneFill} title="Ajude a fortalecer a campanha" theme={theme} />
+      <ModalHeader icon={BsMegaphoneFill} iconColor={brandColor} title="Ajude a fortalecer a campanha" />
       <ModalCloseButton />
       <ModalBody>
         <VStack>

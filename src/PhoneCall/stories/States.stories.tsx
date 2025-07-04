@@ -4,7 +4,6 @@ import type { PhoneCallAction } from '../api'
 
 import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
-import { Theme } from 'bonde-components'
 import { PhoneCall } from '..'
 import { ShareButtons } from './components/ShareButtons'
 
@@ -17,9 +16,9 @@ const meta: Meta<typeof PhoneCall> = {
     </ChakraProvider>
   ),
   args: {
-    children: <ShareButtons theme={Theme} />,
-    script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
-    userPhoneNumber: '+55 11 00000-0000',
+    children: <ShareButtons />,
+    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    phone: '+55 11 00000-0000',
     targets: [
       {
         label: 'Dep. Fulano',
@@ -30,7 +29,6 @@ const meta: Meta<typeof PhoneCall> = {
         phoneNumber: '+55 33 00000-0000',
       },
     ],
-    theme: Theme,
     onFail: action('onFail'),
     onFinish: action('onFinish'),
     onSuccess: action('onSuccess'),

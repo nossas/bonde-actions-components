@@ -4,10 +4,10 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function BusyCall({ target, theme, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function BusyCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
-      <ModalHeader icon={BsTelephoneXFill} title="A linha estava ocupada" theme={theme} />
+      <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A linha estava ocupada" />
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>
