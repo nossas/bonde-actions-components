@@ -2,10 +2,6 @@
   width: 100%;
 }
 
-.bonde-phone-call__has-link .chakra-button {
-  color: #1D3D90;
-}
-
 .bonde-phone-call--in-progress blockquote {
   border-inline-start: 2px solid var(--chakra-colors-gray-200);
   color: var(--chakra-colors-gray-700);

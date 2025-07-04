@@ -4,7 +4,7 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function BusyCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function BusyCall({ brandColor, linkColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A linha estava ocupada" />
@@ -14,9 +14,9 @@ export function BusyCall({ brandColor, target, onShare }: Readonly<PhoneCallModa
           <p>{`Não conseguimos completar a ligação porque o número de ${target.label} estava ocupado. Aguarde alguns minutos e tente de novo clicão no botão abaixo.`}</p>
           <Flex align="center" gap={2}>
             <BsInfoCircle />
-            <p className="bonde-phone-call__has-link">
+            <p>
               {'Se continuar ocupado, uma boa alternativa é '}
-              <Button type="button" variant="link" onClick={onShare}>
+              <Button color={linkColor} type="button" variant="link" onClick={onShare}>
                 compartilhar a campanha
               </Button>
               .

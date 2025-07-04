@@ -4,7 +4,7 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function NoAnswerCall({ brandColor, linkColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A pessoa responsável não atendeu" />
@@ -18,9 +18,9 @@ export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCall
           </p>
           <Flex align="center" gap={2}>
             <BsInfoCircle />
-            <p className="bonde-phone-call__has-link">
+            <p>
               {'Se ninguém atender, uma boa alternativa é '}
-              <Button type="button" variant="link" onClick={onShare}>
+              <Button color={linkColor} type="button" variant="link" onClick={onShare}>
                 compartilhar a campanha
               </Button>
               .
