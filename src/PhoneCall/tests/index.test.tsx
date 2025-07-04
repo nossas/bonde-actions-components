@@ -1,33 +1,25 @@
-import type { PhoneCallState } from '..'
-import type { SetState } from '../../shared/react'
+import type { PhoneCallAction } from '../api'
 
 import { render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Theme } from 'bonde-components'
 import { useState } from 'react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { PhoneCall } from '..'
 import { sleep } from '../../shared/tests'
 
 import '@testing-library/jest-dom'
 
 describe('phone call', () => {
-  afterEach(() => {
-    vi.resetAllMocks()
-  })
-
   it('renders', async () => {
-    vi.mock('../api.ts', () => ({
-      makePhoneCall: async (setState: SetState<PhoneCallState>) => {
-        await sleep(50)
-        setState('ringing')
-        await sleep(50)
-        setState('in-progress')
-        await sleep(50)
-        setState('completed')
-        return true
-      },
-    }))
+    const mockPhoneCall: PhoneCallAction = async (setState) => {
+      await sleep(50)
+      setState('ringing')
+      await sleep(50)
+      setState('in-progress')
+      await sleep(50)
+      setState('completed')
+    }
 
     const Component = () => {
       const [started, setStarted] = useState(false)
@@ -38,6 +30,7 @@ describe('phone call', () => {
           </button>
           {started && (
             <PhoneCall
+              action={mockPhoneCall}
               script=""
               userPhoneNumber="+55 11 00000-0000"
               targets={[

@@ -3,19 +3,14 @@ import type { SetState } from '../shared/react'
 
 import { sleep } from '../shared/tests'
 
-export async function makePhoneCall(setState: SetState<PhoneCallState>, _userPhoneNumber: string, _targetPhoneNumber: string): Promise<boolean> {
+export type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhoneNumber: string, targetPhoneNumber: string) => Promise<void>
+
+export async function bondePhoneCall(setState: SetState<PhoneCallState>, _userPhoneNumber: string, _targetPhoneNumber: string): Promise<void> {
   // @TODO
-  await sleep(3000)
+  await sleep(1000)
   setState('ringing')
   await sleep(3000)
-  if (Math.random() > 0.5) {
-    setState('failed')
-    return false
-  }
-  else {
-    setState('in-progress')
-    await sleep(3000)
-    setState('completed')
-    return true
-  }
+  setState('in-progress')
+  await sleep(3000)
+  setState('completed')
 }

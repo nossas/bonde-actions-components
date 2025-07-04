@@ -2,12 +2,14 @@ import type { HandlerFunction } from '@storybook/addon-actions'
 import type { Decorator, Meta, StoryObj } from '@storybook/react'
 import type { PhoneCallProps } from '..'
 import type { SetState } from '../../shared/react'
+import type { PhoneCallAction } from '../api'
 
 import { Button, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { Theme } from 'bonde-components'
 import { useState } from 'react'
 import { PhoneCall } from '..'
+import { sleep } from '../../shared/tests'
 import { ShareButtons } from './components/ShareButtons'
 
 function wrapAction(action: HandlerFunction, setState: SetState<boolean>) {
@@ -39,6 +41,10 @@ const meta: Meta<typeof PhoneCall> = {
   component: PhoneCall,
   decorators: Decorators,
   argTypes: {
+    action: {
+      description: 'Callback de ligação telefônica (por padrão, usa API do Bonde)',
+      type: 'function',
+    },
     children: {
       description: 'Conteúdo exibido ao compartilhar a campanha',
       defaultValue: undefined,
@@ -84,8 +90,48 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Demo: Story = {
+const successPhoneCall: PhoneCallAction = async (setState) => {
+  await sleep(1000)
+  setState('ringing')
+  await sleep(3000)
+  setState('in-progress')
+  await sleep(3000)
+  setState('completed')
+}
+
+const failurePhoneCall: PhoneCallAction = async (setState) => {
+  await sleep(1000)
+  setState('ringing')
+  await sleep(3000)
+  setState('failed')
+}
+
+export const Success: Story = {
   args: {
+    action: successPhoneCall,
+    children: <ShareButtons theme={Theme} />,
+    script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    userPhoneNumber: '+55 11 00000-0000',
+    targets: [
+      {
+        label: 'Dep. Fulano',
+        phoneNumber: '+55 22 00000-0000',
+      },
+      {
+        label: 'Sen. Sicrana',
+        phoneNumber: '+55 33 00000-0000',
+      },
+    ],
+    theme: Theme,
+    onFail: action('onFail'),
+    onFinish: action('onFinish'),
+    onSuccess: action('onSuccess'),
+  },
+}
+
+export const Failure: Story = {
+  args: {
+    action: failurePhoneCall,
     children: <ShareButtons theme={Theme} />,
     script: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
     userPhoneNumber: '+55 11 00000-0000',

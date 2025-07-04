@@ -1,8 +1,9 @@
 import type { BondeTheme } from '../shared/theme'
+import type { PhoneCallAction } from './api'
 
 import { Theme } from 'bonde-components'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { makePhoneCall } from './api'
+import { bondePhoneCall } from './api'
 import { Modal } from './components/Modal'
 import { stateSwitcher } from './switcher'
 
@@ -41,6 +42,7 @@ export interface PhoneCallModalProps {
 }
 
 export interface PhoneCallProps {
+  action?: PhoneCallAction
   children?: JSX.Element | JSX.Element[]
   script: string
   targets: PhoneTarget[]
@@ -52,6 +54,7 @@ export interface PhoneCallProps {
 }
 
 export function PhoneCall({
+  action: phoneCall = bondePhoneCall,
   children = undefined,
   script,
   targets,
@@ -112,12 +115,12 @@ export function PhoneCall({
   }, [setRetries, setState])
 
   useEffect(() => {
-    async function makeCall(): Promise<void> {
-      await makePhoneCall(setState, userPhoneNumber, target.phoneNumber)
+    async function makePhoneCall(): Promise<void> {
+      await phoneCall(setState, userPhoneNumber, target.phoneNumber)
     }
 
-    makeCall()
-  }, [setState, target, userPhoneNumber])
+    makePhoneCall()
+  }, [phoneCall, setState, target, userPhoneNumber])
 
   const modalDescriber = stateSwitcher(state, sharing)
 
