@@ -1,11 +1,22 @@
+import type { FunctionComponent } from 'react'
 import type { BondeTheme } from '../shared/theme'
 import type { PhoneCallAction } from './api'
 
+import { ModalFooter } from '@chakra-ui/react'
 import { Theme } from 'bonde-components'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { bondePhoneCall } from './api'
+import { BusyCall } from './components/BusyCall'
+import { CanceledCall } from './components/CanceledCall'
+import { CompletedCall } from './components/CompletedCall'
+import { FailedCall } from './components/FailedCall'
+import { InitiatedCall } from './components/InitiatedCall'
+import { InProgressCall } from './components/InProgressCall'
 import { Modal } from './components/Modal'
-import { stateSwitcher } from './switcher'
+import { NoAnswerCall } from './components/NoAnswerCall'
+import { RetryButton } from './components/RetryButton'
+import { RingingCall } from './components/RingingCall'
+import { ShareCampaign } from './components/ShareCampaign'
 
 import './style.css'
 
@@ -30,20 +41,18 @@ export interface PhoneTarget {
 }
 
 export interface PhoneCallModalProps {
-  canRetry: boolean
-  postActions?: JSX.Element | JSX.Element[]
+  postActions?: React.ReactNode
   script: string
   target: PhoneTarget
   theme: BondeTheme
   userPhoneNumber: string
   onDismiss: () => void
-  onRetry: () => void
   onShare: () => void
 }
 
 export interface PhoneCallProps {
   action?: PhoneCallAction
-  children?: JSX.Element | JSX.Element[]
+  children?: React.ReactNode
   script: string
   targets: PhoneTarget[]
   theme: BondeTheme
@@ -51,6 +60,32 @@ export interface PhoneCallProps {
   onFail?: (state: PhoneCallState) => void
   onFinish?: (state: PhoneCallState) => void
   onSuccess?: () => void
+}
+
+function chooseComponent(state: TwilioState, sharing: boolean): FunctionComponent<PhoneCallModalProps> {
+  if (sharing) {
+    return ShareCampaign
+  }
+
+  switch (state) {
+    case 'busy':
+      return BusyCall
+    case 'canceled':
+      return CanceledCall
+    case 'completed':
+      return CompletedCall
+    case 'failed':
+      return FailedCall
+    case 'initiated':
+    case 'queued':
+      return InitiatedCall
+    case 'in-progress':
+      return InProgressCall
+    case 'no-answer':
+      return NoAnswerCall
+    case 'ringing':
+      return RingingCall
+  }
 }
 
 export function PhoneCall({
@@ -100,11 +135,9 @@ export function PhoneCall({
     return shuffled
   }, [targets])
 
-  const target = useMemo(() => {
-    return shuffledTargets[retries % shuffledTargets.length]
-  }, [shuffledTargets, retries])
+  const target = shuffledTargets[retries % shuffledTargets.length]
 
-  const canRetry = useMemo(() => {
+  const retriesAvailable = useMemo(() => {
     const maxRetries = Math.ceil(targets.length * 1.5)
     return retries < maxRetries
   }, [retries, targets])
@@ -122,30 +155,37 @@ export function PhoneCall({
     makePhoneCall()
   }, [phoneCall, setState, target, userPhoneNumber])
 
-  const modalDescriber = stateSwitcher(state, sharing)
-
-  if (modalDescriber) {
-    const modalProps: PhoneCallModalProps = {
-      canRetry,
-      postActions: children,
-      script,
-      target,
-      theme,
-      userPhoneNumber,
-      onDismiss: dismissCall,
-      onRetry: retryCall,
-      onShare: shareCampaign,
-    }
-
-    return (
-      <Modal
-        theme={theme}
-        onDismiss={dismissCall}
-        {...modalDescriber(modalProps)}
-      />
-    )
-  }
-  else {
+  if (state === 'idle') {
     return null
   }
+
+  const ModalChildren = chooseComponent(state, sharing)
+
+  const isErrorState = ['busy', 'canceled', 'failed', 'no-answer'].includes(state)
+  const canDismiss = sharing || isErrorState || state === 'completed'
+  const canRetry = isErrorState && retriesAvailable && !sharing
+
+  return (
+    <Modal
+      canDismiss={canDismiss}
+      className={`bonde-phone-call bonde-phone-call--${state}`}
+      theme={theme}
+      onDismiss={dismissCall}
+    >
+      <ModalChildren
+        postActions={children}
+        script={script}
+        target={target}
+        theme={theme}
+        userPhoneNumber={userPhoneNumber}
+        onDismiss={dismissCall}
+        onShare={shareCampaign}
+      />
+      <ModalFooter>
+      {canRetry && (
+        <RetryButton theme={theme} onRetry={retryCall} />
+      )}
+      </ModalFooter>
+    </Modal>
+  )
 }
