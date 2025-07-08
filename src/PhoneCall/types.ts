@@ -28,7 +28,7 @@ export interface PhoneActionPayload extends WidgetActionPayload {
   input: {
     custom_fields: {
       target: PhoneTarget
-      state?: TwilioState
+      status: TwilioState
     }
   }
 }
