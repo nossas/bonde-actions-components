@@ -1,5 +1,6 @@
 import type { FunctionComponent, ReactNode } from 'react'
 import type { PhoneCallAction } from './api'
+import type { PhoneTarget, TwilioState } from './types'
 
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -20,23 +21,7 @@ import './style.css'
 
 function NOOP(): void { }
 
-export type TwilioState
-  = | 'busy'
-    | 'canceled'
-    | 'completed'
-    | 'failed'
-    | 'in-progress'
-    | 'initiated'
-    | 'no-answer'
-    | 'queued'
-    | 'ringing'
-
 export type PhoneCallState = TwilioState | 'idle'
-
-export interface PhoneTarget {
-  label: string
-  phoneNumber: string
-}
 
 export interface PhoneCallModalProps {
   brandColor: string
