@@ -11,7 +11,7 @@ export function BusyCall({ brandColor, linkColor, target, onShare }: Readonly<Ph
       <ModalCloseButton />
       <ModalBody>
         <VStack divider={<StackDivider />}>
-          <p>{`Não conseguimos completar a ligação porque o número de ${target.label} estava ocupado. Aguarde alguns minutos e tente de novo clicão no botão abaixo.`}</p>
+          <p>{`Não conseguimos completar a ligação porque o número de ${target.name} estava ocupado. Aguarde alguns minutos e tente de novo clicão no botão abaixo.`}</p>
           <Flex align="center" gap={2}>
             <BsInfoCircle />
             <p>

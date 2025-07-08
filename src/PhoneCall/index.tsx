@@ -136,7 +136,7 @@ export function PhoneCall({
 
   useEffect(() => {
     async function makePhoneCall(): Promise<void> {
-      await phoneCall(setState, userPhone, target.phoneNumber)
+      await phoneCall(setState, userPhone, target.phone)
     }
 
     makePhoneCall()

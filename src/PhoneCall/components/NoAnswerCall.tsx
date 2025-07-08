@@ -13,7 +13,7 @@ export function NoAnswerCall({ brandColor, linkColor, target, onShare }: Readonl
         <VStack divider={<StackDivider />}>
           <p>
             A chamada foi feita, mas não conseguimos contato com
-            {target.label}
+            {target.name}
             . Aguarde alguns minutos e tente de novo clicando no botão abaixo.
           </p>
           <Flex align="center" gap={2}>

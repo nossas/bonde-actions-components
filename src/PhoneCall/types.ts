@@ -1,8 +1,8 @@
 import type { WidgetActionPayload } from '../shared/types'
 
 export interface PhoneTarget {
-  label: string
-  phoneNumber: string
+  name: string
+  phone: string
 }
 
 export type TwilioState

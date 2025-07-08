@@ -118,12 +118,12 @@ export const Success: Story = {
     phone: '+55 11 00000-0000',
     targets: [
       {
-        label: 'Dep. Fulano',
-        phoneNumber: '+55 22 00000-0000',
+        name: 'Dep. Fulano',
+        phone: '+55 22 00000-0000',
       },
       {
-        label: 'Sen. Sicrana',
-        phoneNumber: '+55 33 00000-0000',
+        name: 'Sen. Sicrana',
+        phone: '+55 33 00000-0000',
       },
     ],
     onFail: action('onFail'),
@@ -140,12 +140,12 @@ export const Failure: Story = {
     phone: '+55 11 00000-0000',
     targets: [
       {
-        label: 'Dep. Fulano',
-        phoneNumber: '+55 22 00000-0000',
+        name: 'Dep. Fulano',
+        phone: '+55 22 00000-0000',
       },
       {
-        label: 'Sen. Sicrana',
-        phoneNumber: '+55 33 00000-0000',
+        name: 'Sen. Sicrana',
+        phone: '+55 33 00000-0000',
       },
     ],
     onFail: action('onFail'),

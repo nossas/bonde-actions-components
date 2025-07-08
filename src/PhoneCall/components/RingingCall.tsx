@@ -10,7 +10,7 @@ export function RingingCall({ brandColor, target }: Readonly<PhoneCallModalProps
       <ModalHeader icon={BsArrowRight} iconColor={brandColor} title="Chamando a pessoa responsável" />
       <ModalBody>
         <VStack>
-          <p>{`Você atendeu a nossa ligação! Agora estamos tentando falar com ${target.label}.`}</p>
+          <p>{`Você atendeu a nossa ligação! Agora estamos tentando falar com ${target.name}.`}</p>
           <p><strong>Aguarde na linha. Vamos conectar assim que o alvo atender.</strong></p>
         </VStack>
       </ModalBody>
