@@ -32,7 +32,7 @@ export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhone
         id={name}
         type="tel"
         autoComplete="tel-national"
-        pattern="[0-9]{2} [0-9]{4-5}-[0-9]{4}"
+        pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
         aria-invalid={ariaInvalid}
         {...fields}
       />
