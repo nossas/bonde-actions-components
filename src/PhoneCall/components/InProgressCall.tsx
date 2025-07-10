@@ -1,4 +1,4 @@
-import type { PhoneCallModalProps } from '..'
+import type { PhoneCallModalProps } from '../PhoneCall'
 
 import { ModalBody, VStack } from '@chakra-ui/react'
 import { BsPeopleFill } from 'react-icons/bs'

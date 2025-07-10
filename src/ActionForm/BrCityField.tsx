@@ -54,7 +54,7 @@ export function BrCityField({ errors, label, name, register, setValue, watch }: 
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Select id={name} aria-invalid={ariaInvalid} {...fields}>
         <option key="" value=""></option>
-        {cities?.map((city) => (
+        {cities?.map(city => (
           <option key={city.id} value={city.nome}>{city.nome}</option>
         ))}
       </Select>

@@ -28,7 +28,7 @@ export function BrStateField({ errors, label, name, register }: Readonly<BrState
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Select id={name} aria-invalid={ariaInvalid} {...fields}>
         <option key="" value=""></option>
-        {states.map((uf) => (
+        {states.map(uf => (
           <option key={uf} value={uf}>{uf}</option>
         ))}
       </Select>

@@ -1,5 +1,5 @@
-import type { PhoneCallState } from '.'
 import type { SetState } from '../shared/react'
+import type { PhoneCallState } from './PhoneCall'
 
 import { sleep } from '../shared/tests'
 

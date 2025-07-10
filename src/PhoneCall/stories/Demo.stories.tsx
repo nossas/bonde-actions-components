@@ -1,14 +1,14 @@
 import type { HandlerFunction } from '@storybook/addon-actions'
 import type { Decorator, Meta, StoryObj } from '@storybook/react'
-import type { PhoneCallProps } from '..'
 import type { SetState } from '../../shared/react'
 import type { PhoneCallAction } from '../api'
+import type { PhoneCallProps } from '../PhoneCall'
 
 import { Button, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { useState } from 'react'
-import { PhoneCall } from '..'
 import { sleep } from '../../shared/tests'
+import { PhoneCall } from '../PhoneCall'
 import { ShareButtons } from './components/ShareButtons'
 
 function wrapAction(action: HandlerFunction, setState: SetState<boolean>) {

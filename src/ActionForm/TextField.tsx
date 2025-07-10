@@ -18,10 +18,12 @@ export function TextField({ autocomplete, errors, label, name, register, type = 
       value: true,
       message: 'Campo obrigatório',
     },
-    pattern: (type === 'email') ? {
-      value: /[^@]@[^@]/,
-      message: 'E-mail inválido',
-    } : undefined,
+    pattern: (type === 'email')
+      ? {
+          value: /[^@]@[^@]/,
+          message: 'E-mail inválido',
+        }
+      : undefined,
   })
   const ariaInvalid = errors ? 'true' : 'false'
 
