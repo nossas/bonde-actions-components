@@ -2,26 +2,26 @@ import type { FieldError, UseFormRegister } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
 import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
+import { useHookFormMask } from 'use-mask-input'
 
-export interface TextFieldProps {
-  autocomplete?: AutoFill
+export interface BrPhoneFieldProps {
   errors: FieldError | undefined
   label: string
   name: keyof ActivistInput
   register: UseFormRegister<ActivistInput>
-  type?: HTMLInputElement['type']
 }
 
-export function TextField({ autocomplete, errors, label, name, register, type = 'text' }: Readonly<TextFieldProps>): JSX.Element {
-  const fields = register(name, {
+export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhoneFieldProps>): JSX.Element {
+  const registerWithMask = useHookFormMask(register)
+  const fields = registerWithMask(name, ['99 9999-9999', '99 99999-9999'], {
     required: {
       value: true,
       message: 'Campo obrigatório',
     },
-    pattern: (type === 'email') ? {
-      value: /[^@]@[^@]/,
-      message: 'E-mail inválido',
-    } : undefined,
+    pattern: {
+      value: /\d{2} \d{4,5}-\d{4}/,
+      message: 'Telefone inválido',
+    },
   })
   const ariaInvalid = errors ? 'true' : 'false'
 
@@ -30,8 +30,9 @@ export function TextField({ autocomplete, errors, label, name, register, type = 
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Input
         id={name}
-        type={type}
-        autoComplete={autocomplete}
+        type="tel"
+        autoComplete="tel-national"
+        pattern="[0-9]{2} [0-9]{4-5}-[0-9]{4}"
         aria-invalid={ariaInvalid}
         {...fields}
       />

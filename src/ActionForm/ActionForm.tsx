@@ -1,14 +1,22 @@
-import type { SubmitHandler } from 'react-hook-form'
+import type { SubmitHandler, UseFormRegister } from 'react-hook-form'
+import type { ReactNode } from 'react'
 import type { ActivistInput } from '../shared/types'
 
 import { Button, VStack } from '@chakra-ui/react'
 import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
-import { PhoneField } from './PhoneField'
+import { BrCityField } from './BrCityField'
+import { BrPhoneField } from './BrPhoneField'
+import { BrStateField } from './BrStateField'
 import { TextField } from './TextField'
+
+export interface ActionFormChildrenProps {
+  register: UseFormRegister<any>
+}
 
 export interface ActionFormProps {
   brandColor: string
+  children: (props: ActionFormChildrenProps) => ReactNode
   fields: Array<keyof ActivistInput>
   submitLabel?: string
   widgetId: number
@@ -34,11 +42,11 @@ function getFieldsMap(fields: Array<keyof ActivistInput>): Record<keyof Activist
   return map
 }
 
-export function ActionForm({ brandColor, fields, submitLabel = 'Enviar', onSubmit }: Readonly<ActionFormProps>): JSX.Element {
+export function ActionForm({ brandColor, children, fields, submitLabel = 'Enviar', onSubmit }: Readonly<ActionFormProps>): JSX.Element {
   const defaultValues = useMemo(() => getDefaultValues(fields), [fields])
   const existingFields = useMemo(() => getFieldsMap(fields), [fields])
 
-  const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm({
+  const { formState: { errors, isSubmitting }, handleSubmit, register, setValue, watch } = useForm({
     defaultValues,
   })
 
@@ -98,15 +106,38 @@ export function ActionForm({ brandColor, fields, submitLabel = 'Enviar', onSubmi
         />
 
         {(existingFields.phone) && (
-          <PhoneField
+          <BrPhoneField
             key="phone"
             name="phone"
             label="Telefone"
-            autocomplete="tel-national"
             errors={errors.phone}
             register={register}
           />
         )}
+
+        {(existingFields.state) && (
+          <BrStateField
+            key="state"
+            name="state"
+            label="Estado"
+            errors={errors.state}
+            register={register}
+          />
+        )}
+
+        {(existingFields.city) && (
+          <BrCityField
+            key="city"
+            name="city"
+            label="Cidade"
+            errors={errors.city}
+            register={register}
+            setValue={setValue}
+            watch={watch}
+          />
+        )}
+
+        {(children) ? children({ register }) : null}
 
         <Button
           type="submit"

@@ -10,7 +10,6 @@ export interface ModalHeaderProps {
 
 export function ModalHeader({ icon, iconColor, title }: Readonly<ModalHeaderProps>): JSX.Element {
   return (
-    /* @ts-expect-errors:2590 Expression produces a union type that is too complex to represent. */
     <ChakraModalHeader>
       <Flex align="center" gap={2}>
         <Icon as={icon} boxSize={6} color={iconColor} />
