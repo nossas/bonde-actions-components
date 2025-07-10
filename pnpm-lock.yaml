@@ -33,16 +33,20 @@ importers:
       happy-dom: ^17.6.3
       react: ^17.0.2
       react-dom: ^17.0.2
+      react-hook-form: ^7.60.0
       react-icons: ~5.4.0
       storybook: ^7.6.20
       styled-components: ^5.3.11
       tsdown: ^0.12.9
       tsx: ^4.20.3
       typescript: ^5.8.3
+      use-mask-input: ^3.4.2
       vite: npm:rolldown-vite@^6.3.21
       vitest: ^3.2.4
     dependencies:
+      react-hook-form: 7.60.0_react@17.0.2
       react-icons: 5.4.0_react@17.0.2
+      use-mask-input: 3.4.2_sfoxds7t5ydpegc3knd667wn6m
     devDependencies:
       '@antfu/eslint-config': 4.16.2_v3sx2txrhlkxr754w3orxmqjmq
       '@chakra-ui/react': 1.8.9_ijmkt6pqagzlbwuzw3tz57i3uy
@@ -10773,7 +10777,6 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
-    dev: true
 
   /react-element-to-jsx-string/15.0.0_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-UDg4lXB6BzlobN60P8fHWVPX3Kyw8ORrTeBtClmIlGdkOOE+GYQSFvmEU5iLLpwp/6v42DINwNcwOhOLfQ//FQ==}
@@ -10807,6 +10810,15 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
     dev: true
+
+  /react-hook-form/7.60.0_react@17.0.2:
+    resolution: {integrity: sha512-SBrYOvMbDB7cV8ZfNpaiLcgjH/a1c7aK0lK+aNigpf4xWLO8q+o4tcvVurv3c4EOyzn/3dCsYt4GKD42VvJ/+A==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /react-icons/5.4.0_react@17.0.2:
     resolution: {integrity: sha512-7eltJxgVt7X64oHh6wSWNwwbKTCtMfK35hcjvJS0yxEAhPM8oUKdS3+kqaW1vicIltw+kR2unHaa12S9pPALoQ==}
@@ -11328,7 +11340,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: true
 
   /scslre/0.3.0:
     resolution: {integrity: sha512-3A6sD0WYP7+QrjbfNA2FN3FsOaGGFoekCVgTyypy53gPxhbkCIjtO6YWgdrfM+n/8sI8JeXZOIxsHjMTNxQ4nQ==}
@@ -12208,6 +12219,17 @@ packages:
       react: 17.0.2
       tslib: 2.8.1
     dev: true
+
+  /use-mask-input/3.4.2_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-d+lYFl/6rsmdya3bZfMoMqZYC5uSKDPtWp/BD+FQ6KRsAKaPfRO1Z/jvagrytKCpvIrpER3i/WKC/4baIzlr+A==}
+    engines: {node: '>=16', npm: '>=7'}
+    peerDependencies:
+      react: '>=16.4 || 17 || 18 || 20'
+      react-dom: '>=16.4 || 17 || 18 || 20'
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
 
   /use-resize-observer/9.1.0_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==}
