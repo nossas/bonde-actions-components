@@ -1,8 +1,8 @@
-import type { SubmitHandler, UseFormRegister } from 'react-hook-form'
 import type { ReactNode } from 'react'
+import type { SubmitHandler, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
-import { Button, VStack } from '@chakra-ui/react'
+import { Button, Grid, GridItem, VStack } from '@chakra-ui/react'
 import { useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { BrCityField } from './BrCityField'
@@ -12,6 +12,8 @@ import { TextField } from './TextField'
 
 export interface ActionFormChildrenProps {
   register: UseFormRegister<any>
+  setValue: UseFormSetValue<any>
+  watch: UseFormWatch<any>
 }
 
 export interface ActionFormProps {
@@ -116,28 +118,34 @@ export function ActionForm({ brandColor, children, fields, submitLabel = 'Enviar
         )}
 
         {(existingFields.state) && (
-          <BrStateField
-            key="state"
-            name="state"
-            label="Estado"
-            errors={errors.state}
-            register={register}
-          />
+          <Grid gap={4} gridTemplateColumns="1fr 2fr" style={{ width: '100%' }}>
+            <GridItem>
+              <BrStateField
+                key="state"
+                name="state"
+                label="Estado"
+                errors={errors.state}
+                register={register}
+              />
+            </GridItem>
+
+            {(existingFields.city) && (
+              <GridItem>
+                <BrCityField
+                  key="city"
+                  name="city"
+                  label="Cidade"
+                  errors={errors.city}
+                  register={register}
+                  setValue={setValue}
+                  watch={watch}
+                />
+              </GridItem>
+            )}
+          </Grid>
         )}
 
-        {(existingFields.city) && (
-          <BrCityField
-            key="city"
-            name="city"
-            label="Cidade"
-            errors={errors.city}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        )}
-
-        {(children) ? children({ register }) : null}
+        {(children) ? children({ register, setValue, watch }) : null}
 
         <Button
           type="submit"
