@@ -1,14 +1,16 @@
 import type { Decorator, Meta, StoryObj } from '@storybook/react'
 
 import type { ActionFormProps } from '../ActionForm'
-import { ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { ActionForm } from '../ActionForm'
 
 const Decorators = function (Story): JSX.Element {
   return (
     <ChakraProvider>
-      <Story />
+      <Box maxWidth="40rem">
+        <Story />
+      </Box>
     </ChakraProvider>
   )
 } satisfies Decorator<ActionFormProps>
