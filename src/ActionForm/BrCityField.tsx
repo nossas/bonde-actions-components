@@ -4,6 +4,7 @@ import type { ActivistInput } from '../shared/types'
 import { FormControl, FormErrorMessage, FormLabel, Select } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import useSWRImmutable from 'swr/immutable'
+import { useId } from '../shared/a11y'
 
 export interface BrCityFieldProps {
   errors: FieldError | undefined
@@ -30,6 +31,7 @@ async function fetchCities(uf: string): Promise<BrCity[]> {
 }
 
 export function BrCityField({ errors, label, name, register, setValue, watch }: Readonly<BrCityFieldProps>): JSX.Element {
+  const id = useId()
   const fields = register(name, {
     validate: (value) => {
       if (!value) {
@@ -51,8 +53,8 @@ export function BrCityField({ errors, label, name, register, setValue, watch }: 
   return (
     /* @ts-expect-errors:2590 Expression produces a union type that is too complex to represent. */
     <FormControl isInvalid={!!errors}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
-      <Select id={name} aria-invalid={ariaInvalid} {...fields}>
+      <FormLabel htmlFor={id}>{label}</FormLabel>
+      <Select id={id} aria-invalid={ariaInvalid} {...fields}>
         <option key="" value=""></option>
         {cities?.map(city => (
           <option key={city.id} value={city.nome}>{city.nome}</option>

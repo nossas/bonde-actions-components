@@ -3,6 +3,7 @@ import type { ActivistInput } from '../shared/types'
 
 import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
 import { useHookFormMask } from 'use-mask-input'
+import { useId } from '../shared/a11y'
 
 export interface BrPhoneFieldProps {
   errors: FieldError | undefined
@@ -12,6 +13,7 @@ export interface BrPhoneFieldProps {
 }
 
 export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhoneFieldProps>): JSX.Element {
+  const id = useId()
   const registerWithMask = useHookFormMask(register)
   const fields = registerWithMask(name, ['99 9999-9999', '99 99999-9999'], {
     required: {
@@ -27,9 +29,9 @@ export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhone
 
   return (
     <FormControl isInvalid={!!errors}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <FormLabel htmlFor={id}>{label}</FormLabel>
       <Input
-        id={name}
+        id={id}
         type="tel"
         autoComplete="tel-national"
         pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
