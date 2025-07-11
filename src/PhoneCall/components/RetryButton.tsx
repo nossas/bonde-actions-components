@@ -16,6 +16,7 @@ export function RetryButton({ backgroundColor, onRetry }: Readonly<RetryButtonPr
       type="button"
       variant="solid"
       onClick={onRetry}
+      _hover={{ bg: backgroundColor }}
     >
       Tentar novamente
     </Button>

@@ -17,10 +17,14 @@ const Decorators = function (Story): JSX.Element {
 } satisfies Decorator<PhonePressureFormProps>
 
 const meta: Meta<typeof PhonePressureForm> = {
-  title: 'Phone Call',
+  title: 'Phone Pressure',
   component: PhonePressureForm,
   decorators: Decorators,
   argTypes: {
+    action: {
+      description: 'Callback de ligação telefônica (por padrão, usa API do Bonde)',
+      type: 'function',
+    },
     guideline: {
       description: 'Roteiro da ligação',
       type: 'string',
@@ -38,6 +42,14 @@ const meta: Meta<typeof PhonePressureForm> = {
     },
     widgetId: {
       description: 'ID do widget do Bonde',
+    },
+    onFail: {
+      description: 'Evento disparado quando a ligação falhou (número de tentativas excedido, usuário desistiu, etc.)',
+      type: 'function',
+    },
+    onSuccess: {
+      description: 'Evento disparado quando a ligação foi finalizada com sucesso',
+      type: 'function',
     },
   },
   parameters: {
@@ -60,7 +72,14 @@ const successPhoneCall: PhoneCallAction = async (setState) => {
   setState('completed')
 }
 
-export const Form: Story = {
+const failurePhoneCall: PhoneCallAction = async (setState) => {
+  await sleep(1000)
+  setState('ringing')
+  await sleep(3000)
+  setState('failed')
+}
+
+export const Success: Story = {
   args: {
     action: successPhoneCall,
     children: <ShareButtons />,
@@ -81,3 +100,26 @@ export const Form: Story = {
     onSuccess: action('onSuccess'),
   },
 }
+
+export const Failure: Story = {
+  args: {
+    action: failurePhoneCall,
+    children: <ShareButtons />,
+    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    maxWidth: '40rem',
+    targets: [
+      {
+        name: 'Dep. Fulano',
+        phone: '+55 22 00000-0000',
+      },
+      {
+        name: 'Sen. Sicrana',
+        phone: '+55 33 00000-0000',
+      },
+    ],
+    widgetId: 0,
+    onFail: action('onFail'),
+    onSuccess: action('onSuccess'),
+  },
+}
+

@@ -1,14 +1,12 @@
 import { ArgTypes, Canvas, Meta } from '@storybook/addon-docs/blocks'
 
-import DemoStories, { Success } from './Demo.stories'
+import FormStories, { Success } from './Form.stories'
 
-<Meta of={DemoStories} />
+<Meta of={FormStories} />
 
-# `<PhoneCall>`
+# `<PhonePressureForm>`
 
-Este componente realiza ligações telefônicas síncronas via [Twilio](https://www.twilio.com/pt-br).
-
-O componente deve ser renderizado condicionalmente (apenas quando a ligação deve ser iniciada).
+Este formulário realiza ligações telefônicas síncronas via [Twilio](https://www.twilio.com/pt-br).
 
 <Canvas of={Success} />
 
@@ -22,8 +20,8 @@ O componente deve ser renderizado condicionalmente (apenas quando a ligação de
 
 ```ts
 interface PhoneTarget {
-  label: string
-  phoneNumber: string
+  name: string
+  number: string
 }
 ```
 
@@ -31,36 +29,4 @@ interface PhoneTarget {
 
 ```ts
 type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhone: string, targetPhone: string) => Promise<void>
-```
-
-## Exemplo de uso
-
-Disparo de ligação ao clicar no botão:
-
-```jsx
-import { PhoneCall } from 'bonde-action-components'
-import { useState } from 'react'
-
-export function MyComponent ({ children, guideline, linkColor, mainColor, targets, userPhone }) {
-  const [isCalling, setIsCalling] = useState(false)
-  return (
-    <>
-      <button type="button" onClick={() => setIsCalling(true)}>
-        Ligar
-      </button>
-      {isCalling && (
-        <PhoneCall
-          guideline={guideline}
-          linkColor=""
-          mainColor="#424242"
-          targets={targets}
-          userPhone={userPhone}
-          onFinish={() => setIsCalling(false)}
-        >
-          {children}
-        </PhoneCall>
-      )}
-    </>
-  )
-}
 ```

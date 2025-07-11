@@ -15,8 +15,8 @@ export interface PhonePressureFormProps extends LayoutProps {
   action?: PhoneCallAction
   children?: ReactNode
   guideline: string
-  linkColor: string
-  mainColor: string
+  linkColor?: string
+  mainColor?: string
   targets: PhoneTarget[]
   widgetId: number
   onFail?: (state: PhoneCallState) => void

@@ -8,7 +8,7 @@ import { PhoneCall } from '../PhoneCall'
 import { ShareButtons } from './components/ShareButtons'
 
 const meta: Meta<typeof PhoneCall> = {
-  title: 'Phone Call/States',
+  title: 'Phone Pressure/States',
   component: PhoneCall,
   decorators: Story => (
     <ChakraProvider>
