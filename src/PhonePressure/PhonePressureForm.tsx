@@ -1,5 +1,4 @@
 import type { LayoutProps } from '@chakra-ui/react'
-import type { ReactNode } from 'react'
 import type { ActivistInput } from '../shared/types'
 import type { PhoneCallAction } from './api'
 import type { PhoneCallState } from './PhoneCall'
@@ -13,10 +12,10 @@ import { PhoneCall } from './PhoneCall'
 
 export interface PhonePressureFormProps extends LayoutProps {
   action?: PhoneCallAction
-  children?: ReactNode
   guideline: string
   linkColor?: string
   mainColor?: string
+  postActionHtml?: string
   targets: PhoneTarget[]
   widgetId: number
   onFail?: (state: PhoneCallState) => void
@@ -29,10 +28,10 @@ const FIELDS: Array<keyof ActivistInput> = ['email', 'name', 'phone']
 
 export function PhonePressureForm({
   action = bondePhoneCall,
-  children: postActions,
   guideline,
   linkColor = '#1D3D90',
   mainColor = '#A42828',
+  postActionHtml = '',
   targets,
   widgetId,
   onFail = NOOP,
@@ -67,14 +66,13 @@ export function PhonePressureForm({
           guideline={guideline}
           linkColor={linkColor}
           mainColor={mainColor}
+          postActionHtml={postActionHtml}
           targets={targets}
           widgetId={widgetId}
           onFail={onFail}
           onFinish={endCall}
           onSuccess={onSuccess}
-        >
-          {postActions}
-        </PhoneCall>
+        />
       )}
     </Box>
   )

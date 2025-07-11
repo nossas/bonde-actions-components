@@ -6,7 +6,6 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { sleep } from '../../shared/tests'
 import { PhonePressureForm } from '../PhonePressureForm'
-import { ShareButtons } from './components/ShareButtons'
 
 const Decorators = function (Story): JSX.Element {
   return (
@@ -20,6 +19,23 @@ const meta: Meta<typeof PhonePressureForm> = {
   title: 'Phone Pressure',
   component: PhonePressureForm,
   decorators: Decorators,
+  args: {
+    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    postActionHtml: '<p>A pós-ação vai aqui!</p>',
+    targets: [
+      {
+        name: 'Dep. Fulano',
+        phone: '+55 22 00000-0000',
+      },
+      {
+        name: 'Sen. Sicrana',
+        phone: '+55 33 00000-0000',
+      },
+    ],
+    widgetId: 0,
+    onFail: action('onFail'),
+    onSuccess: action('onSuccess'),
+  },
   argTypes: {
     action: {
       description: 'Callback de ligação telefônica (por padrão, usa API do Bonde)',
@@ -36,6 +52,9 @@ const meta: Meta<typeof PhonePressureForm> = {
     mainColor: {
       description: 'Cor primária da campanha',
       type: 'string',
+    },
+    postActionHtml: {
+      description: 'HTML de compartilhamento da campanha',
     },
     targets: {
       description: 'Lista de alvos',
@@ -54,7 +73,7 @@ const meta: Meta<typeof PhonePressureForm> = {
   },
   parameters: {
     controls: {
-      exclude: ['action', 'children', 'maxWidth', 'onFail', 'onSuccess'],
+      exclude: ['action', 'maxWidth', 'onFail', 'onSuccess'],
     },
   },
 }
@@ -82,43 +101,13 @@ const failurePhoneCall: PhoneCallAction = async (setState) => {
 export const Success: Story = {
   args: {
     action: successPhoneCall,
-    children: <ShareButtons />,
-    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
     maxWidth: '40rem',
-    targets: [
-      {
-        name: 'Dep. Fulano',
-        phone: '+55 22 00000-0000',
-      },
-      {
-        name: 'Sen. Sicrana',
-        phone: '+55 33 00000-0000',
-      },
-    ],
-    widgetId: 0,
-    onFail: action('onFail'),
-    onSuccess: action('onSuccess'),
   },
 }
 
 export const Failure: Story = {
   args: {
     action: failurePhoneCall,
-    children: <ShareButtons />,
-    guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
     maxWidth: '40rem',
-    targets: [
-      {
-        name: 'Dep. Fulano',
-        phone: '+55 22 00000-0000',
-      },
-      {
-        name: 'Sen. Sicrana',
-        phone: '+55 33 00000-0000',
-      },
-    ],
-    widgetId: 0,
-    onFail: action('onFail'),
-    onSuccess: action('onSuccess'),
   },
 }

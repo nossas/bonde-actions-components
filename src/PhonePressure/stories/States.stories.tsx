@@ -5,7 +5,6 @@ import type { PhoneCallState } from '../PhoneCall'
 import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { PhoneCall } from '../PhoneCall'
-import { ShareButtons } from './components/ShareButtons'
 
 const meta: Meta<typeof PhoneCall> = {
   title: 'Phone Pressure/States',
@@ -21,8 +20,8 @@ const meta: Meta<typeof PhoneCall> = {
       email: 'joao.da.silva@email.com.br',
       phone: '22 00000-0000',
     },
-    children: <ShareButtons />,
     guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
+    postActionHtml: '<p>A pós-ação vai aqui!</p>',
     targets: [
       {
         name: 'Dep. Fulano',
@@ -39,7 +38,7 @@ const meta: Meta<typeof PhoneCall> = {
   },
   parameters: {
     controls: {
-      exclude: ['action', 'children', 'onFail', 'onFinish', 'onSuccess'],
+      exclude: ['action', 'onFail', 'onFinish', 'onSuccess'],
     },
   },
 }

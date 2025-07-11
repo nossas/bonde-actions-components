@@ -1,4 +1,4 @@
-import type { FunctionComponent, ReactNode } from 'react'
+import type { FunctionComponent } from 'react'
 import type { PhoneCallAction } from './api'
 import type { PhoneActionPayload, PhonePressureActivist, PhoneTarget, TwilioState } from './types'
 
@@ -28,7 +28,7 @@ export interface PhoneCallModalProps {
   brandColor: string
   guideline: string
   linkColor: string
-  postActions?: ReactNode
+  postActionHtml: string
   target: PhoneTarget
   onDismiss: () => void
   onShare: () => void
@@ -37,10 +37,10 @@ export interface PhoneCallModalProps {
 export interface PhoneCallProps {
   action?: PhoneCallAction
   activist: PhonePressureActivist
-  children?: ReactNode
   guideline: string
   linkColor?: string
   mainColor?: string
+  postActionHtml?: string
   targets: PhoneTarget[]
   widgetId?: number
   onFail?: (state: PhoneCallState) => void
@@ -77,10 +77,10 @@ function chooseComponent(state: TwilioState, sharing: boolean): FunctionComponen
 export function PhoneCall({
   action: phoneCall = bondePhoneCall,
   activist,
-  children = undefined,
   guideline,
   linkColor = '#1D3D90',
   mainColor: brandColor = '#A42828',
+  postActionHtml = '',
   targets,
   widgetId = 0,
   onFail = NOOP,
@@ -177,7 +177,7 @@ export function PhoneCall({
         brandColor={brandColor}
         guideline={guideline}
         linkColor={linkColor}
-        postActions={children}
+        postActionHtml={postActionHtml}
         target={target}
         onDismiss={dismissCall}
         onShare={shareCampaign}
