@@ -18,7 +18,7 @@ export interface ActionFormChildrenProps {
 
 export interface ActionFormProps {
   brandColor: string
-  children: (props: ActionFormChildrenProps) => ReactNode
+  children?: (props: ActionFormChildrenProps) => ReactNode
   fields: Array<keyof ActivistInput>
   submitLabel?: string
   widgetId: number

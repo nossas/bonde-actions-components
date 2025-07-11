@@ -32,3 +32,5 @@ export interface PhoneActionPayload extends WidgetActionPayload {
     }
   }
 }
+
+export type PhonePressureActivist = PhoneActionPayload['activist']

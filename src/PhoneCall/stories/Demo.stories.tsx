@@ -70,6 +70,9 @@ const meta: Meta<typeof PhoneCall> = {
     targets: {
       description: 'Lista de alvos',
     },
+    widgetId: {
+      description: 'ID do widget do Bonde',
+    },
     onFail: {
       description: 'Evento disparado quando a ligação falhou (número de tentativas excedido, usuário desistiu, etc.)',
       type: 'function',
