@@ -4,7 +4,7 @@ import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from 
 import { BsPencilSquare, BsTelephoneXFill } from 'react-icons/bs'
 import { ModalHeader } from './ModalHeader'
 
-export function CanceledCall({ brandColor, linkColor, userPhone, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function CanceledCall({ activist, brandColor, linkColor, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A chamada não foi completada" />
@@ -13,7 +13,7 @@ export function CanceledCall({ brandColor, linkColor, userPhone, onDismiss }: Re
         <VStack divider={<StackDivider />}>
           <p>A ligação foi interrompida — isso pode ter acontecido por instabilidade na rede ou encerramento da chamada. Mas tudo bem, você pode tentar novamente.</p>
           <Flex align="center" gap={4} justify="start">
-            <p>{`Número informado: ${userPhone}`}</p>
+            <p>{`Número informado: +55 ${activist.phone}`}</p>
             <Button color={linkColor} leftIcon={<BsPencilSquare />} type="button" variant="link" onClick={onDismiss}>
               Alterar número
             </Button>

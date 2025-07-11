@@ -28,5 +28,26 @@ interface PhoneTarget {
 `PhoneCallAction` possui o seguinte formato:
 
 ```ts
-type PhoneCallAction = (setState: SetState<PhoneCallState>, userPhone: string, targetPhone: string) => Promise<void>
+type PhoneCallAction = (setState: SetState<PhoneCallState>, payload: PhoneActionPayload) => Promise<void>
+```
+
+`PhoneActionPayload` possui o seguinte formato:
+
+```ts
+interface PhoneActionPayload {
+  activist: {
+    name: string
+    email: string
+    phone: string
+  }
+
+  input: {
+    custom_fields: {
+      target: PhoneTarget
+      status: PhoneCallState
+    }
+  }
+
+  widget_id: number
+}
 ```

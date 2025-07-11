@@ -16,9 +16,13 @@ const meta: Meta<typeof PhoneCall> = {
     </ChakraProvider>
   ),
   args: {
+    activist: {
+      name: 'João da Silva',
+      email: 'joao.da.silva@email.com.br',
+      phone: '22 00000-0000',
+    },
     children: <ShareButtons />,
     guideline: 'Olá, meu nome é [seu nome]. Estou ligando para pedir que [nome do alvo] faça [ação solicitada]. Essa decisão é muito importante porque [insira argumento principal]. Contamos com o apoio de vocês!',
-    phone: '+55 11 00000-0000',
     targets: [
       {
         name: 'Dep. Fulano',

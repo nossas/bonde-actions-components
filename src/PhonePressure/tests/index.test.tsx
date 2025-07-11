@@ -38,13 +38,13 @@ describe('phone pressure', () => {
     )
 
     const nameInput = getByLabelText('Nome')
-    await userEvent.type(nameInput, 'John Doe')
+    await userEvent.type(nameInput, 'João da Silva')
 
     const emailInput = getByLabelText('E-mail')
-    await userEvent.type(emailInput, 'john.doe@example.org')
+    await userEvent.type(emailInput, 'joao.da.silva@email.com.br')
 
     const phoneInput = getByLabelText('Telefone')
-    await userEvent.type(phoneInput, '11 00000-0000')
+    await userEvent.type(phoneInput, '22 00000-0000')
 
     const callButton = getByRole('button', { name: 'Ligar' })
     await userEvent.click(callButton)

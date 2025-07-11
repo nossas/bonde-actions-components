@@ -63,10 +63,10 @@ export function PhonePressureForm({
       {(activist && calling) && (
         <PhoneCall
           action={action}
+          activist={activist}
           guideline={guideline}
           linkColor={linkColor}
           mainColor={mainColor}
-          phone={activist.phone}
           targets={targets}
           widgetId={widgetId}
           onFail={onFail}

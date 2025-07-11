@@ -1,6 +1,6 @@
 import type { FunctionComponent, ReactNode } from 'react'
 import type { PhoneCallAction } from './api'
-import type { PhoneTarget, TwilioState } from './types'
+import type { PhoneActionPayload, PhonePressureActivist, PhoneTarget, TwilioState } from './types'
 
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -24,23 +24,23 @@ function NOOP(): void { }
 export type PhoneCallState = TwilioState | 'idle'
 
 export interface PhoneCallModalProps {
+  activist: PhonePressureActivist
   brandColor: string
   guideline: string
   linkColor: string
   postActions?: ReactNode
   target: PhoneTarget
-  userPhone: string
   onDismiss: () => void
   onShare: () => void
 }
 
 export interface PhoneCallProps {
   action?: PhoneCallAction
+  activist: PhonePressureActivist
   children?: ReactNode
   guideline: string
   linkColor?: string
   mainColor?: string
-  phone: string
   targets: PhoneTarget[]
   widgetId?: number
   onFail?: (state: PhoneCallState) => void
@@ -76,12 +76,13 @@ function chooseComponent(state: TwilioState, sharing: boolean): FunctionComponen
 
 export function PhoneCall({
   action: phoneCall = bondePhoneCall,
+  activist,
   children = undefined,
   guideline,
   linkColor = '#1D3D90',
   mainColor: brandColor = '#A42828',
-  phone: userPhone,
   targets,
+  widgetId = 0,
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
@@ -134,13 +135,26 @@ export function PhoneCall({
     setRetries(retries => retries + 1)
   }, [setRetries, setState])
 
+  const actionPayload: PhoneActionPayload = useMemo(() => {
+    return {
+      activist,
+      input: {
+        custom_fields: {
+          status: 'queued',
+          target,
+        },
+      },
+      widget_id: widgetId,
+    }
+  }, [activist, target, widgetId])
+
   useEffect(() => {
     async function makePhoneCall(): Promise<void> {
-      await phoneCall(setState, userPhone, target.phone)
+      await phoneCall(setState, actionPayload)
     }
 
     makePhoneCall()
-  }, [phoneCall, setState, target, userPhone])
+  }, [actionPayload, phoneCall, setState])
 
   if (state === 'idle') {
     return null
@@ -159,12 +173,12 @@ export function PhoneCall({
       onDismiss={dismissCall}
     >
       <ModalChildren
+        activist={activist}
         brandColor={brandColor}
         guideline={guideline}
         linkColor={linkColor}
         postActions={children}
         target={target}
-        userPhone={userPhone}
         onDismiss={dismissCall}
         onShare={shareCampaign}
       />
