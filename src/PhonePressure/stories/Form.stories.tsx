@@ -122,4 +122,3 @@ export const Failure: Story = {
     onSuccess: action('onSuccess'),
   },
 }
-

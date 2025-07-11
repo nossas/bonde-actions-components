@@ -1,5 +1,5 @@
 export * from './ActionForm'
-export * from './PhoneCall'
+export * from './PhonePressure'
 
 export { useId } from './shared/a11y'
 

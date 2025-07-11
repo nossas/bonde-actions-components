@@ -34,14 +34,14 @@ describe('phone pressure', () => {
           },
         ]}
         widgetId={0}
-      />
+      />,
     )
 
     const nameInput = getByLabelText('Nome')
     await userEvent.type(nameInput, 'John Doe')
 
     const emailInput = getByLabelText('E-mail')
-    await userEvent.type(emailInput,'john.doe@example.org')
+    await userEvent.type(emailInput, 'john.doe@example.org')
 
     const phoneInput = getByLabelText('Telefone')
     await userEvent.type(phoneInput, '11 00000-0000')
