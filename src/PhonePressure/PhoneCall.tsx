@@ -22,8 +22,6 @@ import { isErrorState, isFinalState } from './utils/states'
 
 import './style.css'
 
-type PhoneCallInnerState = PhoneCallState | 'idle'
-
 export interface PhoneCallModalProps {
   activist: PhonePressureActivist
   brandColor: string
@@ -88,7 +86,7 @@ export function PhoneCall({
   onFinish = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
-  const [state, setState] = useState<PhoneCallInnerState>('idle')
+  const [state, setState] = useState<PhoneCallState | null>(null)
   const [sharing, setSharing] = useState(false)
   const [retries, setRetries] = useState(0)
 
@@ -100,16 +98,16 @@ export function PhoneCall({
 
   const shareCampaign = useCallback(() => {
     setSharing(true)
-    onFail(state as PhoneCallState)
+    onFail(state!)
   }, [onFail, setSharing, state])
 
   const dismissCall = useCallback(() => {
     if (state !== 'completed' && !sharing) {
-      onFail(state as PhoneCallState)
+      onFail(state!)
     }
-    onFinish(state as PhoneCallState)
-    setState('idle')
-  }, [onFail, onFinish, setState, state, sharing])
+    onFinish(state!)
+    setState(null)
+  }, [onFail, onFinish, setState, sharing, state])
 
   const shuffledTargets = useMemo(() => {
     if (targets.length <= 1) {
@@ -132,7 +130,7 @@ export function PhoneCall({
   }, [retries, targets])
 
   const retryCall = useCallback(() => {
-    setState('idle')
+    setState(null)
     setRetries(retries => retries + 1)
   }, [setRetries, setState])
 
@@ -157,7 +155,7 @@ export function PhoneCall({
     makePhoneCall()
   }, [actionPayload, phoneCall, setState])
 
-  if (state === 'idle') {
+  if (!state) {
     return null
   }
 

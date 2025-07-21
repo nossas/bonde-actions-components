@@ -34,6 +34,7 @@ const meta: Meta<typeof PhonePressureForm> = {
     ],
     widgetId: 0,
     onFail: action('onFail'),
+    onFinish: action('onFinish'),
     onSuccess: action('onSuccess'),
   },
   argTypes: {
