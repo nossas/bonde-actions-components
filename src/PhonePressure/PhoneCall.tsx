@@ -1,9 +1,11 @@
 import type { FunctionComponent } from 'react'
+import type { SetState } from '../shared/react'
 import type { PhoneCallAction } from './api'
-import type { PhoneActionPayload, PhonePressureActivist, PhoneTarget, TwilioState } from './types'
+import type { PhoneActionPayload, PhoneCallState, PhonePressureActivist, PhoneTarget } from './types'
 
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { NOOP } from '../shared/functions'
 import { bondePhoneCall } from './api'
 import { BusyCall } from './components/BusyCall'
 import { CanceledCall } from './components/CanceledCall'
@@ -16,12 +18,11 @@ import { NoAnswerCall } from './components/NoAnswerCall'
 import { RetryButton } from './components/RetryButton'
 import { RingingCall } from './components/RingingCall'
 import { ShareCampaign } from './components/ShareCampaign'
+import { isErrorState, isFinalState } from './utils/states'
 
 import './style.css'
 
-function NOOP(): void { }
-
-export type PhoneCallState = TwilioState | 'idle'
+type PhoneCallInnerState = PhoneCallState | 'idle'
 
 export interface PhoneCallModalProps {
   activist: PhonePressureActivist
@@ -48,7 +49,7 @@ export interface PhoneCallProps {
   onSuccess?: () => void
 }
 
-function chooseComponent(state: TwilioState, sharing: boolean): FunctionComponent<PhoneCallModalProps> {
+function chooseComponent(state: PhoneCallState, sharing: boolean): FunctionComponent<PhoneCallModalProps> {
   if (sharing) {
     return ShareCampaign
   }
@@ -87,7 +88,7 @@ export function PhoneCall({
   onFinish = NOOP,
   onSuccess = NOOP,
 }: Readonly<PhoneCallProps>): JSX.Element | null {
-  const [state, setState] = useState<PhoneCallState>('idle')
+  const [state, setState] = useState<PhoneCallInnerState>('idle')
   const [sharing, setSharing] = useState(false)
   const [retries, setRetries] = useState(0)
 
@@ -99,14 +100,14 @@ export function PhoneCall({
 
   const shareCampaign = useCallback(() => {
     setSharing(true)
-    onFail(state)
+    onFail(state as PhoneCallState)
   }, [onFail, setSharing, state])
 
   const dismissCall = useCallback(() => {
     if (state !== 'completed' && !sharing) {
-      onFail(state)
+      onFail(state as PhoneCallState)
     }
-    onFinish(state)
+    onFinish(state as PhoneCallState)
     setState('idle')
   }, [onFail, onFinish, setState, state, sharing])
 
@@ -150,7 +151,7 @@ export function PhoneCall({
 
   useEffect(() => {
     async function makePhoneCall(): Promise<void> {
-      await phoneCall(setState, actionPayload)
+      await phoneCall(setState as SetState<PhoneCallState>, actionPayload)
     }
 
     makePhoneCall()
@@ -162,9 +163,9 @@ export function PhoneCall({
 
   const ModalChildren = chooseComponent(state, sharing)
 
-  const isErrorState = ['busy', 'canceled', 'failed', 'no-answer'].includes(state)
-  const canDismiss = sharing || isErrorState || state === 'completed'
-  const canRetry = isErrorState && retriesAvailable && !sharing
+  const inErrorState = isErrorState(state)
+  const canDismiss = sharing || isFinalState(state)
+  const canRetry = inErrorState && retriesAvailable && !sharing
 
   return (
     <Modal

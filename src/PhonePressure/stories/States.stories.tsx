@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { PhoneCallAction } from '../api'
-import type { PhoneCallState } from '../PhoneCall'
+import type { PhoneCallState } from '../types'
 
 import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'

@@ -5,7 +5,7 @@ export interface PhoneTarget {
   phone: string
 }
 
-export type TwilioState
+export type PhoneCallState
   = | 'busy'
     | 'canceled'
     | 'completed'
@@ -28,7 +28,7 @@ export interface PhoneActionPayload extends WidgetActionPayload {
   input: {
     custom_fields: {
       target: PhoneTarget
-      status: TwilioState
+      status: PhoneCallState
     }
   }
 }

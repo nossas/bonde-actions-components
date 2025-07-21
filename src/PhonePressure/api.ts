@@ -1,6 +1,5 @@
 import type { SetState } from '../shared/react'
-import type { PhoneCallState } from './PhoneCall'
-import type { PhoneActionPayload } from './types'
+import type { PhoneActionPayload, PhoneCallState } from './types'
 
 import { sleep } from '../shared/tests'
 
