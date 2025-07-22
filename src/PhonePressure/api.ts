@@ -1,16 +1,46 @@
 import type { SetState } from '../shared/react'
 import type { PhoneActionPayload, PhoneCallState } from './types'
 
-import { sleep } from '../shared/tests'
+import { GET, POST } from '../shared/rest'
+import { isFinalState } from './utils/states'
 
 export type PhoneCallAction = (setState: SetState<PhoneCallState>, payload: PhoneActionPayload) => Promise<void>
 
-export async function bondePhoneCall(setState: SetState<PhoneCallState>, _payload: PhoneActionPayload): Promise<void> {
-  // @TODO
-  await sleep(1000)
-  setState('ringing')
-  await sleep(3000)
-  setState('in-progress')
-  await sleep(3000)
-  setState('completed')
+export interface PhoneCallRequest {
+  activist_number: string
+  target_number: string
+  widget_id: number
+}
+
+export interface PhoneCallResponse {
+  call: string
+  status: PhoneCallState
+}
+
+async function startTwilioCall(baseUrl: string, payload: PhoneActionPayload): Promise<PhoneCallResponse> {
+  const body: PhoneCallRequest = {
+    activist_number: payload.activist.phone,
+    target_number: payload.input.custom_fields.target.phone,
+    widget_id: payload.widget_id,
+  }
+  return POST<PhoneCallResponse>(new URL('/phone/call', baseUrl), body)
+}
+
+async function pollTwilioCallStatus(baseUrl: string, call: string): Promise<PhoneCallResponse> {
+  return GET<PhoneCallResponse>(new URL('/phone/status', baseUrl), { call })
+}
+
+export function configureBondePhoneCall(baseUrl: string): PhoneCallAction {
+  return async (setState: SetState<PhoneCallState>, payload: PhoneActionPayload): Promise<void> => {
+    const { call, status } = await startTwilioCall(baseUrl, payload)
+    setState(status)
+
+    const interval = window.setInterval(async () => {
+      const { status } = await pollTwilioCallStatus(baseUrl, call)
+      setState(status)
+      if (isFinalState(status)) {
+        clearInterval(interval)
+      }
+    }, 2000)
+  }
 }
