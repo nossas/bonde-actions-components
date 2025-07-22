@@ -6,7 +6,7 @@ import type { PhoneActionPayload, PhoneCallState, PhonePressureActivist, PhoneTa
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { NOOP } from '../shared/functions'
-import { bondePhoneCall } from './api'
+import { defaultPhoneCall } from './api'
 import { BusyCall } from './components/BusyCall'
 import { CanceledCall } from './components/CanceledCall'
 import { CompletedCall } from './components/CompletedCall'
@@ -74,7 +74,7 @@ function chooseComponent(state: PhoneCallState, sharing: boolean): FunctionCompo
 }
 
 export function PhoneCall({
-  action: phoneCall = bondePhoneCall,
+  action: phoneCall = defaultPhoneCall,
   activist,
   guideline,
   linkColor = '#1D3D90',
@@ -149,7 +149,7 @@ export function PhoneCall({
 
   useEffect(() => {
     async function makePhoneCall(): Promise<void> {
-      await phoneCall(setState as SetState<PhoneCallState>, actionPayload)
+      await phoneCall(actionPayload, setState as SetState<PhoneCallState>)
     }
 
     makePhoneCall()

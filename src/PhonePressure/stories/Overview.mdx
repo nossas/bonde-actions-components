@@ -28,7 +28,7 @@ interface PhoneTarget {
 `PhoneCallAction` possui o seguinte formato:
 
 ```ts
-type PhoneCallAction = (setState: SetState<PhoneCallState>, payload: PhoneActionPayload) => Promise<void>
+type PhoneCallAction = (payload: PhoneActionPayload, setState: SetState<PhoneCallState>) => Promise<void>
 ```
 
 `PhoneActionPayload` possui o seguinte formato:

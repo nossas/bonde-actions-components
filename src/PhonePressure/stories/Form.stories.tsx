@@ -83,7 +83,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const successPhoneCall: PhoneCallAction = async (setState) => {
+const successPhoneCall: PhoneCallAction = async (_payload, setState) => {
   await sleep(1000)
   setState('ringing')
   await sleep(3000)
@@ -92,7 +92,7 @@ const successPhoneCall: PhoneCallAction = async (setState) => {
   setState('completed')
 }
 
-const failurePhoneCall: PhoneCallAction = async (setState) => {
+const failurePhoneCall: PhoneCallAction = async (_payload, setState) => {
   await sleep(1000)
   setState('ringing')
   await sleep(3000)

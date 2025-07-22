@@ -7,7 +7,7 @@ import { Box } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import { ActionForm } from '../ActionForm'
 import { NOOP } from '../shared/functions'
-import { bondePhoneCall } from './api'
+import { defaultPhoneCall } from './api'
 import { PhoneCall } from './PhoneCall'
 
 export interface PhonePressureFormProps extends LayoutProps {
@@ -26,7 +26,7 @@ export interface PhonePressureFormProps extends LayoutProps {
 const FIELDS: Array<keyof ActivistInput> = ['email', 'name', 'phone']
 
 export function PhonePressureForm({
-  action = bondePhoneCall,
+  action = defaultPhoneCall,
   guideline,
   linkColor = '#1D3D90',
   mainColor = '#A42828',

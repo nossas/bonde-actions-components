@@ -48,7 +48,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 function wrapAction(state: PhoneCallState): PhoneCallAction {
-  return async function (setState) {
+  return async function (_payload, setState) {
     setState(state)
   }
 }

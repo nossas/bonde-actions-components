@@ -10,7 +10,7 @@ import '@testing-library/jest-dom'
 
 describe('phone pressure', () => {
   it('renders', async () => {
-    const mockPhoneCall: PhoneCallAction = async (setState) => {
+    const mockPhoneCall: PhoneCallAction = async (_payload, setState) => {
       await sleep(50)
       setState('ringing')
       await sleep(50)

@@ -4,7 +4,7 @@ import type { PhoneActionPayload, PhoneCallState } from './types'
 import { GET, POST } from '../shared/rest'
 import { isFinalState } from './utils/states'
 
-export type PhoneCallAction = (setState: SetState<PhoneCallState>, payload: PhoneActionPayload) => Promise<void>
+export type PhoneCallAction = (payload: PhoneActionPayload, setState: SetState<PhoneCallState>) => Promise<void>
 
 export interface PhoneCallRequest {
   activist_number: string
@@ -31,7 +31,7 @@ async function pollTwilioCallStatus(baseUrl: string, call: string): Promise<Phon
 }
 
 export function configureBondePhoneCall(baseUrl: string): PhoneCallAction {
-  return async (setState: SetState<PhoneCallState>, payload: PhoneActionPayload): Promise<void> => {
+  return async function bondePhoneCall(payload, setState) {
     const { call, status } = await startTwilioCall(baseUrl, payload)
     setState(status)
 
@@ -44,3 +44,5 @@ export function configureBondePhoneCall(baseUrl: string): PhoneCallAction {
     }, 2000)
   }
 }
+
+export const defaultPhoneCall = configureBondePhoneCall('http://localhost:8000')
