@@ -1,10 +1,11 @@
 import type { LayoutProps } from '@chakra-ui/react'
+import type { ActionFormHandle } from '../ActionForm/ActionForm'
 import type { ActivistInput } from '../shared/types'
 import type { PhoneCallAction } from './api'
 import type { PhoneCallState, PhonePressureActivist, PhoneTarget } from './types'
 
 import { Box } from '@chakra-ui/react'
-import { useCallback, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { ActionForm } from '../ActionForm'
 import { NOOP } from '../shared/functions'
 import { defaultPhoneCall } from './api'
@@ -40,11 +41,13 @@ export function PhonePressureForm({
 }: Readonly<PhonePressureFormProps>): JSX.Element {
   const [activist, setActivist] = useState<PhonePressureActivist | null>(null)
   const [calling, setCalling] = useState(false)
+  const formRef = useRef<ActionFormHandle>(null)
 
   const endCall = useCallback((state: PhoneCallState) => {
     setCalling(false)
     onFinish(state)
-  }, [onFinish, setCalling])
+    formRef.current?.reset()
+  }, [formRef, onFinish, setCalling])
 
   const onSubmit = useCallback((activist: ActivistInput) => {
     setActivist(activist as PhonePressureActivist)
@@ -56,6 +59,7 @@ export function PhonePressureForm({
       <ActionForm
         brandColor={mainColor}
         fields={FIELDS}
+        ref={formRef}
         submitLabel="Ligar"
         widgetId={widgetId}
         onSubmit={onSubmit}

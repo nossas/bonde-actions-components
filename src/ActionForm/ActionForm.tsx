@@ -1,14 +1,18 @@
-import type { ReactNode } from 'react'
-import type { SubmitHandler, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form'
+import type { ForwardedRef, ReactNode } from 'react'
+import type { SubmitHandler, UseFormRegister, UseFormReset, UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
 import { Button, Grid, GridItem, VStack } from '@chakra-ui/react'
-import { useCallback, useMemo } from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { BrCityField } from './BrCityField'
 import { BrPhoneField } from './BrPhoneField'
 import { BrStateField } from './BrStateField'
 import { TextField } from './TextField'
+
+export interface ActionFormHandle {
+  reset: UseFormReset<ActivistInput>
+}
 
 export interface ActionFormChildrenProps {
   register: UseFormRegister<any>
@@ -44,11 +48,14 @@ function getFieldsMap(fields: Array<keyof ActivistInput>): Record<keyof Activist
   return map
 }
 
-export function ActionForm({ brandColor, children, fields, submitLabel = 'Enviar', onSubmit }: Readonly<ActionFormProps>): JSX.Element {
+export const ActionForm = forwardRef((
+  { brandColor, children, fields, submitLabel = 'Enviar', onSubmit }: Readonly<ActionFormProps>,
+  ref: ForwardedRef<ActionFormHandle>,
+): JSX.Element => {
   const defaultValues = useMemo(() => getDefaultValues(fields), [fields])
   const existingFields = useMemo(() => getFieldsMap(fields), [fields])
 
-  const { formState: { errors, isSubmitting }, handleSubmit, register, setValue, watch } = useForm({
+  const { formState: { errors, isSubmitting }, handleSubmit, register, reset, setValue, watch } = useForm({
     defaultValues,
   })
 
@@ -58,6 +65,10 @@ export function ActionForm({ brandColor, children, fields, submitLabel = 'Enviar
     }
     onSubmit(data)
   }, [onSubmit])
+
+  useImperativeHandle(ref, () => ({
+    reset,
+  }), [reset])
 
   return (
     <form onSubmit={handleSubmit(innerOnSubmit)}>
@@ -161,4 +172,4 @@ export function ActionForm({ brandColor, children, fields, submitLabel = 'Enviar
       </VStack>
     </form>
   )
-}
+})
