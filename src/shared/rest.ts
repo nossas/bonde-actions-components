@@ -13,15 +13,28 @@ export async function GET<Ret, Params extends Record<string, unknown> = Record<s
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, String(value))
   }
+  const headers: HeadersInit = {
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache',
+  }
+  if (url.host.includes('ngrok')) {
+    headers['ngrok-skip-browser-warning'] = '1'
+  }
   const res = await fetch(url, {
     method: 'GET',
+    headers,
   })
   return handleResponse<Ret>(res)
 }
 
 export async function POST<Ret, Body = unknown>(url: URL, body: Body): Promise<Ret> {
+  const headers: HeadersInit = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
   const res = await fetch(url, {
     method: 'POST',
+    headers,
     body: JSON.stringify(body),
   })
   return handleResponse<Ret>(res)
