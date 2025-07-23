@@ -1,7 +1,0 @@
-import"./react-NX0r4bef.js";import"./preview-errors-Dwjpnz8h.js";import"./esm-D-grMb2I.js";import"./react-dom-DQyN7wN3.js";import"./emotion-use-insertion-effect-with-fallbacks.browser.esm-Cyey4TpT.js";import"./inheritsLoose-riykfhLK.js";import"./prop-types-X27JUbnB.js";import{Box as e,ChakraProvider as t,action as n,jsx as r}from"./jsx-runtime--pC3LNoF.js";import{ActionForm as i}from"./ActionForm-D3ml4kND.js";var a,o;const s=function(n){return r(t,{children:r(e,{maxWidth:`40rem`,children:r(n,{})})})},c={title:`Action Form`,component:i,decorators:s,argTypes:{brandColor:{description:`Cor primária da campanha`,type:`string`},fields:{description:`Lista de campos do formulário`},onSubmit:{description:`Callback de envio do formulário`,type:`function`},submitLabel:{description:`Texto do botão de envio do formulário`,type:`string`,defaultValue:`Enviar`},widgetId:{description:`ID do widget`,type:`number`}}};var l=c;const u={args:{brandColor:`rebeccapurple`,fields:[`city`,`first_name`,`email`,`last_name`,`phone`,`state`],onSubmit:n(`onSubmit`)}};u.parameters={...u.parameters,docs:{...(a=u.parameters)?.docs,source:{originalSource:`{
-  args: {
-    brandColor: 'rebeccapurple',
-    fields: ['city', 'first_name', 'email', 'last_name', 'phone', 'state'],
-    onSubmit: action('onSubmit')
-  }
-}`,...(o=u.parameters)==null||(o=o.docs)==null?void 0:o.source}}};const d=[`Complete`];export{u as Complete,d as __namedExportsOrder,l as default};
