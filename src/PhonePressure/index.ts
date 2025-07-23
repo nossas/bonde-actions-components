@@ -1,3 +1,4 @@
+export { configureBondePhoneCall } from './api'
 export type { PhoneCallAction } from './api'
 export { PhoneCall } from './PhoneCall'
 export type { PhoneCallProps } from './PhoneCall'
