@@ -18,7 +18,7 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
             <p>Assim que a chamada for atendida, vamos conectar com a pessoa responsável.</p>
           </VStack>
           <p>
-            {'O número pode começar com [XX]. '}
+            {'O número pode começar com 001. '}
             <strong>Fique com o telefone por perto.</strong>
           </p>
         </VStack>
