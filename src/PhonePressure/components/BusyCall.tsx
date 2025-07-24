@@ -1,10 +1,11 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
+import { Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
+import { Button } from '../../shared/components/Button'
 import { ModalHeader } from './ModalHeader'
 
-export function BusyCall({ brandColor, linkColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function BusyCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A linha estava ocupada" />
@@ -16,7 +17,7 @@ export function BusyCall({ brandColor, linkColor, target, onShare }: Readonly<Ph
             <BsInfoCircle />
             <p>
               {'Se continuar ocupado, uma boa alternativa é '}
-              <Button color={linkColor} type="button" variant="link" onClick={onShare}>
+              <Button isLink onClick={onShare}>
                 compartilhar a campanha
               </Button>
               .

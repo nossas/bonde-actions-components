@@ -1,8 +1,7 @@
 import type { FieldError, UseFormRegister } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
-import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
-import { useId } from '../shared/a11y'
+import { TextField as BaseTextField } from '../shared/components/TextField'
 
 export interface TextFieldProps {
   autocomplete?: AutoFill
@@ -14,7 +13,6 @@ export interface TextFieldProps {
 }
 
 export function TextField({ autocomplete, errors, label, name, register, type = 'text' }: Readonly<TextFieldProps>): JSX.Element {
-  const id = useId()
   const fields = register(name, {
     required: {
       value: true,
@@ -27,21 +25,14 @@ export function TextField({ autocomplete, errors, label, name, register, type = 
         }
       : undefined,
   })
-  const ariaInvalid = errors ? 'true' : 'false'
 
   return (
-    <FormControl isInvalid={!!errors}>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Input
-        id={id}
-        type={type}
-        autoComplete={autocomplete}
-        aria-invalid={ariaInvalid}
-        {...fields}
-      />
-      {errors && (
-        <FormErrorMessage role="alert">{errors?.message}</FormErrorMessage>
-      )}
-    </FormControl>
+    <BaseTextField
+      autocomplete={autocomplete}
+      errors={errors}
+      label={label}
+      type={type}
+      {...fields}
+    />
   )
 }

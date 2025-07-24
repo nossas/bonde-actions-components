@@ -1,10 +1,10 @@
 import type { FieldError, UseFormRegister, UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
-import { FormControl, FormErrorMessage, FormLabel, Select } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import useSWRImmutable from 'swr/immutable'
-import { useId } from '../shared/a11y'
+import { SelectField } from '../shared/components/SelectField'
+import { EMPTY_ARR } from '../shared/constants'
 
 export interface BrCityFieldProps {
   errors: FieldError | undefined
@@ -20,18 +20,15 @@ interface BrCity {
   nome: string
 }
 
-const EMPTY_ARR: unknown[] = []
-
 async function fetchCities(uf: string): Promise<BrCity[]> {
   if (!uf) {
-    return Promise.resolve(EMPTY_ARR as BrCity[])
+    return Promise.resolve(EMPTY_ARR)
   }
   const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
   return res.json()
 }
 
 export function BrCityField({ errors, label, name, register, setValue, watch }: Readonly<BrCityFieldProps>): JSX.Element {
-  const id = useId()
   const fields = register(name, {
     validate: (value) => {
       if (!value) {
@@ -40,7 +37,6 @@ export function BrCityField({ errors, label, name, register, setValue, watch }: 
       return true
     },
   })
-  const ariaInvalid = errors ? 'true' : 'false'
 
   const state = watch('state') ?? ''
 
@@ -51,18 +47,15 @@ export function BrCityField({ errors, label, name, register, setValue, watch }: 
   }, [setValue, state])
 
   return (
-    /* @ts-expect-errors:2590 Expression produces a union type that is too complex to represent. */
-    <FormControl isInvalid={!!errors}>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Select id={id} aria-invalid={ariaInvalid} {...fields}>
-        <option key="" value=""></option>
-        {cities?.map(city => (
-          <option key={city.id} value={city.nome}>{city.nome}</option>
-        ))}
-      </Select>
-      {errors && (
-        <FormErrorMessage role="alert">{errors?.message}</FormErrorMessage>
-      )}
-    </FormControl>
+    <SelectField
+      errors={errors}
+      label={label}
+      {...fields}
+    >
+      <option key="" value=""></option>
+      {cities?.map(city => (
+        <option key={city.id} value={city.nome}>{city.nome}</option>
+      ))}
+    </SelectField>
   )
 }

@@ -2,18 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 import type { PhoneCallAction } from '../api'
 import type { PhoneCallState } from '../types'
 
-import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { PhoneCall } from '../PhoneCall'
 
 const meta: Meta<typeof PhoneCall> = {
   title: 'Phone Pressure/States',
   component: PhoneCall,
-  decorators: Story => (
-    <ChakraProvider>
-      <Story />
-    </ChakraProvider>
-  ),
   args: {
     activist: {
       name: 'João da Silva',

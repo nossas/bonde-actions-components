@@ -1,11 +1,11 @@
-import type { FunctionComponent } from 'react'
+import type { CSSProperties, FunctionComponent } from 'react'
 import type { SetState } from '../shared/react'
 import type { PhoneCallAction } from './api'
 import type { PhoneActionPayload, PhoneCallState, PhonePressureActivist, PhoneTarget } from './types'
 
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { NOOP } from '../shared/functions'
+import { NOOP } from '../shared/constants'
 import { defaultPhoneCall } from './api'
 import { BusyCall } from './components/BusyCall'
 import { CanceledCall } from './components/CanceledCall'
@@ -26,7 +26,6 @@ export interface PhoneCallModalProps {
   activist: PhonePressureActivist
   brandColor: string
   guideline: string
-  linkColor: string
   postActionHtml: string
   target: PhoneTarget
   onDismiss: () => void
@@ -169,13 +168,13 @@ export function PhoneCall({
     <Modal
       canDismiss={canDismiss}
       className={`bonde-phone-call bonde-phone-call--${state}`}
+      style={{ '--bonde-action-brand-color': brandColor, '--bonde-action-link-color': linkColor } as CSSProperties}
       onDismiss={dismissCall}
     >
       <ModalChildren
         activist={activist}
         brandColor={brandColor}
         guideline={guideline}
-        linkColor={linkColor}
         postActionHtml={postActionHtml}
         target={target}
         onDismiss={dismissCall}

@@ -1,0 +1,20 @@
+.bonde-action-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bonde-action-form__city-row {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+.bonde-action-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.bonde-action-field input, .bonde-action-field select {
+  padding: 0.5rem 1rem;
+}

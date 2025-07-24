@@ -1,9 +1,8 @@
 import type { FieldError, UseFormRegister } from 'react-hook-form'
 import type { ActivistInput } from '../shared/types'
 
-import { FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react'
 import { useHookFormMask } from 'use-mask-input'
-import { useId } from '../shared/a11y'
+import { TextField as BaseTextField } from '../shared/components/TextField'
 
 export interface BrPhoneFieldProps {
   errors: FieldError | undefined
@@ -13,7 +12,6 @@ export interface BrPhoneFieldProps {
 }
 
 export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhoneFieldProps>): JSX.Element {
-  const id = useId()
   const registerWithMask = useHookFormMask(register)
   const fields = registerWithMask(name, ['99 9999-9999', '99 99999-9999'], {
     required: {
@@ -25,22 +23,15 @@ export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhone
       message: 'Telefone inválido',
     },
   })
-  const ariaInvalid = errors ? 'true' : 'false'
 
   return (
-    <FormControl isInvalid={!!errors}>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Input
-        id={id}
-        type="tel"
-        autoComplete="tel-national"
-        pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
-        aria-invalid={ariaInvalid}
-        {...fields}
-      />
-      {errors && (
-        <FormErrorMessage role="alert">{errors?.message}</FormErrorMessage>
-      )}
-    </FormControl>
+    <BaseTextField
+      autoComplete="tel-national"
+      errors={errors}
+      label={label}
+      pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
+      type="tel"
+      {...fields}
+    />
   )
 }

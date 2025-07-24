@@ -1,17 +1,16 @@
-import type { LayoutProps } from '@chakra-ui/react'
+import type { HTMLProps } from 'react'
 import type { ActionFormHandle } from '../ActionForm/ActionForm'
 import type { ActivistInput } from '../shared/types'
 import type { PhoneCallAction } from './api'
 import type { PhoneCallState, PhonePressureActivist, PhoneTarget } from './types'
 
-import { Box } from '@chakra-ui/react'
 import { useCallback, useRef, useState } from 'react'
 import { ActionForm } from '../ActionForm'
-import { NOOP } from '../shared/functions'
+import { NOOP } from '../shared/constants'
 import { defaultPhoneCall } from './api'
 import { PhoneCall } from './PhoneCall'
 
-export interface PhonePressureFormProps extends LayoutProps {
+export interface PhonePressureFormProps extends Omit<HTMLProps<HTMLDivElement>, 'action'> {
   action?: PhoneCallAction
   guideline: string
   linkColor?: string
@@ -55,7 +54,7 @@ export function PhonePressureForm({
   }, [setActivist, setCalling])
 
   return (
-    <Box className="bonde-phone-pressure-form" {...layoutProps}>
+    <div className="bonde-phone-pressure-form" {...layoutProps}>
       <ActionForm
         brandColor={mainColor}
         fields={FIELDS}
@@ -79,6 +78,6 @@ export function PhonePressureForm({
           onSuccess={onSuccess}
         />
       )}
-    </Box>
+    </div>
   )
 }

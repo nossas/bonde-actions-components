@@ -1,10 +1,11 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
+import { Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsPencilSquare, BsTelephoneXFill } from 'react-icons/bs'
+import { Button } from '../../shared/components/Button'
 import { ModalHeader } from './ModalHeader'
 
-export function CanceledCall({ activist, brandColor, linkColor, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function CanceledCall({ activist, brandColor, onDismiss }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A chamada não foi completada" />
@@ -14,7 +15,8 @@ export function CanceledCall({ activist, brandColor, linkColor, onDismiss }: Rea
           <p>A ligação foi interrompida — isso pode ter acontecido por instabilidade na rede ou encerramento da chamada. Mas tudo bem, você pode tentar novamente.</p>
           <Flex align="center" gap={4} justify="start">
             <p>{`Número informado: +55 ${activist.phone}`}</p>
-            <Button color={linkColor} leftIcon={<BsPencilSquare />} type="button" variant="link" onClick={onDismiss}>
+            <Button isLink onClick={onDismiss}>
+              <BsPencilSquare />
               Alterar número
             </Button>
           </Flex>

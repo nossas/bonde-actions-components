@@ -1,10 +1,11 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { Button, Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
+import { Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
+import { Button } from '../../shared/components/Button'
 import { ModalHeader } from './ModalHeader'
 
-export function FailedCall({ brandColor, linkColor, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function FailedCall({ brandColor, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="Não foi possível completar a ligação" />
@@ -16,7 +17,7 @@ export function FailedCall({ brandColor, linkColor, onShare }: Readonly<PhoneCal
             <BsInfoCircle />
             <p>
               {'Se continuar falhando, uma boa alternativa é '}
-              <Button color={linkColor} type="button" variant="link" onClick={onShare}>
+              <Button isLink onClick={onShare}>
                 compartilhar a campanha
               </Button>
               .

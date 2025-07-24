@@ -1,9 +1,7 @@
 import type { ReactNode } from 'react'
 
 import { Modal as ChakraModal, ModalContent, ModalOverlay } from '@chakra-ui/react'
-import { NOOP } from '../../shared/functions'
-
-export { ModalBody, ModalFooter } from '@chakra-ui/react'
+import { NOOP } from '../../shared/constants'
 
 export interface ModalProps {
   canDismiss: boolean

@@ -1,23 +1,15 @@
-import { Button } from '@chakra-ui/react'
 import { BsTelephoneFill } from 'react-icons/bs'
+import { Button } from '../../shared/components/Button'
 
 export interface RetryButtonProps {
   backgroundColor: string
   onRetry: () => void
 }
 
-export function RetryButton({ backgroundColor, onRetry }: Readonly<RetryButtonProps>): JSX.Element {
+export function RetryButton({ onRetry }: Readonly<RetryButtonProps>): JSX.Element {
   return (
-    <Button
-      className="bonde-phone-call__retry-button"
-      backgroundColor={backgroundColor}
-      color="white"
-      leftIcon={<BsTelephoneFill />}
-      type="button"
-      variant="solid"
-      onClick={onRetry}
-      _hover={{ bg: backgroundColor }}
-    >
+    <Button className="bonde-phone-call__retry-button" onClick={onRetry}>
+      <BsTelephoneFill />
       Tentar novamente
     </Button>
   )

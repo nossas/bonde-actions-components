@@ -2,16 +2,15 @@ import type { Decorator, Meta, StoryObj } from '@storybook/react'
 import type { PhoneCallAction } from '../api'
 import type { PhonePressureFormProps } from '../PhonePressureForm'
 
-import { ChakraProvider } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 import { sleep } from '../../shared/tests'
 import { PhonePressureForm } from '../PhonePressureForm'
 
 const Decorators = function (Story): JSX.Element {
   return (
-    <ChakraProvider>
+    <div style={{ maxWidth: '40rem' }}>
       <Story />
-    </ChakraProvider>
+    </div>
   )
 } satisfies Decorator<PhonePressureFormProps>
 
@@ -74,7 +73,7 @@ const meta: Meta<typeof PhonePressureForm> = {
   },
   parameters: {
     controls: {
-      exclude: ['action', 'maxWidth', 'onFail', 'onSuccess'],
+      exclude: ['action', 'onFail', 'onSuccess'],
     },
   },
 }
@@ -102,13 +101,11 @@ const failurePhoneCall: PhoneCallAction = async (_payload, setState) => {
 export const Success: Story = {
   args: {
     action: successPhoneCall,
-    maxWidth: '40rem',
   },
 }
 
 export const Failure: Story = {
   args: {
     action: failurePhoneCall,
-    maxWidth: '40rem',
   },
 }
