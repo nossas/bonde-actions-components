@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react'
 import type { SetState } from '../shared/react'
 import type { PhoneCallAction } from './api'
-import type { PhoneActionPayload, PhoneCallState, PhonePressureActivist, PhoneTarget } from './types'
+import type { PhoneCallState, PhonePressureAction, PhonePressureActivist, PhoneTarget } from './types'
 
 import { ModalFooter } from '@chakra-ui/react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -134,12 +134,11 @@ export function PhoneCall({
     setRetries(retries => retries + 1)
   }, [setRetries, setState])
 
-  const actionPayload: PhoneActionPayload = useMemo(() => {
+  const actionPayload: PhonePressureAction = useMemo(() => {
     return {
       activist,
       input: {
         custom_fields: {
-          status: 'queued',
           target,
         },
       },
