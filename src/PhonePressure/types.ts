@@ -16,7 +16,7 @@ export type PhoneCallState
     | 'queued'
     | 'ringing'
 
-export interface PhoneActionPayload extends WidgetActionPayload {
+export interface PhonePressureAction extends WidgetActionPayload {
   widget_id: number
 
   activist: {
@@ -27,10 +27,11 @@ export interface PhoneActionPayload extends WidgetActionPayload {
 
   input: {
     custom_fields: {
+      call?: string
+      status?: PhoneCallState
       target: PhoneTarget
-      status: PhoneCallState
     }
   }
 }
 
-export type PhonePressureActivist = PhoneActionPayload['activist']
+export type PhonePressureActivist = PhonePressureAction['activist']
