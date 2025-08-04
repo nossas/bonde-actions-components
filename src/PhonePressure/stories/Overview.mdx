@@ -28,13 +28,13 @@ interface PhoneTarget {
 `PhoneCallAction` possui o seguinte formato:
 
 ```ts
-type PhoneCallAction = (payload: PhoneActionPayload, setState: SetState<PhoneCallState>) => Promise<void>
+type PhoneCallAction = (payload: PhonePressureAction, setState: SetState<PhoneCallState>) => Promise<void>
 ```
 
-`PhoneActionPayload` possui o seguinte formato:
+`PhonePressureAction` possui o seguinte formato:
 
 ```ts
-interface PhoneActionPayload {
+interface PhonePressureAction {
   activist: {
     name: string
     email: string
@@ -44,7 +44,6 @@ interface PhoneActionPayload {
   input: {
     custom_fields: {
       target: PhoneTarget
-      status: PhoneCallState
     }
   }
 
