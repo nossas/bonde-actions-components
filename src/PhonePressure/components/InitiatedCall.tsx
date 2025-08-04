@@ -1,7 +1,7 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { ModalBody, StackDivider, VStack } from '@chakra-ui/react'
 import { BsTelephoneFill } from 'react-icons/bs'
+import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
 export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JSX.Element {
@@ -9,19 +9,19 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
     <>
       <ModalHeader icon={BsTelephoneFill} iconColor={brandColor} title="Estamos te ligando agora!" />
       <ModalBody>
-        <VStack divider={<StackDivider />}>
-          <VStack>
+        <div className="bonde-phone-action__stack bonde-phone-action__stack--segmented">
+          <div className="bonde-phone-action__stack">
             <p>
               {'Você vai receber uma ligação do nosso número. '}
               <strong>Atenda o telefone para continuar.</strong>
             </p>
             <p>Assim que a chamada for atendida, vamos conectar com a pessoa responsável.</p>
-          </VStack>
+          </div>
           <p>
             {'O número pode começar com 001. '}
             <strong>Fique com o telefone por perto.</strong>
           </p>
-        </VStack>
+        </div>
       </ModalBody>
     </>
   )

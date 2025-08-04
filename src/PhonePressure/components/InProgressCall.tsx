@@ -1,7 +1,7 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { ModalBody, VStack } from '@chakra-ui/react'
 import { BsPeopleFill } from 'react-icons/bs'
+import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
 export function InProgressCall({ brandColor, guideline, target }: Readonly<PhoneCallModalProps>): JSX.Element {
@@ -9,11 +9,11 @@ export function InProgressCall({ brandColor, guideline, target }: Readonly<Phone
     <>
       <ModalHeader icon={BsPeopleFill} iconColor={brandColor} title={`Você está em chamada com ${target.name}`} />
       <ModalBody>
-        <VStack>
+        <div className="bonde-phone-action__stack">
           <p>Agora é com você! Se quiser, pode usar este exemplo durante a conversa:</p>
           <blockquote>{guideline}</blockquote>
           <p>Finalize agradecendo e encerre a chamada.</p>
-        </VStack>
+        </div>
       </ModalBody>
     </>
   )

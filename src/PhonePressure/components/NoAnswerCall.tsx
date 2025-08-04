@@ -1,34 +1,33 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
-import { Flex, ModalBody, ModalCloseButton, StackDivider, VStack } from '@chakra-ui/react'
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
 import { Button } from '../../shared/components/Button'
+import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
 export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneXFill} iconColor={brandColor} title="A pessoa responsável não atendeu" />
-      <ModalCloseButton />
       <ModalBody>
-        <VStack divider={<StackDivider />}>
+        <div className="bonde-phone-action__stack bonde-phone-action__stack--segmented">
           <p>
             A chamada foi feita, mas não conseguimos contato com
             {' '}
             {target.name}
             . Aguarde alguns minutos e tente de novo clicando no botão abaixo.
           </p>
-          <Flex align="center" gap={2}>
+          <div className="bonde-phone-action__call-to-share">
             <BsInfoCircle />
             <p>
-              {'Se ninguém atender, uma boa alternativa é '}
+              {'Se continuar ocupado, uma boa alternativa é '}
               <Button isLink onClick={onShare}>
                 compartilhar a campanha
               </Button>
               .
             </p>
-          </Flex>
-        </VStack>
+          </div>
+        </div>
       </ModalBody>
     </>
   )

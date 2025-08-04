@@ -14,8 +14,5 @@ const config: StorybookConfig = {
       strictMode: true,
     },
   },
-  refs: {
-    '@chakra-ui/react': { disable: true },
-  },
 }
 export default config
