@@ -9,6 +9,7 @@ import { ActionForm } from '../ActionForm'
 import { NOOP } from '../shared/constants'
 import { defaultPhoneCall } from './api'
 import { PhoneCall } from './PhoneCall'
+import { useNearestRoot } from './utils/root'
 
 export interface PhonePressureFormProps extends Omit<HTMLProps<HTMLDivElement>, 'action'> {
   action?: PhoneCallAction
@@ -40,7 +41,10 @@ export function PhonePressureForm({
 }: Readonly<PhonePressureFormProps>): JSX.Element {
   const [activist, setActivist] = useState<PhonePressureActivist | null>(null)
   const [calling, setCalling] = useState(false)
+
   const formRef = useRef<ActionFormHandle>(null)
+  const [divEl, setDivEl] = useState<HTMLDivElement | null>(null)
+  const appEl = useNearestRoot(divEl)
 
   const endCall = useCallback((state: PhoneCallState) => {
     setCalling(false)
@@ -54,7 +58,7 @@ export function PhonePressureForm({
   }, [setActivist, setCalling])
 
   return (
-    <div className="bonde-phone-pressure-form" {...layoutProps}>
+    <div className="bonde-phone-pressure-form" ref={setDivEl} {...layoutProps}>
       <ActionForm
         brandColor={mainColor}
         fields={FIELDS}
@@ -67,6 +71,7 @@ export function PhonePressureForm({
         <PhoneCall
           action={action}
           activist={activist}
+          appElement={appEl}
           guideline={guideline}
           linkColor={linkColor}
           mainColor={mainColor}

@@ -35,6 +35,7 @@ export interface PhoneCallModalProps {
 export interface PhoneCallProps {
   action?: PhoneCallAction
   activist: PhonePressureActivist
+  appElement?: HTMLElement
   guideline: string
   linkColor?: string
   mainColor?: string
@@ -75,6 +76,7 @@ function chooseComponent(state: PhoneCallState, sharing: boolean): FunctionCompo
 export function PhoneCall({
   action: phoneCall = defaultPhoneCall,
   activist,
+  appElement,
   guideline,
   linkColor = '#1D3D90',
   mainColor: brandColor = '#A42828',
@@ -165,6 +167,7 @@ export function PhoneCall({
 
   return (
     <Modal
+      appElement={appElement}
       canDismiss={canDismiss}
       className={`bonde-phone-call bonde-phone-call--${state}`}
       style={{ '--bonde-action-brand-color': brandColor, '--bonde-action-link-color': linkColor } as CSSProperties}

@@ -32,7 +32,7 @@ const meta: Meta<typeof PhoneCall> = {
   },
   parameters: {
     controls: {
-      exclude: ['action', 'onFail', 'onFinish', 'onSuccess'],
+      exclude: ['action', 'appElement', 'onFail', 'onFinish', 'onSuccess'],
     },
   },
 }
