@@ -1,8 +1,6 @@
-import { useState } from 'react'
-
-let counter = 0
+import { useId as useReachId } from '@reach/auto-id'
 
 export function useId(): string {
-  const [id] = useState(() => ++counter)
+  const id = useReachId()
   return `bonde-w-${id}`
 }

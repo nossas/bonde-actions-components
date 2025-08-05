@@ -7,6 +7,7 @@ importers:
       '@antfu/eslint-config': ^4.16.2
       '@eslint-react/eslint-plugin': ^1.52.2
       '@mdx-js/react': ^2.3.0
+      '@reach/auto-id': ^0.18.0
       '@storybook/addon-a11y': ^7.6.20
       '@storybook/addon-actions': ^7.6.20
       '@storybook/addon-controls': ^7.6.20
@@ -54,6 +55,7 @@ importers:
       '@antfu/eslint-config': 4.16.2_v3sx2txrhlkxr754w3orxmqjmq
       '@eslint-react/eslint-plugin': 1.52.2_4exfhyqqsm74uombh6q3bzm5za
       '@mdx-js/react': 2.3.0_react@17.0.2
+      '@reach/auto-id': 0.18.0_sfoxds7t5ydpegc3knd667wn6m
       '@storybook/addon-a11y': 7.6.20
       '@storybook/addon-actions': 7.6.20
       '@storybook/addon-controls': 7.6.20_le43ra3hsbrzrfrqufwkcss23e
@@ -3203,6 +3205,27 @@ packages:
     resolution: {integrity: sha512-fyrgCaedtvMg9NK3en0pnOYJdtfwxUcNolezkNPUsoX57X8oQk+NkqcvzHXD2uKNij6GXmWU9NDru2IWjrO4BQ==}
     dependencies:
       '@babel/runtime': 7.27.6
+    dev: true
+
+  /@reach/auto-id/0.18.0_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-XwY1IwhM7mkHZFghhjiqjQ6dstbOdpbFLdggeke75u8/8icT8uEHLbovFUgzKjy9qPvYwZIB87rLiR8WdtOXCg==}
+    peerDependencies:
+      react: ^16.8.0 || 17.x
+      react-dom: ^16.8.0 || 17.x
+    dependencies:
+      '@reach/utils': 0.18.0_sfoxds7t5ydpegc3knd667wn6m
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: true
+
+  /@reach/utils/0.18.0_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-KdVMdpTgDyK8FzdKO9SCpiibuy/kbv3pwgfXshTI6tEcQT1OOwj7BAksnzGC0rPz0UholwC+AgkqEl3EJX3M1A==}
+    peerDependencies:
+      react: ^16.8.0 || 17.x
+      react-dom: ^16.8.0 || 17.x
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: true
 
   /@rolldown/binding-darwin-arm64/1.0.0-beta.16:
