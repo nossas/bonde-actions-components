@@ -1,5 +1,5 @@
 {
-  "name": "bonde-actions-components",
+  "name": "@bonde/actions-components",
   "type": "module",
   "version": "0.0.1",
   "packageManager": "pnpm@7.33.7",
@@ -29,8 +29,8 @@
   "scripts": {
     "lint": "eslint --cache .",
     "lint:fix": "pnpm run lint --fix",
-    "build": "tsdown",
-    "dev": "tsdown --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish",
@@ -80,7 +80,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "storybook": "^7.6.20",
-    "tsdown": "^0.12.9",
+    "tsup": "^8.5.0",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vite": "npm:rolldown-vite@^6.3.21",
