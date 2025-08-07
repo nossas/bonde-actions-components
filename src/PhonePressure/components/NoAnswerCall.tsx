@@ -19,6 +19,7 @@ export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCall
           </p>
           <div className="bonde-phone-action__call-to-share">
             <BsInfoCircle />
+            <div className="bonde-phone-action__divider" />
             <p>
               {'Se continuar ocupado, uma boa alternativa é '}
               <Button isLink onClick={onShare}>

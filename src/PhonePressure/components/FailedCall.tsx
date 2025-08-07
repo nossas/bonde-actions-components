@@ -14,6 +14,7 @@ export function FailedCall({ brandColor, onShare }: Readonly<PhoneCallModalProps
           <p>A ligação com o destino falhou — isso pode ter acontecido por um erro no número ou instabilidade na rede. Aguarde alguns minutos e tente de novo clicando no botão abaixo.</p>
           <div className="bonde-phone-action__call-to-share">
             <BsInfoCircle />
+            <div className="bonde-phone-action__divider" />
             <p>
               {'Se continuar ocupado, uma boa alternativa é '}
               <Button isLink onClick={onShare}>

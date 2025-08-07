@@ -11,7 +11,7 @@ export function InProgressCall({ brandColor, guideline, target }: Readonly<Phone
       <ModalBody>
         <div className="bonde-phone-action__stack">
           <p>Agora é com você! Se quiser, pode usar este exemplo durante a conversa:</p>
-          <blockquote>{guideline}</blockquote>
+          <blockquote className="bonde-phone-action__quote">{guideline}</blockquote>
           <p>Finalize agradecendo e encerre a chamada.</p>
         </div>
       </ModalBody>

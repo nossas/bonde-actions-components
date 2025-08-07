@@ -13,6 +13,7 @@ export function CompletedCall({ brandColor, postActionHtml }: Readonly<PhoneCall
         <div className="bonde-phone-action__stack bonde-phone-action__stack--segmented">
           <p>Obrigada por participar! Essa ligação ajuda a pressionar por uma resposta e mostrar que esse tema importa.</p>
           <div className="bonde-phone-action__stack">
+            <div className="bonde-phone-action__divider" />
             <p>Compartilhe a campanha com mais pessoas para aumentar o impacto:</p>
             <PostAction html={postActionHtml} />
           </div>

@@ -17,6 +17,9 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
             </p>
             <p>Assim que a chamada for atendida, vamos conectar com a pessoa responsável.</p>
           </div>
+          
+          <div className="bonde-phone-action__divider" />
+
           <p>
             {'O número pode começar com 001. '}
             <strong>Fique com o telefone por perto.</strong>
