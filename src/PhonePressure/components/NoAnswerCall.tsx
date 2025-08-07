@@ -18,10 +18,10 @@ export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCall
             . Aguarde alguns minutos e tente de novo clicando no botão abaixo.
           </p>
           <div className="bonde-phone-action__call-to-share">
-            <BsInfoCircle />
-            <div className="bonde-phone-action__divider" />
+          <div className="bonde-phone-action__divider" />
             <p>
-              {'Se continuar ocupado, uma boa alternativa é '}
+              <BsInfoCircle />
+              {' Se continuar ocupado, uma boa alternativa é '}
               <Button isLink onClick={onShare}>
                 compartilhar a campanha
               </Button>
