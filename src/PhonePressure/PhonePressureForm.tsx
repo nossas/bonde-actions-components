@@ -24,7 +24,7 @@ export interface PhonePressureFormProps extends Omit<HTMLProps<HTMLDivElement>, 
   onSuccess?: () => void
 }
 
-const FIELDS: Array<keyof ActivistInput> = ['email', 'name', 'phone']
+const FIELDS: Array<keyof ActivistInput> = ['email', 'first_name', 'last_name', 'phone']
 
 export function PhonePressureForm({
   action = defaultPhoneCall,
@@ -66,7 +66,14 @@ export function PhonePressureForm({
         submitLabel="Ligar"
         widgetId={widgetId}
         onSubmit={onSubmit}
-      />
+      >
+        {() =>
+          <div className="bonde-action-field">
+            <label>Roteiro para a ligação</label>
+            <div className="bonde-action-guideline" dangerouslySetInnerHTML={{__html: guideline }} />
+          </div>
+        }
+      </ActionForm>
       {(activist && calling) && (
         <PhoneCall
           action={action}
