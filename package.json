@@ -29,6 +29,7 @@
   "scripts": {
     "lint": "eslint --cache .",
     "lint:fix": "pnpm run lint --fix",
+    "prepare": "tsup",
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest",
