@@ -1,7 +1,6 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
-import { Button } from '../../shared/components/Button'
 import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
@@ -22,9 +21,9 @@ export function NoAnswerCall({ brandColor, target, onShare }: Readonly<PhoneCall
             <p>
               <BsInfoCircle />
               {' Se continuar ocupado, uma boa alternativa é '}
-              <Button isLink onClick={onShare}>
+              <a href="#" onClick={onShare}>
                 compartilhar a campanha
-              </Button>
+              </a>
               .
             </p>
           </div>

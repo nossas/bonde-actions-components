@@ -1,7 +1,6 @@
 import type { PhoneCallModalProps } from '../PhoneCall'
 
 import { BsInfoCircle, BsTelephoneXFill } from 'react-icons/bs'
-import { Button } from '../../shared/components/Button'
 import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
@@ -17,9 +16,9 @@ export function FailedCall({ brandColor, onShare }: Readonly<PhoneCallModalProps
             <p>
             <BsInfoCircle />
               {' Se continuar ocupado, uma boa alternativa é '}
-              <Button isLink onClick={onShare}>
+              <a href="#" onClick={onShare}>
                 compartilhar a campanha
-              </Button>
+              </a>
               .
             </p>
           </div>
