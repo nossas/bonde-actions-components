@@ -8,11 +8,12 @@ export interface TextFieldProps {
   errors: FieldError | undefined
   label: string
   name: keyof ActivistInput
+  placeholder?: string
   register: UseFormRegister<ActivistInput>
   type?: HTMLInputElement['type']
 }
 
-export function TextField({ autocomplete, errors, label, name, register, type = 'text' }: Readonly<TextFieldProps>): JSX.Element {
+export function TextField({ autocomplete, errors, label, name, placeholder, register, type = 'text' }: Readonly<TextFieldProps>): JSX.Element {
   const fields = register(name, {
     required: {
       value: true,
@@ -32,6 +33,7 @@ export function TextField({ autocomplete, errors, label, name, register, type = 
       errors={errors}
       label={label}
       type={type}
+      placeholder={placeholder}
       {...fields}
     />
   )
