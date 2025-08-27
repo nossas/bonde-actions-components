@@ -10,30 +10,40 @@ export interface TextFieldProps extends Omit<HTMLProps<HTMLInputElement>, 'class
   autocomplete?: AutoFill
   className?: ClassValue
   errors?: FieldError
-  label: string
+  label?: string
   name: string
   type?: HTMLInputElement['type']
+  addon?: React.ReactElement
 }
 
 export const TextField = forwardRef((
-  { autocomplete, className, errors, label, name, type = 'text', ...props }: Readonly<TextFieldProps>,
+  { autocomplete, className, errors, label, name, addon, type = 'text', ...props }: Readonly<TextFieldProps>,
   ref: ForwardedRef<HTMLInputElement>,
 ): JSX.Element => {
   const id = useId()
   const ariaInvalid = errors ? 'true' : 'false'
 
+  const inputElement = (
+    <input
+      id={id}
+      autoComplete={autocomplete}
+      name={name}
+      ref={ref}
+      type={type}
+      aria-invalid={ariaInvalid}
+      {...props}
+    />
+  )
+
   return (
     <div className={clsx('bonde-action-field', className)}>
       <label htmlFor={id}>{label}</label>
-      <input
-        id={id}
-        autoComplete={autocomplete}
-        name={name}
-        ref={ref}
-        type={type}
-        aria-invalid={ariaInvalid}
-        {...props}
-      />
+      {addon ? (
+        <div className="flex gap-2">
+          {addon}
+          {inputElement}
+        </div>
+      ) : inputElement}
       {errors && (
         <div className="bonde-action-field__error" role="alert">{errors?.message}</div>
       )}
