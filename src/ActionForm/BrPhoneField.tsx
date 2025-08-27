@@ -20,9 +20,10 @@ export function BrPhoneField({ errors, label, name, register, addon }: Readonly<
       message: 'Campo obrigatório',
     },
     pattern: {
-      value: /\d{2} \d{4,5}-\d{4}/,
+      value: /\d{10,11}/,
       message: 'Telefone inválido',
     },
+    setValueAs: (value: string) => value.replace(/\D/g, '')
   })
 
   return (

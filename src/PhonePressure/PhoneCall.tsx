@@ -138,11 +138,7 @@ export function PhoneCall({
   const actionPayload: PhonePressureAction = useMemo(() => {
     return {
       activist,
-      input: {
-        custom_fields: {
-          target,
-        },
-      },
+      target,
       widget_id: widgetId,
     }
   }, [activist, target, widgetId])

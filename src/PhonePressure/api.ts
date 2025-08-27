@@ -13,11 +13,11 @@ export interface PhoneCallResponse {
 
 async function startTwilioCall(baseUrl: string, payload: PhonePressureAction): Promise<PhoneCallResponse> {
   console.log("startTwilioCall", payload)
-  const body: any = {
-    from_phone_number: `+55${payload.activist.phone}`,
-    to_phone_number: payload.input.custom_fields.target.phone
-  }
-  return POST<PhoneCallResponse>(new URL('/v1/phone/call', baseUrl), body)
+  // const body: any = {
+  //   from_phone_number: `+55${payload.activist.phone}`,
+  //   to_phone_number: payload.input.custom_fields.target.phone
+  // }
+  return POST<PhoneCallResponse>(new URL('/v1/phone/call', baseUrl), payload)
 }
 
 async function pollTwilioCallStatus(baseUrl: string, call: number): Promise<PhoneCallResponse> {
