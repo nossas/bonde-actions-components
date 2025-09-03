@@ -46,10 +46,11 @@ export function PhonePressureForm({
   const [divEl, setDivEl] = useState<HTMLDivElement | null>(null)
   const appEl = useNearestRoot(divEl)
 
-  const endCall = useCallback((state: PhoneCallState) => {
+  const endCall = useCallback((state: PhoneCallState, reset: boolean = false) => {
     setCalling(false)
     onFinish(state)
-    formRef.current?.reset()
+
+    if (reset) formRef.current?.reset();
   }, [formRef, onFinish, setCalling])
 
   const onSubmit = useCallback((activist: ActivistInput) => {

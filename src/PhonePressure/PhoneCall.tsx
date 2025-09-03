@@ -43,7 +43,7 @@ export interface PhoneCallProps {
   targets: PhoneTarget[]
   widgetId?: number
   onFail?: (state: PhoneCallState) => void
-  onFinish?: (state: PhoneCallState) => void
+  onFinish?: (state: PhoneCallState, reset?: boolean) => void
   onSuccess?: () => void
 }
 
@@ -105,8 +105,11 @@ export function PhoneCall({
   const dismissCall = useCallback(() => {
     if (state !== 'completed' && !sharing) {
       onFail(state!)
+    } else if (state !== 'completed' && !sharing && canRetry) {
+      onFinish(state!)
+    } else {
+      onFinish(state!, true)
     }
-    onFinish(state!)
     setState(null)
   }, [onFail, onFinish, setState, sharing, state])
 
