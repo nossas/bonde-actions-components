@@ -19,6 +19,7 @@ export interface PhonePressureFormProps extends Omit<HTMLProps<HTMLDivElement>, 
   postActionHtml?: string
   targets: PhoneTarget[]
   widgetId: number
+  phoneNumber?: string
   onFail?: (state: PhoneCallState) => void
   onFinish?: (state: PhoneCallState) => void
   onSuccess?: () => void
@@ -37,6 +38,7 @@ export function PhonePressureForm({
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
+  phoneNumber,
   ...layoutProps
 }: Readonly<PhonePressureFormProps>): JSX.Element {
   const [activist, setActivist] = useState<PhonePressureActivist | null>(null)
@@ -86,6 +88,7 @@ export function PhonePressureForm({
           postActionHtml={postActionHtml}
           targets={targets}
           widgetId={widgetId}
+          phoneNumber={phoneNumber}
           onFail={onFail}
           onFinish={endCall}
           onSuccess={onSuccess}

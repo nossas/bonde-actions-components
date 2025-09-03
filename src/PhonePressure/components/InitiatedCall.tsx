@@ -4,7 +4,7 @@ import { BsTelephoneFill } from 'react-icons/bs'
 import { ModalBody } from './ModalBody'
 import { ModalHeader } from './ModalHeader'
 
-export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JSX.Element {
+export function InitiatedCall({ brandColor, phoneNumber }: Readonly<PhoneCallModalProps>): JSX.Element {
   return (
     <>
       <ModalHeader icon={BsTelephoneFill} iconColor={brandColor} title="Estamos te ligando agora!" />
@@ -21,7 +21,7 @@ export function InitiatedCall({ brandColor }: Readonly<PhoneCallModalProps>): JS
           <div className="bonde-phone-action__divider" />
 
           <p>
-            {'O número pode começar com 001. '}
+            {`O número pode começar com ${phoneNumber?.slice(0, 5)}. `}
             <strong>Fique com o telefone por perto.</strong>
           </p>
         </div>

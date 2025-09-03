@@ -28,6 +28,7 @@ export interface PhoneCallModalProps {
   guideline: string
   postActionHtml: string
   target: PhoneTarget
+  phoneNumber?: string
   onDismiss: () => void
   onShare: () => void
 }
@@ -42,6 +43,7 @@ export interface PhoneCallProps {
   postActionHtml?: string
   targets: PhoneTarget[]
   widgetId?: number
+  phoneNumber?: string
   onFail?: (state: PhoneCallState) => void
   onFinish?: (state: PhoneCallState, reset?: boolean) => void
   onSuccess?: () => void
@@ -83,6 +85,7 @@ export function PhoneCall({
   postActionHtml = '',
   targets,
   widgetId = 0,
+  phoneNumber,
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
@@ -178,6 +181,7 @@ export function PhoneCall({
         guideline={guideline}
         postActionHtml={postActionHtml}
         target={target}
+        phoneNumber={phoneNumber}
         onDismiss={dismissCall}
         onShare={shareCampaign}
       />
