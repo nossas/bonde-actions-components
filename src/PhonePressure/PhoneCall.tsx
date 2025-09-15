@@ -28,6 +28,7 @@ export interface PhoneCallModalProps {
   guideline: string
   postActionHtml: string
   target: PhoneTarget
+  phoneNumber?: string
   onDismiss: () => void
   onShare: () => void
 }
@@ -42,8 +43,9 @@ export interface PhoneCallProps {
   postActionHtml?: string
   targets: PhoneTarget[]
   widgetId?: number
+  phoneNumber?: string
   onFail?: (state: PhoneCallState) => void
-  onFinish?: (state: PhoneCallState) => void
+  onFinish?: (state: PhoneCallState, reset?: boolean) => void
   onSuccess?: () => void
 }
 
@@ -83,6 +85,7 @@ export function PhoneCall({
   postActionHtml = '',
   targets,
   widgetId = 0,
+  phoneNumber,
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
@@ -105,8 +108,11 @@ export function PhoneCall({
   const dismissCall = useCallback(() => {
     if (state !== 'completed' && !sharing) {
       onFail(state!)
+    } else if (state !== 'completed' && !sharing && canRetry) {
+      onFinish(state!)
+    } else {
+      onFinish(state!, true)
     }
-    onFinish(state!)
     setState(null)
   }, [onFail, onFinish, setState, sharing, state])
 
@@ -138,11 +144,7 @@ export function PhoneCall({
   const actionPayload: PhonePressureAction = useMemo(() => {
     return {
       activist,
-      input: {
-        custom_fields: {
-          target,
-        },
-      },
+      target,
       widget_id: widgetId,
     }
   }, [activist, target, widgetId])
@@ -179,6 +181,7 @@ export function PhoneCall({
         guideline={guideline}
         postActionHtml={postActionHtml}
         target={target}
+        phoneNumber={phoneNumber}
         onDismiss={dismissCall}
         onShare={shareCampaign}
       />

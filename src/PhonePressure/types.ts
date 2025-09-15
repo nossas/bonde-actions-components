@@ -25,12 +25,9 @@ export interface PhonePressureAction extends WidgetActionPayload {
     phone: string
   }
 
-  input: {
-    custom_fields: {
-      call?: string
-      status?: PhoneCallState
-      target: PhoneTarget
-    }
+  target: {
+    name: string
+    phone: string
   }
 }
 

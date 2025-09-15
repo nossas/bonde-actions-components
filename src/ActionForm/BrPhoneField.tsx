@@ -9,9 +9,10 @@ export interface BrPhoneFieldProps {
   label: string
   name: keyof ActivistInput
   register: UseFormRegister<ActivistInput>
+  addon?: React.ReactElement
 }
 
-export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhoneFieldProps>): JSX.Element {
+export function BrPhoneField({ errors, label, name, register, addon }: Readonly<BrPhoneFieldProps>): JSX.Element {
   const registerWithMask = useHookFormMask(register)
   const fields = registerWithMask(name, ['99 9999-9999', '99 99999-9999'], {
     required: {
@@ -19,9 +20,10 @@ export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhone
       message: 'Campo obrigatório',
     },
     pattern: {
-      value: /\d{2} \d{4,5}-\d{4}/,
+      value: /\d{10,11}/,
       message: 'Telefone inválido',
     },
+    setValueAs: (value: string) => value.replace(/\D/g, '')
   })
 
   return (
@@ -31,6 +33,7 @@ export function BrPhoneField({ errors, label, name, register }: Readonly<BrPhone
       label={label}
       pattern="[0-9]{2} [0-9]{4,5}-[0-9]{4}"
       type="tel"
+      addon={addon}
       {...fields}
     />
   )

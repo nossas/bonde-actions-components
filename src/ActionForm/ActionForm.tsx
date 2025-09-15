@@ -10,6 +10,7 @@ import { BrCityField } from './BrCityField'
 import { BrPhoneField } from './BrPhoneField'
 import { BrStateField } from './BrStateField'
 import { TextField } from './TextField'
+import { ContryCodes } from './ContryCodes'
 
 import './style.css'
 
@@ -63,10 +64,12 @@ export const ActionForm = forwardRef((
     defaultValues,
   })
 
-  const innerOnSubmit = useCallback((data: ActivistInput) => {
+  const innerOnSubmit = useCallback(({ code, ...data}: ActivistInput) => {
     if (data.first_name && data.last_name && !data.name) {
       data.name = `${data.first_name} ${data.last_name}`
     }
+    data.phone = `${code}${data.phone}`
+
     onSubmit(data)
   }, [onSubmit])
 
@@ -130,13 +133,26 @@ export const ActionForm = forwardRef((
       />
 
       {(existingFields.phone) && (
-        <BrPhoneField
-          key="phone"
-          name="phone"
-          label="Telefone"
-          errors={errors.phone}
-          register={register}
-        />
+          <BrPhoneField
+            key="phone"
+            name="phone"
+            label="Telefone"
+            errors={errors.phone}
+            register={register}
+            addon={(
+              <select
+                {...register("code")}
+                tabIndex={10}
+                className="bonde-action-field__addon px-2 py-1"
+              >
+                {ContryCodes.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            )}
+          />
       )}
 
       {(existingFields.state) && (

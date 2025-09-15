@@ -19,6 +19,7 @@ export interface PhonePressureFormProps extends Omit<HTMLProps<HTMLDivElement>, 
   postActionHtml?: string
   targets: PhoneTarget[]
   widgetId: number
+  phoneNumber?: string
   onFail?: (state: PhoneCallState) => void
   onFinish?: (state: PhoneCallState) => void
   onSuccess?: () => void
@@ -37,6 +38,7 @@ export function PhonePressureForm({
   onFail = NOOP,
   onFinish = NOOP,
   onSuccess = NOOP,
+  phoneNumber,
   ...layoutProps
 }: Readonly<PhonePressureFormProps>): JSX.Element {
   const [activist, setActivist] = useState<PhonePressureActivist | null>(null)
@@ -46,10 +48,11 @@ export function PhonePressureForm({
   const [divEl, setDivEl] = useState<HTMLDivElement | null>(null)
   const appEl = useNearestRoot(divEl)
 
-  const endCall = useCallback((state: PhoneCallState) => {
+  const endCall = useCallback((state: PhoneCallState, reset: boolean = false) => {
     setCalling(false)
     onFinish(state)
-    formRef.current?.reset()
+
+    if (reset) formRef.current?.reset();
   }, [formRef, onFinish, setCalling])
 
   const onSubmit = useCallback((activist: ActivistInput) => {
@@ -85,6 +88,7 @@ export function PhonePressureForm({
           postActionHtml={postActionHtml}
           targets={targets}
           widgetId={widgetId}
+          phoneNumber={phoneNumber}
           onFail={onFail}
           onFinish={endCall}
           onSuccess={onSuccess}
